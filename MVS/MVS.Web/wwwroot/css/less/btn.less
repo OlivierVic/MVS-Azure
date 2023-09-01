@@ -1,0 +1,297 @@
+.btn {
+    font-family: 'gotham_medium';
+    padding: 11px 35px;
+    font-size: 16px;
+    letter-spacing: 0.11px;
+}
+
+.btn-little {
+    font-family: 'gotham_medium';
+    padding: 5.5px 12.5px;
+    font-size: 12px;
+    letter-spacing: 0.09px;
+}
+
+.btn-icon {
+    font-family: 'gotham_medium';
+    font-size: 14px;
+    padding: 6px 12px;
+    .border-radius(4px);
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+
+    img {
+        margin-right: 8px;
+    }
+}
+.btn-purple {
+    background-color: @purple;
+    color: @white;
+
+    &:hover {
+        color: @white;
+    }
+}
+
+.btn-green {
+    background-color: @white;
+    color: @green;
+    border-color: @green;
+
+    &:hover {
+        color: @green;
+    }
+}
+
+.btn-link, .btn-cancel {
+    font-family: 'gotham_medium';
+    text-decoration: underline;
+    font-size: 14px;
+    color: @green;
+
+    &:hover {
+        color: @green;
+        text-decoration: underline;
+    }
+}
+.btn-cancel {
+    color: @dark-grey;
+
+    &:hover {
+        color: @dark-grey;
+    }
+}
+.btn-delete {
+    background-color: @white;
+    border: 1px solid @danger;
+    color: @danger;
+
+    &:hover {
+        color: @danger;
+        background-color: @bg-danger;
+    }
+}
+.btn-restore {
+    background-color: @white;
+    border: 1px solid @success;
+    color: @success;
+
+    &:hover {
+        color: @success;
+        background-color: @bg-success;
+    }
+}
+.btn-white {
+    background-color: @white;
+    border-color: @purple;
+    color: @purple;
+    background-image: url(~/img/icons/close.svg);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    &:hover {
+        background-color: @light-purple;
+        color: @purple;
+    }
+
+    &:focus {
+        background-color: @purple;
+        color: @white;
+    }
+}
+
+.btn-disabled {
+    background-color: @grey;
+    color: @white;
+
+    &:hover {
+        color: @white;
+    }
+}
+.outline-success {
+    &, &:hover {
+        font-family: 'gotham_medium';
+        font-size: 12px;
+        color: @green;
+        border-color: @green;
+        background-color: @white;
+        .border-radius(4px);
+        padding: 6px 16px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    img {
+        margin-right: 8px;
+    }
+}
+
+.customSort {
+    position: relative;
+
+    img {
+        position: absolute;
+        left: 16px;
+        top: 6px;
+    }
+
+    select {
+        height: 36px;
+        padding-left: 48px !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+    }
+}
+/*------------- Switch -------------*/
+/*  
+<label class="switch">
+    <input type="checkbox">
+    <span class="slider round"></span>
+</label>
+*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: @white;
+    transition: .4s;
+    border: 1px solid @red-switch;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 2px;
+    background-color: @red-switch;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    border-color: @green-switch;
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+    box-shadow: 0px 3px 6px @shadow-green-switch;
+    background-color: @green-switch;
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+//badge
+
+.badge {
+    padding: 6px 12px;
+    font-family: 'gotham_medium';
+}
+.bg-grey {
+    background-color: @grey;
+    color: @white;
+    cursor: default;
+
+    &:hover {
+        color: @white;
+    }
+}
+.bg-purple {
+    background-color: @purple;
+    color: @white;
+    cursor:pointer;
+
+    &:hover {
+        color: @white;
+    }
+}
+.bg-outline-purple {
+    background-color: @white;
+    color: @purple;
+    border: 1px solid @purple;
+    cursor: pointer;
+
+    &:hover {
+        color: @purple;
+    }
+}
+
+.bg-current {
+    background-color: @white;
+    color: @warning;
+    cursor: default;
+
+    &:hover {
+        color: @warning;
+    }
+}
+
+.bg-completed {
+    background-color: @white;
+    color: @success;
+    cursor: default;
+
+    &:hover {
+        color: @success;
+    }
+}
+
+
+//input file
+
+.file {
+    display: none;
+}
+
+.file-name {
+    position: relative;
+    overflow: hidden;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 15px;
+    vertical-align: middle;
+    max-width: 200px;
+    border: none;
+    border-radius: 0;
+}
+
+.btn-file {
+    background-color: @white;
+    border: 1px solid @green;
+    .border-radius(4px);
+    padding: 6px 12px;
+    color: @green;
+    font-size: 12px;
+    font-family: 'gotham_medium';
+    margin-left: 16px;
+
+    &:hover {
+        background-color: @green;
+        color: @white;
+    }
+}

@@ -1,0 +1,188 @@
+@using MVS.Common.Enum
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@if (Model._folder.Field == (int)FolderField.ImmediateProtection)
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <ul id="timeline" class="sevenChildren">
+                @if (Model._folder.Step == (int)FolderStep.Step1)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li>Paiement et signature</li>
+                    <li>Collecte des pièces et des avis</li>
+                    <li>Évaluation</li>
+                    <li>Choix de la protection</li>
+                    <li>Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step2)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-active">Paiement et signature</li>
+                    <li>Collecte des pièces et des avis</li>
+                    <li>Évaluation</li>
+                    <li>Choix de la protection</li>
+                    <li>Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step3)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-active">Collecte des pièces et des avis</li>
+                    <li>Évaluation</li>
+                    <li>Choix de la protection</li>
+                    <li>Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step4)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-active">Évaluation</li>
+                    <li>Choix de la protection</li>
+                    <li>Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step5)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-finish">Évaluation</li>
+                    <li class="tl-active">Choix de la protection</li>
+                    <li>Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step6)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-finish">Évaluation</li>
+                    <li class="tl-finish">Choix de la protection</li>
+                    <li class="tl-active">Rédaction de la demande</li>
+                    <li>Envoi de la demande</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step7)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-finish">Évaluation</li>
+                    <li class="tl-finish">Choix de la protection</li>
+                    <li class="tl-finish">Rédaction de la demande</li>
+                    <li class="tl-active">Envoi de la demande</li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+else if (Model._folder.Field == (int)FolderField.FutureProtection)
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <ul id="timeline">
+                @if (Model._folder.Step == (int)FolderStep.Step1)
+                {
+                    <li class="tl-active">Création du dossier</li>
+                    <li>Paiement et signature</li>
+                    <li>Collecte des pièces et des avis</li>
+                    <li>Rédaction du mandat de protection future</li>
+                    <li>Signature du mandat de protection future</li>
+                    <li>Enregistrement du mandat de protection future</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step2)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-active">Paiement et signature</li>
+                    <li>Collecte des pièces et des avis</li>
+                    <li>Rédaction du mandat de protection future</li>
+                    <li>Signature du mandat de protection future</li>
+                    <li>Enregistrement du mandat de protection future</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step3)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-active">Collecte des pièces et des avis</li>
+                    <li>Rédaction du mandat de protection future</li>
+                    <li>Signature du mandat de protection future</li>
+                    <li>Enregistrement du mandat de protection future</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step4)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-active">Rédaction du mandat de protection future</li>
+                    <li>Signature du mandat de protection future</li>
+                    <li>Enregistrement du mandat de protection future</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step5)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-finish">Paiement et signature</li>
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-finish">Rédaction du mandat de protection future</li>
+                    <li class="tl-active">Signature du mandat de protection future</li>
+                    <li>Enregistrement du mandat de protection future</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step6)
+                {
+                    @if (Model._folder.MandatValidated == true)
+                    {
+                        <li class="tl-finish">Création du dossier</li>
+                        <li class="tl-finish">Paiement et signature</li>
+                        <li class="tl-finish">Collecte des pièces et des avis</li>
+                        <li class="tl-finish">Rédaction du mandat de protection future</li>
+                        <li class="tl-finish">Signature du mandat de protection future</li>
+                        <li class="tl-finish">Enregistrement du mandat de protection future</li>
+                    }
+                    else
+                    {
+                        <li class="tl-finish">Création du dossier</li>
+                        <li class="tl-finish">Paiement et signature</li>
+                        <li class="tl-finish">Collecte des pièces et des avis</li>
+                        <li class="tl-finish">Rédaction du mandat de protection future</li>
+                        <li class="tl-finish">Signature du mandat de protection future</li>
+                        <li class="tl-active">Enregistrement du mandat de protection future</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}
+else if (Model._folder.Field == (int)FolderField.Contentieux)
+{
+    <div class="row mt-4">
+        <div class="col-12">
+            <ul id="timeline">
+                @if (Model._folder.Step == (int)FolderStep.Step1)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li>Collecte des pièces et des avis</li>
+                    <li>Évaluation</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step3)
+                {
+                    <li class="tl-finish">Création du dossier</li>
+                    <li class="tl-active">Collecte des pièces et des avis</li>
+                    <li>Évaluation</li>
+                }
+                else if (Model._folder.Step == (int)FolderStep.Step4)
+                {
+                    <li class="tl-finish">Création du dossier</li>  
+                    <li class="tl-finish">Collecte des pièces et des avis</li>
+                    <li class="tl-active">Évaluation</li>
+                }
+            </ul>
+        </div>
+    </div>
+}

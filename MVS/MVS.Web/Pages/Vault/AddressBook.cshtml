@@ -1,0 +1,272 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.AddressBookModel
+
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="missionletter">
+    @Html.Partial("_Partials/_FolderNavigation")
+
+    <div class="card mb-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="block-form">
+                <div class="ms-0 mb-0">
+                    <div>
+                        <h4>Avez-vous complété tous les contacts professionnels ?</h4>
+                        <div class="ms-auto" style="width: 325px;">
+                            <input class="me-2" type="radio" id="completedContactProfessional-yes" name="CompletedContactProfessional" data-bind="checked: $root.folder.CompletedContactProfessional, checkedValue: true">
+                            <label class="me-5 fs-16" for="completedContactProfessional-yes">Oui</label>
+
+                            <input class="me-2" type="radio" id="completedContactProfessional-no" name="CompletedContactProfessional" data-bind="checked: $root.folder.CompletedContactProfessional, checkedValue: false">
+                            <label for="completedContactProfessional-no">Non</label>
+                        </div>
+                    </div>
+
+                    <div class="me-auto" style="width: 50px;"></div>
+
+                    <div>
+                        <h4>Avez-vous complété tous les contacts proche ?</h4>
+                        <div class="ms-auto" style="width: 275px;">
+                            <input class="me-2" type="radio" id="completedContactProche-yes" name="CompletedContactProche" data-bind="checked: $root.folder.CompletedContactProche, checkedValue: true">
+                            <label class="me-5 fs-16" for="completedContactProche-yes">Oui</label>
+
+                            <input class="me-2" type="radio" id="completedContactProche-no" name="CompletedContactProche" data-bind="checked: $root.folder.CompletedContactProche, checkedValue: false">
+                            <label for="completedContactProche-no">Non</label>
+                        </div>
+                    </div>
+
+                    <div class="me-auto" style="width: 50px;"></div>
+
+                    <div>
+                        <input type="button" class="btn btn-purple" value="Enregistrer" data-bind="click: function() { $root.save() }" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Carnet d’adresses des professionnels</h3>
+            <div class="d-flex align-items-center ms-auto">
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <a href="#" class="btn-icon btn-purple me-4" data-bs-toggle="modal" data-bs-target="#addContactProModal"><img src="~/img/icons/add_user.svg" />Ajouter un contact</a>
+                }
+                <a href="@(Url.Page("/VaultContact/Add", new { vaultId = Model._folderId}))" class="btn-icon btn-purple"><img src="~/img/icons/add_user.svg" />Créer un contact</a>
+            </div>
+        </div>
+        <div class="row tableRowHeader mt-4">
+            <div class="col-3">
+                <p>CONTACT</p>
+            </div>
+            <div class="col text-center">
+                <p>FONCTION</p>
+            </div>
+            <div class="col text-center">
+                <p>EMAIL</p>
+            </div>
+            @if (Model._isImmediateProtection)
+            {
+                <div class="col text-center">
+                    <p>AVIS DEMANDÉ</p>
+                </div>
+                <div class="col text-center">
+                    <p>AVIS</p>
+                </div>
+            }
+        </div>
+        @foreach (var contact in Model._contactsPro)
+        {
+            <a href="@(Url.Page("/Vault/AddressBookContactInfos/Index", new { contactId = contact.Id }))">
+                <div class="row tableRowContent">
+                    <div class="col-3">
+                        <p>@contact.FirstName @contact.LastName</p>
+                    </div>
+                    @if (contact.Job == (int)JobEnum.Other && contact.OtherJob != null)
+                    {
+                        <div class="col text-center"><p>@contact.OtherJob</p></div>
+                    }
+                    else
+                    {
+                        <div class="col text-center"><p>@Model._jobs.FirstOrDefault(j => j.Id == contact.Job).Job</p></div>
+                    }
+                    <div class="col text-center">
+                        <p class="underline">@contact.Email</p>
+                    </div>
+
+                    @if (Model._isImmediateProtection)
+                    {
+                        @if (contact.AdviceStatus == null || contact.AdviceStatus == (int)ContactAdviceStatus.NotRequested)
+                        {
+                            <div class="col text-center"><img src="/img/icons/statut-cross.svg" /></div>
+                        }
+                        else
+                        {
+                            <div class="col text-center"><img src="/img/icons/statut-checked.svg" /></div>
+                        }
+
+                        @if (contact.AdviceStatus == (int)ContactAdviceStatus.Requested)
+                        {
+                            <div class="col text-center" data-bind="click: function(){sendAdvice('@contact.Id')}"><span class="badge bg-purple">Demander l’avis</span></div>
+                        }
+                        else if (contact.AdviceStatus == (int)ContactAdviceStatus.Send)
+                        {
+                            <div class="col text-center"><span class="badge">Demande envoyée</span></div>
+                        }
+                        else if (contact.AdviceStatus == (int)ContactAdviceStatus.Given)
+                        {
+                            <div class="col text-center">
+                                <span class="btn-link"><img src="~/img/icons/file-search.svg" class="me-2">Afficher</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col text-center"></div>
+                        }
+                    }
+                </div>
+            </a>
+        }
+
+        @if (Model._contactsPro.Count == 0)
+        {
+            <div class="row text-center mt-4 mb-2">
+                <a>Aucun contact professionnel à afficher</a>
+            </div>
+        }
+        else
+        {
+            <div class="row text-center mt-4 mb-2">
+                <a href="@(Url.Page("/Vault/AddressBookProfessional", new { vaultId = Model._folderId}))" class="btn-link">Voir tous les professionnels</a>
+            </div>
+        }
+    </div>
+
+
+    <div class="card mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Carnet d’adresses des proches</h3>
+            <div class="d-flex align-items-center ms-auto">
+                @if (User.IsInRole("SuperAdmin"))
+                {
+                    <a href="#" class="btn-icon btn-purple me-4" data-bs-toggle="modal" data-bs-target="#addContactParticularModal"><img src="~/img/icons/add_user.svg" />Ajouter un contact</a>
+                }
+                <a href="@(Url.Page("/VaultContact/Add", new { vaultId = Model._folderId}))" class="btn-icon btn-purple"><img src="~/img/icons/add_user.svg" />Créer un contact</a>
+            </div>
+        </div>
+        <div class="row tableRowHeader mt-4">
+            <div class="col-3">
+                <p>CONTACT</p>
+            </div>
+            <div class="col text-center">
+                <p>LIEN</p>
+            </div>
+            <div class="col text-center">
+                <p>EMAIL</p>
+            </div>
+            @if (Model._isImmediateProtection)
+            {
+                <div class="col text-center">
+                    <p>AVIS DEMANDÉ</p>
+                </div>
+                <div class="col text-center">
+                    <p>AVIS</p>
+                </div>
+            }
+        </div>
+
+        @foreach (var contact in Model._contactsParticular)
+        {
+            <a href="@(Url.Page("/Vault/AddressBookContactInfos/Index", new { contactId = contact.Id }))">
+                <div class="row tableRowContent">
+                    <div class="col-3">
+                        <p>@contact.FirstName @contact.LastName</p>
+                    </div>
+                    @if (contact.Kinship == (int)Kinship.Other && contact.Other != null)
+                    {
+                        <div class="col text-center"><p>@contact.Other</p></div>
+                    }
+                    else
+                    {
+                        @if (contact.Kinship == (int)Kinship.OtherFamilyTies && contact.OtherFamilyTies != null)
+                        {
+                            <div class="col text-center"><p>@contact.OtherFamilyTies</p></div>
+                        }
+                        else if (contact.Kinship == (int)Kinship.OtherFamilyTies && contact.Other != null)
+                        {
+                            <div class="col text-center"><p>@contact.Other</p></div>
+                        }
+                        else
+                        {
+                            <div class="col text-center"><p>@(Model._kinships[contact.Kinship ?? 0])</p></div>
+                        }
+                    }
+                    <div class="col text-center">
+                        <p class="underline">@contact.Email</p>
+                    </div>
+
+                    @if (Model._isImmediateProtection)
+                    {
+                        @if (contact.AdviceStatus == null || contact.AdviceStatus == (int)ContactAdviceStatus.NotRequested)
+                        {
+                            <div class="col text-center"><img src="/img/icons/statut-cross.svg" /></div>
+                        }
+                        else
+                        {
+                            <div class="col text-center"><img src="/img/icons/statut-checked.svg" /></div>
+                        }
+
+                        @if (contact.AdviceStatus == (int)ContactAdviceStatus.Requested)
+                        {
+                            <div class="col text-center" data-bind="click: function(){sendAdvice('@contact.Id')}"><span class="badge bg-purple">Demander l’avis</span></div>
+                        }
+                        else if (contact.AdviceStatus == (int)ContactAdviceStatus.Send)
+                        {
+                            <div class="col text-center"><span class="badge bg-completed">Demande envoyée</span></div>
+                        }
+                        else if (contact.AdviceStatus == (int)ContactAdviceStatus.Given)
+                        {
+                            <div class="col text-center">
+                                <span class="btn-link"><img src="~/img/icons/file-search.svg" class="me-2">Afficher</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col text-center"></div>
+                        }
+                    }
+                </div>
+            </a>
+        }
+        @if (Model._contactsParticular.Count == 0)
+        {
+            <div class="row text-center mt-4 mb-2">
+                <a>Aucun contact particulier à afficher</a>
+            </div>
+        }
+        else
+        {
+            <div class="row text-center mt-4 mb-2">
+                <a href="@(Url.Page("/Vault/AddressBookParticular", new { vaultId = Model._folderId}))" class="btn-link">Voir tous les proches</a>
+            </div>
+        }
+    </div>
+    <partial name="Modals/_AddContactProModal" />
+    <partial name="Modals/_AddContactParticularModal" />
+</section>
+@section Scripts
+{
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/AddressBookViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new addressBookViewModel(@JsonHelper.GetJson(Model.folder), @JsonHelper.GetJson(Model._returnUrl)), document.getElementById('missionletter'));
+        $( "#tab5" ).addClass( "selected" );
+    });
+</script>
+}

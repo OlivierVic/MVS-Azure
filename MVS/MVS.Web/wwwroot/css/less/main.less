@@ -1,0 +1,479 @@
+.card {
+    box-shadow: 0px 1px 4px #15223214;
+    border: none;
+    padding: 30px;
+
+    &.right-card {
+        padding: 25px 20px 49px 20px;
+
+        .header-card {
+            padding-bottom: 20px;
+
+            .title {
+                font-family: 'gotham_medium';
+                font-size: 14px;
+            }
+        }
+
+        &.info-card {
+            padding: 30px;
+
+            .info-container {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin: initial;
+
+                .info-content {
+
+                    p:first-child {
+                        font-family: 'gotham_medium';
+                        margin-bottom: 11px;
+                    }
+                }
+            }
+
+            img {
+                .border-radius(4px);
+            }
+
+            .sheets {
+                padding-bottom: 25px;
+
+                p {
+                    font-family: 'gotham_medium';
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    &.smallcard {
+        padding: 50px 18px 20px 24px;
+
+        .subtitle {
+            font-family: 'gotham_bold';
+            background-color: @green;
+            color: @white;
+            font-size: 15px;
+            .border-radius(4px 0px 4px 0px);
+            padding: 6px 24px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .title {
+            font-family: 'gotham_bold';
+            font-size: 18px;
+            color: @blue;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 16px;
+        }
+
+        .dateCreated {
+            font-size: 14px;
+            color: @dark-grey;
+            margin-top: 6px;
+        }
+
+        .StatusFolder {
+            margin-top: 4px;
+            margin-bottom: 22px;
+            font-family: 'gotham_medium';
+            font-size: 16px;
+        }
+
+        .dropdown {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+
+            .dropdown-menu {
+                transform: translate(-183px, -16px) !important;
+                box-shadow: 0px 3px 6px #7070701A;
+                border: none;
+                padding: 0;
+                width: 223px;
+
+                li {
+                    a {
+                        padding: 16px 24px;
+                        font-family: 'gotham_medium';
+                        display: inline-flex;
+                        align-items: center;
+                        font-size: 12px;
+
+                        &.warning {
+                            color: @danger;
+                            font-size: 13px;
+
+                            &:hover, &:active, &:focus {
+                                color: @danger;
+                                background-color: @bg-danger;
+                            }
+                        }
+
+                        &.success {
+                            color: @success;
+                            font-size: 13px;
+
+                            &:hover, &:active, &:focus {
+                                color: @success;
+                                background-color: @bg-success;
+                            }
+                        }
+
+                        img {
+                            margin-right: 8px;
+                        }
+
+                        &:active {
+                            background-color: inherit;
+                            color: inherit;
+                        }
+                    }
+
+                    &:first-child {
+                        border-bottom: 1px solid #E6E9F4;
+                    }
+                }
+            }
+        }
+
+        .OpinionWaiting {
+            color: @grey;
+            font-family: 'gotham_medium';
+        }
+
+        .OpinionNotRequested {
+            color: @danger;
+            font-family: 'gotham_medium';
+        }
+
+        .NoticesSent {
+            color: @success;
+            font-family: 'gotham_medium';
+        }
+    }
+
+    &.info-card > div {
+        margin: 0 35px;
+
+
+        h5 {
+            font-family: 'gotham_medium';
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .info-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0 25px;
+
+            .info-content {
+
+                p:first-child {
+                    font-family: 'gotham_medium';
+                    margin-bottom: 11px;
+                }
+
+                .no-information {
+                    color: @dark-grey;
+                }
+            }
+        }
+    }
+
+    .optional {
+        font-family: 'gotham_book';
+        font-size: 12px;
+    }
+}
+
+.card-folder {
+    padding: 20px;
+    margin-bottom:16px;
+    background-color: @white;
+    .border-radius(6px);
+
+    &.border-purple {
+        box-shadow: 0px 1px 4px #A8608680;
+        border: 2px solid @purple;
+    }
+
+    h5 {
+        font-family: 'gotham_medium';
+        font-size: 14px;
+    }
+
+    .text-content {
+        font-family: 'gotham_book';
+        font-size: 14px;
+    }
+
+    .dateAppointment {
+        font-size: 24px;
+        font-family: 'gotham_bold';
+        color: @green;
+    }
+
+    .MeasureItemTrue[aria-expanded^="true"],
+    .MeasureItemFalse[aria-expanded^="false"] {
+        display: none;
+    }
+
+    .MeasureItemTrue[aria-expanded^="false"],
+    .MeasureItemFalse[aria-expanded^="true"] {
+        display: block;
+    }
+
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: inherit;
+    content: "\f054";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.breadcrumb-item {
+    &, & > a {
+        font-family: 'gotham_medium';
+        font-size:12px;
+        color: @green !important;
+    }
+}
+.tooltip {
+    opacity: 1 !important;
+    width: 300px;
+    white-space: break-spaces;
+
+    .tooltip-inner {
+        background-color: @light-blue;
+        color: @blue;
+        font-size: 14px;
+        padding: 25px;
+        max-width: initial;
+    }
+
+    .tooltip-arrow::before {
+        border-right-color: @light-blue;
+    }
+}
+
+a, a:hover{
+    color:@blue;
+    text-decoration:none;
+}
+.underline{
+    text-decoration:underline;
+}
+.pointer{
+    cursor:pointer;
+}
+.line-grey {
+    padding-bottom: 16px !important;
+    margin-bottom: 16px !important;
+    border-bottom: 1px solid @light-grey;
+}
+.txt-darkgrey {
+    color: @dark-grey;
+}
+.txt-danger {
+    color: @danger;
+}
+.txt-purple{
+    color: @purple;
+}
+.txt-green{
+    color: @green;
+}
+.progress-name {
+    font-family: 'gotham_bold';
+    font-size: 13px;
+    margin-bottom: 11px;
+
+    &.success {
+        color: @success;
+    }
+
+    &.warning {
+        color: @warning;
+    }
+
+    &.danger {
+        color: @danger;
+    }
+
+    &.completed {
+        color: @purple;
+    }
+}
+.progress {
+    background-color: @white;
+    border-radius: 50px;
+    max-width: 168px;
+    width: 168px;
+    height: 12px;
+    border: 1px solid @dark-grey;
+
+    .progress-bar {
+        &.state15 {
+            width: 15%;
+            background-color: @danger
+        }
+
+        &.state50 {
+            width: 50%;
+            background-color: @warning;
+        }
+
+        &.state100 {
+            width: 100%;
+            background-color: @success;
+        }
+    }
+
+    p {
+        font-family: 'gotham_bold';
+        font-size: 13px;
+    }
+}
+
+#pagination-area {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .item {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        .border-radius(4px);
+        color: @green;
+    }
+
+    .item-selected {
+        background-color: @green;
+        color: @white;
+    }
+}
+
+.checkmark {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+.checkmark_stem {
+    position: absolute;
+    width: 3px;
+    height: 9px;
+    background-color: #ccc;
+    left: 11px;
+    top: 6px;
+}
+
+.checkmark_kick {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: #ccc;
+    left: 8px;
+    top: 12px;
+}
+
+#timeline {
+    counter-reset: increment 0;
+    position: relative;
+    z-index: 1;
+    padding-left: 0;
+
+    li {
+        color: @dark-grey;
+        font-family: 'gotham_book';
+        font-size: 12px;
+        list-style: none;
+        float: left;
+        width: 33.3333%;
+        position: relative;
+        text-align: center;
+
+        &:before {
+            counter-increment: increment;
+            content: counter(increment);
+            width: 38px;
+            height: 38px;
+            border: 1px solid @dark-grey;
+            border-radius: 50%;
+            display: block;
+            text-align: center;
+            line-height: 38px;
+            margin: 0 auto 10px auto;
+            color: #000;
+            transition: all ease-in-out .3s;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            margin: 0 10px;
+            width: calc(100% - 58px);
+            height: 1px;
+            top: 19px;
+            left: calc( -50% + 19px);
+            z-index: -999;
+            background-color: @dark-grey;
+            transition: all ease-in-out .3s;
+        }
+
+        &:first-child:after {
+            content: none;
+        }
+
+        &.tl-active {
+            font-family: 'gotham_medium';
+            color: @green;
+
+            &:before {
+                border-color: @green;
+                color: @green;
+                background: @white;
+            }
+
+            & + li:after {
+                background: @green;
+            }
+        }
+
+        &.tl-finish {
+            font-family: 'gotham_medium';
+            color: @green;
+
+            &:before {
+                border-color: @green;
+                background: @green;
+                content: '\2713';
+                color: @white;
+            }
+
+            & + li:after {
+                background: @green;
+            }
+        }
+    }
+}

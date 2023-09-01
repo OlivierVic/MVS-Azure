@@ -1,0 +1,13 @@
+@page
+@model MVS.Web.Pages.CGU.IndexModel
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="col p-5">
+    <h1 class="mb-3">Conditions Générales D’utilisation (C.G.U.)</h1>
+    @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+
+    <iframe class="w-100 h-300" src="@Model._fileURL"></iframe>
+</section>

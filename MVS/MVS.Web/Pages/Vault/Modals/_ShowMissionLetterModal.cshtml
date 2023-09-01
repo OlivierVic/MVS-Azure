@@ -1,0 +1,16 @@
+<div class="modal fade" id="show-missionletter" tabindex="-1" aria-labelledby="showMissionLetterLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="deleteAccountLabel">Lettre de mission</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <embed class="mt-3" src="@Url.Page("/Home/Viewer", new {contractId = Model._MissionLetterContract.Id})" />
+            </div>
+            <div class="modal-footer">
+                <a href="@(Url.Page("/Vault/MissionLetter", "DownloadContract", new {contractId = Model._MissionLetterContract.Id, folderId = Model._folderId}))" class="btn-icon">Télécharger</a>
+            </div>
+        </div>
+    </div>
+</div>  

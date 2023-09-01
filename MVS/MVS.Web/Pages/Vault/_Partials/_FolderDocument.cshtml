@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-between align-items-center">
+    <h3>Documents</h3>
+    <div class="d-flex align-items-center ms-auto">
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <a href="@(Url.Page("/Vault/Documents", "DownloadAllFolderDocument", new {folderId = Model._folderId }))" class="btn-link me-4"><img src="~/img/icons/file-download-green.svg" class="me-2" />Télécharger toutes les pièces</a>
+        }
+
+        <a href="@(Url.Page("/Vault/Documents", "DownloadListFolderDocumentPdf", new {folderId = Model._folderId }))" class="btn-link me-4"><img src="~/img/icons/file-download-green.svg" class="me-2" />Télécharger la liste des pièces</a>
+        <a href="#" class="btn-icon btn-purple" data-bs-toggle="modal" data-bs-target="#addDocumentModal"><img src="~/img/icons/add_file.svg" />Ajouter un document</a>
+    </div>
+</div>
+<div class="row tableRowHeader mt-4">
+    <div class="col-3">
+        <p><img src="~/img/icons/file-search-blue.svg" class="me-2" />DOCUMENT</p>
+    </div>
+    <div class="col text-center">
+        <p>NATURE DU DOCUMENT</p>
+    </div>
+    <div class="col text-center">
+        <p>CHARGER</p>
+    </div>
+    <div class="col text-center">
+        <p>STATUT</p>
+    </div>
+    <div class="col text-center">
+        <p>IMPRIMER</p>
+
+    </div>
+    <div class="col text-center">
+        <p></p>
+    </div>
+</div>
+<div>
+    <!-- ko foreach : documents-->
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p data-bind="text: name">Name</p>
+        </div>
+        <div class="col text-center"><p data-bind="text: typeName">TypeName</p></div>
+        <!-- ko if: url == null && contractId == null -->
+        <div class="col text-center">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal" data-bind="click: function() { $root.OpenUploadDocument(name, type, typeName, id) }"><span class="badge bg-purple">Charger</span></a>
+        </div>
+        <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+        <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        <!-- /ko -->
+        <!-- ko if: url != null && contractId == null -->
+        <div class="col text-center">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#uploadDocumentModal" data-bind="click: function() { $root.OpenUploadDocument(name, type, typeName, id) }"><span class="badge bg-outline-purple">Modifier</span></a>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: url == null && contractId != null -->
+        <div class="col text-center">
+        </div>
+        <!-- /ko -->
+        <!-- ko if: url != null || contractId != null -->
+        <div class="col text-center"><img src="/img/icons/statut-checked.svg"></div>
+        <div class="col text-center"><a data-bind="attr: { 'href' : contractId == null ? '@(Url.Page("/Vault/Documents", "DownloadDocument", null))' + '&folderId=' + folderId + '&fileName=' + fileName + '&type=' + type : '@(Url.Page("/Vault/Documents", "DownloadContract", null))' + '&contractId=' + contractId }" class="btn-link"><img src="/img/icons/print_green.svg" class="me-2">Imprimer</a></div>
+        <!-- /ko -->
+        <div class="col text-center">
+            <a href="#" data-bind="click: function() { $root.deleteDocuments(name, type, typeName, id, url) }"><span class="badge bg-purple">Supprimer</span></a>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

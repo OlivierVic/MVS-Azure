@@ -1,0 +1,23 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateFolderIdentityModal" tabindex="-1" aria-labelledby="updateFolderIdentityLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyFolderLabel">Modifier l'identité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: folder">
+                        <label class="labelinput">Date de naissance</label>
+                        <input type="date" class="form-control required" data-bind="value: BirthDate" />
+
+                        <label class="labelinput">Lieu de naissance</label>
+                        <input type="text" class="form-control required" data-bind="textInput: BirthLocation" />
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateFolderIdentity() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

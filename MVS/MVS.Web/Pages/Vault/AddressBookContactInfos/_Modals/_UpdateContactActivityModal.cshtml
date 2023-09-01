@@ -1,0 +1,51 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactActivityModal" tabindex="-1" aria-labelledby="updateContactActivityLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier l'activité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <label class="labelinput">Nouvelle profession</label>
+                        <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: JobProfessionel">
+                            <option value="" disabled selected hidden>Sélectionnez la profession</option>
+                            @if (Model._contact.Ispro)
+                            {
+                                @foreach (var job in Model._job)
+                                {
+                                    <option value="@job.Id">@job.JobProfessionel</option>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (var jobparticular in Model._jobParticular)
+                                {
+                                    <option value="@jobparticular.Id">@jobparticular.JobProfessionel</option>
+                                }
+                            }
+                        </select>
+
+                        @if (Model._contact.Ispro)
+                        {
+                            <label class="labelinput">Organisation / Entreprise :</label>
+                            <input type="text" class="form-control required" data-bind="textInput: Company" />
+
+                            <label class="labelinput">Accompagnement :</label>
+                            <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: Accompaniment">
+                                <option value="" disabled selected hidden>Sélectionnez l'accompagnement</option>
+                                @foreach (var category in Model._categories)
+                                {
+                                    <option value="@category.Id">@category.CategoryName</option>
+                                }
+                            </select>
+                        }
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateContactActivity() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

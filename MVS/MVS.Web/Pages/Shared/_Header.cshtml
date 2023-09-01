@@ -1,0 +1,49 @@
+@using Microsoft.AspNetCore.Identity
+@using MVS.Common;
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@{
+    ApplicationUser user = null;
+    user = await userManager.GetUserAsync(User);
+}
+
+<header>
+    <div class="nav-left">
+        <a href="/Home"><img src="/img/logo.svg"/></a>
+    </div>
+    <div class="nav-right d-flex">
+       <!-- <form class="d-flex" id="searchbar">
+            <button class="btn p-0" type="submit"><img src="/img/icons/search.svg"/></button>
+            <input class="form-control p-0 ps-2" type="search" placeholder="Rechercher…" aria-label="Search">
+        </form>-->
+        <div class="d-flex ms-auto">
+            @if (signInManager.IsSignedIn(User))
+            {
+                @*<div class="bell position-relative">
+                    <img src="/img/icons/bell.svg"/>
+                    <p class="m-0">2</p>
+                </div>*@
+                <button type="button" class="btn btn-outline-success" onclick="location.href='/ContactByEmail'"><img src="/img/icons/help.svg" /><span class="ms-2">Page d’aide</span></button>
+                <div class="avatar"><span>@user.Initials</span></div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle d-flex" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                @user.DisplayName
+                </a>
+
+                <ul class="dropdown-menu mt-2 p-0" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="/Account/Index"><img src="/img/icons/setting_2.svg" />Mon compte</a></li>
+                    <li><a class="dropdown-item logout" href="/Home/Logout"><img src="/img/icons/logout.svg" />Déconnexion</a></li>
+                </ul>
+                </div>
+            }
+            else
+            {
+                <a href="/Home/Login" class="d-flex align-items-center btn-connexion">
+                    <img src="/img/icons/user.svg" />
+                    <span class="ms-2">Inscription / Connexion</span>
+                </a>
+            }
+        </div>  
+    </div>
+</header>

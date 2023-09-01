@@ -1,0 +1,30 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactPropertyModal" tabindex="-1" aria-labelledby="updateContactPropertyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier l'identité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <select class="form-select required" data-bind="value: Sex">
+                            <option value="null" disabled selected hidden>Sélectionnez le genre</option>
+                            <option value="@((int)Gender.Man)">Homme</option>
+                            <option value="@((int)Gender.Woman)">Femme</option>
+                            <option value="@((int)Gender.NonBinary)">Non binaire</option>
+                        </select>
+
+                        <label class="labelinput">Nouveau prénom</label>
+                        <input type="text" class="form-control required" data-bind="textInput: FirstName"/>
+
+                        <label class="labelinput">Nouveau nom</label>
+                        <input type="text" class="form-control required" data-bind="textInput: LastName"/>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateProperty()}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

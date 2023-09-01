@@ -1,0 +1,67 @@
+@page
+@model MVS.Web.Pages.ContactByEmail.IndexModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section id="contact-by-email" class="col p-5" data-bind="using: questionData">
+    <div class="row">
+        <h1 class="mb-3">VaultContact</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <h3 class="mb-4 title">Posez-nous votre question</h3>
+                        <form>
+                            <div class="block-form">
+                                <p>Sujet</p>
+                                <select class="form-select" data-bind="value: subject">
+                                    <option selected value="">Sélectionnez votre sujet</option>
+                                </select>
+                                <label class="labelinput" for="folderNumber">Dossier concerné</label>
+                                <input type="text" class="form-control required" name="folderNumber" id="folderNumber" placeholder="N° de dossier concerné" data-bind="value: folderNumber" />
+                                <label class="labelinput w-100" for="question">Question</label>
+                                <textarea id="question" name="question" rows="5" placeholder="Tapez votre texte ici" data-bind="value: question"></textarea>
+                            </div>
+                            <div class="block_formcheck mb-4">
+                                <input class="form-check-input mt-0" type="checkbox" value="" id="formcheck" required data-bind="checked: acceptPolitic">
+                                <label class="form-check-label" for="formcheck">
+                                    En cochant cette case, j’accepte la politique de confidentialité de ce site
+                                </label>
+                            </div>
+                            <input type="button" class="btn btn-purple mx-auto d-block" value="Envoyer le message" data-bind="click: function() { $root.sendEmail() }" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card info-card pb-5">
+                <p class="contact-right-text">
+                    La <span>clarification</span> du droit est l’engagement de <span>Alix Care</span> by Droits Quotidiens.<br /><br />
+                    Nous le faisons actuellement en Belgique et en France à travers trois activités :<br /><br />
+                    La production d’<span>informations juridiques claires pour le citoyen</span> avec <span>Droits Quotidiens Legal Info</span> et <span>Helder Recht Legal Info</span><br /><br />
+                    La mise à disposition d’une agence de <span>communication juridique</span> avec <span>Droits Quotidiens Legal Design</span><br /><br />
+                    Le développement de <span>solutions numériques et sociales</span> d’accès au droit avec <span>Droits Quotidiens Legal Tech</span>
+                </p>
+            </div>
+            <h3 class="my-4">Suivez-nous :</h3>
+            <div>
+                @*<a href="#" class="me-2"><img src="/img/icons/twitter.svg" alt="Logo Twitter" /></a>*@
+                <a href="https://www.linkedin.com/company/droits-quotidiens-france/?originalSubdomain=fr"><img src="/img/icons/linkedin.svg" alt="Logo Linkedin" /></a>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/ContactByEmailViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new contactByEmailViewModel(), document.getElementById('contact-by-email'));
+    });
+</script>

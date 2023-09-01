@@ -1,0 +1,22 @@
+<div class="modal fade" id="deleteVaultModal" tabindex="-1" aria-labelledby="deleteVaultLabel" aria-hidden="true" data-bind="using: selectedVault">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="deleteVaultLabel">Vous souhaitez supprimer le coffre-fort <span data-bind="text: id"> ?</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><br /> Cette action est irréversible assurez-vous de vouloir supprimer le coffre-fort.</p>
+            </div>
+            <div class="modal-footer">
+                <!-- ko ifnot: $root.selectedVault().paymentStatus > 1 -->
+                <a href="#" class="btn-icon btn-delete" data-bind="click: function(){$root.deleteVault()}"><img src="~/img/icons/bin.svg" />Supprimer le coffre-fort</a>
+                <!-- /ko -->
+                <!-- ko if: $root.selectedVault().paymentStatus > 1 -->
+                <a href="#" class="btn-icon btn-delete" data-bind="click: function(){$root.deleteVault()}"><img src="~/img/icons/bin.svg" />Demander la suppression</a>
+                <!-- /ko -->
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Conserver le coffre-fort</button>
+            </div>
+        </div>
+    </div>
+</div>

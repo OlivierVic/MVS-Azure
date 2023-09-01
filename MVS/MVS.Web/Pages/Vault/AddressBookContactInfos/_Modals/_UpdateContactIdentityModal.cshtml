@@ -1,0 +1,67 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactIdentityModal" tabindex="-1" aria-labelledby="updateContactIdentityLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier l'identité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <label class="labelinput">Lien de parenté</label>
+                        <select class="form-select required" data-bind="value: Kinship">
+                            <option value="null" disabled selected hidden>Sélectionnez le lien de parenté</option>
+                            <option value="@((int)Kinship.Spouse)">Conjoint / Concubin / Partenaire de PACS</option>
+                            <option value="@((int)Kinship.GrandParent)">Grand-parent</option>
+                            <option value="@((int)Kinship.FatherMother)">Père / Mère</option>
+                            <option value="@((int)Kinship.Child)">Enfant</option>
+                            <option value="@((int)Kinship.GrandChild)">Petit-enfant</option>
+                            <option value="@((int)Kinship.BrotherSister)">Frère / Soeur</option>
+                            <option value="@((int)Kinship.OncleAunt)">Oncle / Tante</option>
+                            <option value="@((int)Kinship.Nephew)">Neveu / Nièce</option>
+                            <option value="@((int)Kinship.Cousin)">Cousin / Cousine</option>
+                            <option value="@((int)Kinship.Friend)">Ami(e)</option>
+                            <option value="@((int)Kinship.OtherFamilyTies)">Autre lien de famille</option>
+                            <option value="@((int)Kinship.Other)">Autre</option>
+                        </select>
+
+                        <label class="labelinput">Date de naissance</label>
+                        <input type="date" class="form-control required" data-bind="value: DateOfBirth" />
+
+                        <label class="labelinput">Lieu de naissance</label>
+                        <input type="text" class="form-control required" data-bind="textInput: PlaceOfBirth" />
+
+                        <label class="labelinput">Nationalité</label>
+                        <input type="text" class="form-control required" data-bind="textInput: Nationality" />
+
+                        <label class="labelinput">Nom et prénom de la mère</label>
+                        <input type="text" class="form-control mb-3" placeholder="Ex. Dupond Marie" name="FirstLastNameMother" id="FirstLastNameMother-input" data-bind="value: FirstLastNameMother" />
+
+                        <div class="block_formcheck ms-5 mb-3">
+                            <input type="checkbox" class="form-check-input mt-0" id="UnknownMother-ratio" name="UnknownMother" data-bind="checked: UnknownMother, checkedValue: true">
+                            <label class="form-check-label" for="UnknownMother-ratio">Mère inconnue</label>
+                        </div>
+
+                        <label class="labelinput">Nom et prénom du père</label>
+                        <input type="text" class="form-control mb-3" placeholder="Ex. Dupond Marc" name="FirstLastNameFather" id="FirstLastNameFather-input" data-bind="value: FirstLastNameFather" />
+
+                        <div class="block_formcheck ms-5 mb-3">
+                            <input type="checkbox" class="form-check-input mt-0" id="UnknownFather-ratio" name="UnknownFather" data-bind="checked: UnknownFather, checkedValue: true">
+                            <label class="form-check-label" for="UnknownFather-ratio">Père inconnu</label>
+                        </div>
+
+                        <p>La personne a été adoptée :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="AdoptedPerson-true" name="AdoptedPerson" data-bind="checked: AdoptedPerson, checkedValue: true">
+                            <label for="AdoptedPerson-true">Oui</label>
+                            <input type="radio" class="ms-4 me-2" id="AdoptedPerson-false" name="AdoptedPerson" data-bind="checked: AdoptedPerson, checkedValue: false">
+                            <label for="AdoptedPerson-false">Non</label>
+                        </div>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateContactIdentity() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Avis entourage @Model.FullName</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour, <br/> <br/>@Model.FullNameRequester souhaite mettre en place une mesure de protection juridique pour @Model.Identity. Pour cela, @Model.FullNameRequester utilise le service en ligne Alix Accompagne. Lien <a href="@Model.PlateformUrl" target="_blank">Plus d’info sur Alix Accompagne</a>.
+                    <br/> <br/>
+                    Vous faites partie de l’entourage de @Model.FullName. @Model.FullNameRequester souhaite avoir votre avis sur la situation de @Model.Situation.
+                    <br/> <br/>
+                    Pour cela, nous vous invitons à répondre à un questionnaire en cliquant sur le lien suivant :
+                    <a href="@Model.FormUrl" target="_blank">Formulaire</a>.
+                </mj-text>
+                <mj-text font-size="15px">
+                    Une fois, le questionnaire rempli, nous vous demanderons de signer électroniquement vos réponses. Ce processus sera lancé automatiquement.
+                    <br></br>
+                    Les informations que vous allez saisir seront utilisées uniquement pour la demande de protection juridique et pour informer le mandataire qui sera désigné par le juge. <a href="@Model.PlateformUrl" target="_blank">Plus d’info RGPD.</a>
+                    <br></br>
+                    En vous remerciant, <br/>
+                    Bien cordialement,<br/><br/>
+                    Mélanie PARNOT<br/>
+                    Alix Accompagne
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

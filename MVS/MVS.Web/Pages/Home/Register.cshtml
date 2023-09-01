@@ -1,0 +1,62 @@
+@page
+@model MVS.Web.Pages.Home.RegisterModel
+@{
+    ViewData["Title"] = "Inscription";
+    Layout = "~/Pages/Shared/_LayoutLoginRegister.cshtml";
+}
+
+<div class="col-6 right-content justify-content-around p-5">
+    <h1>CRÉATION DE COMPTE</h1>
+    <ul id="timeline">
+        <li class="tl-active">1 - Identifiants</li>
+        <li>2 - Informations personnelles</li>
+        <li>3 - Confirmation</li>
+    </ul>
+    <form method="post">
+        <div class="block-form ms-0">
+            <div>
+                @if (Model._errorEmail)
+                {
+                    <span class="text-danger auto-margin">Cet email est déjà utilisé</span>
+                }
+                @if (Model._errorPassword)
+                {
+                    <div id="password-error" class="text-danger auto-margin mb-3">
+                        Le mot de passe doit contenir au moins 6 caractères dont :
+                        <br />
+                        - Une majuscule
+                        <br />
+                        - Une minuscule
+                        <br />
+                        - Un caractère spécial
+                        <br />
+                        - Un chiffre
+                    </div>
+                }
+            </div>
+
+            <label class="labelinput" for="email">Email</label>
+            @Html.TextBoxFor(Model => Model._email, new { placeholder = "adresse@email.com", @class = "form-control required mb-0", id = "email" })
+            @Html.ValidationMessageFor(Model => Model._email, "", new { @class = "text-danger auto-margin" })
+            <label class="labelinput" for="password">Mot de passe</label>
+            @Html.PasswordFor(Model => Model._password, new { placeholder = "Mot de passe", @class = "form-control required mb-0", id = "password" })
+            @Html.ValidationMessageFor(Model => Model._password, "", new { @class = "text-danger auto-margin" })
+            <label class="labelinput" for="password2">Répétez votre mot de passe</label>
+            @Html.PasswordFor(Model => Model._passwordConfirmation, new { placeholder = "Mot de passe", @class = "form-control required mb-0", id = "password-confirmation" })
+            @Html.ValidationMessageFor(Model => Model._passwordConfirmation, "", new { @class = "text-danger auto-margin" })
+        </div>
+        <div class="block_formcheck ms-0 align-items-center">
+            @Html.CheckBoxFor(model => model._acceptCGU, new { @class = "form-check-input" })
+            <a for="rememberMe" class="green-link" href="/CGU">En vous inscrivant vous acceptez nos C.G.U</a>
+
+        </div>
+        @if (Model._errorCGU)
+        {
+            <div class="text-danger auto-margin">Vous devez accepter les C.G.U.</div>
+        }
+        <input type="submit" class="btn btn-purple mx-auto d-block mt-4" value="Je créé mon compte" />
+    </form>
+    <div class="d-flex">
+        <p>Vous avez déjà un compte ?</p><a class="green-link ms-3" href="/home/login">Connectez-vous</a>
+    </div>
+</div>

@@ -1,0 +1,326 @@
+@using MVS.Common.Enum
+<div class="card">
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Informations</h3>
+        <div class="d-flex align-items-center ms-auto">
+            <a href="#" class="btn-icon btn-purple me-4" data-bs-toggle="modal" data-bs-target="#addQuestionnaireModal"><img src="/img/icons/add_file.svg">Ajouter un questionnaire</a>
+            @*@if (User.IsInRole("SuperAdmin"))
+            {
+                
+            }*@
+        </div>
+    </div>
+    <div class="row tableRowHeader mt-4">
+        <div class="col-3">
+            <p><img src="~/img/icons/file-search-blue.svg" class="me-2" />QUESTIONNAIRE</p>
+        </div>
+        <div class="col text-center">
+            <p>REMPLIR</p>
+        </div>
+        <div class="col text-center">
+            <p>MODIFIER</p>
+        </div>
+        <div class="col text-center">
+            <p>IMPRIMER</p>
+        </div>
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Situation personnelle</p>
+        </div>
+        @if (Model._isFolderInfos.IsPersonalInfos)
+        {
+            <!-- Class for badges available : bg-grey, bg-purple, bg-outline-purple, bg-completed -->
+            <div class="col text-center">
+                @if (Model._personalComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+                @*<p><span class="badge bg-completed">Remplis test</span></p>*@
+            </div>
+            <!-- Img available : statut-wainting.svg, statut-checked.svg, statut-wainting.svg  -->
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/PersonalSitutation", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center">
+                <!--<img src="/img/icons/print.svg"/>-->
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/PersonalSitutation", "DownloadPersonnalInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            </div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/PersonalSitutation", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Situation familiale</p>
+        </div>
+        @if (Model._isFolderInfos.IsFamilyInfos)
+        {
+            <div class="col text-center">
+                @if (Model._familyComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/FamilySituation", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/FamilySituation", "DownloadFamilyInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/FamilySituation", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Habitudes de vie</p>
+        </div>
+        @if (Model._isFolderInfos.IsHabitsInfos)
+        {
+            <div class="col text-center">
+                @if (Model._habitComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Habits", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Habits", "DownloadHabitsInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Habits", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Santé</p>
+        </div>
+        @if (Model._isFolderInfos.IsHealthInfos)
+        {
+            <div class="col text-center">
+                @if (Model._healthComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Health", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Health", "DownloadHealthInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Health", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Patrimoine</p>
+        </div>
+        @if (Model._isFolderInfos.IsHeritageInfos)
+        {
+            <div class="col text-center">
+                @if (Model._heritageComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Heritage", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Heritage", "DownloadHeritageInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Heritage", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Budget</p>
+        </div>
+        @if (Model._isFolderInfos.IsBudgetInfos)
+        {
+            <div class="col text-center">
+                @if (Model._budgetComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Budget", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Budget", "DownloadBudgetInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Budget", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Mesures d'anticipations</p>
+        </div>
+        @if (Model._isFolderInfos.IsAnticipationMeasuresInfos)
+        {
+            <div class="col text-center">
+                @if (Model._measureComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/AnticipationMeasures", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/AnticipationMeasures", "DownloadAnticipationMeasuresInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/AnticipationMeasures", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Choix futurs</p>
+        </div>
+        @if (Model._isFolderInfos.IsFuturChoicesInfos)
+        {
+            <div class="col text-center">
+                @if (Model._futureChoicesComplete)
+                {
+                    <p><span class="badge bg-completed">Terminé</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-current">En cours</span></p>
+                }
+            </div>
+            <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/FutureChoices", new {vaultId = Model._vaultId})">Modifier</a></div>
+            <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/FutureChoices", "DownloadFutureChoicesPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+        }
+        else
+        {
+            <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/FutureChoices", new {vaultId = Model._vaultId})">Remplir</a></div>
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+    </div>
+
+    @if (Model._vault.Field == (int)FolderField.ImmediateProtection)
+    {
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Capacités</p>
+            </div>
+            @if (Model._isFolderInfos.IsCapacityInfos)
+            {
+                <div class="col text-center">
+                    @if (Model._capacityComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Capacity/CapacityStep1", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Capacity/Capacity", "DownloadCapacityPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Capacity/CapacityStep1", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+    }
+
+    @if (Model._vault.Field == (int)FolderField.FutureProtection && Model._vault.CapacityAdd && Model._vault.CapacityAdd != null)
+    {
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Capacités</p>
+            </div>
+            @if (Model._isFolderInfos.IsCapacityInfos)
+            {
+                <div class="col text-center">
+                    @if (Model._capacityComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/InfosForms/Capacity/CapacityStep1", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/InfosForms/Capacity/Capacity", "DownloadCapacityPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/InfosForms/Capacity/CapacityStep1", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+    }
+
+</div>
+<div class="modal fade" id="addQuestionnaireModal" tabindex="-1" aria-labelledby="addQuestionnaireLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addQuestionnaireLabel">Ajouter un nouveau questionnaire</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="block-form">
+                    <label class="labelinput" for="TitleQuestionnaire">Titre du questionnaire</label>
+                    <input type="text" class="form-control" name="Questionnaire" id="TitleQuestionnaire" placeholder="Ex. Précisions perso" />
+                </div>
+                <div class="block-form">
+                    <label class="labelinput" for="TitleQuestion">Libellé de la question</label>
+                    <input type="text" class="form-control" name="Questionnaire" id="TitleQuestion" />
+                </div>
+                <a href="#" class="btn-link">Ajouter une question</a>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-purple">Créer le questionnaire</a>
+            </div>
+        </div>
+    </div>
+</div>

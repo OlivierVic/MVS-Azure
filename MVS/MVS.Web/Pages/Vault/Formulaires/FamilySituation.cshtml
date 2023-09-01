@@ -1,0 +1,236 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.InfosForms.FamilySituationModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="familysituation-form">
+    <div class="row">
+        <h1 class="mb-3">QUESTIONNAIRE D’INFORMATION DU BÉNÉFICIAIRE</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="FamilySituationInfoForm" data-bind="using: familyPersonalInfo">
+                    <h3 class="subtitle-form">Situation Familiale</h3>
+                    <form method="post" id="info-Family-form">
+                        <div class="block-form">
+                            <p>La personne vit</p>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="En couple" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">En couple</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="Seule - en couple" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">Seule - en couple</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="Seule - veuve" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">Seule - veuve</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="Seule - divorcée" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">Seule - divorcée</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="Seule-en instance de séparation" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">Seule-en instance de séparation</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-situation" class="me-2" value="Seule" data-bind="checked: $root.familyPersonalInfo.FamilialSituation" />
+                                <label class="me-4">Seule</label>
+                            </div>
+                        </div>
+                        <div data-bind="visible: $root.familyPersonalInfo.FamilialSituation() == 'En couple' || $root.familyPersonalInfo.FamilialSituation() == 'Seule - en couple' || $root.familyPersonalInfo.FamilialSituation() == 'Seule-en instance de séparation'">
+                            <div class="block-form">
+                                <p>Situation de couple</p>
+                                <div>
+                                    <input type="radio" name="couple-situation" class="me-2" value="Marié" data-bind="checked: $root.familyPersonalInfo.CoupleSituation" />
+                                    <label class="me-4">Marié</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="couple-situation" class="me-2" value="Pacsé" data-bind="checked: $root.familyPersonalInfo.CoupleSituation" />
+                                    <label class="me-4">Pacsé</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="couple-situation" class="me-2" value="En concubinage" data-bind="checked: $root.familyPersonalInfo.CoupleSituation" />
+                                    <label class="me-4">En concubinage</label>
+                                </div>
+                            </div>
+
+                            <div data-bind="visible: $root.familyPersonalInfo.CoupleSituation() == 'Marié'">
+                                <div class="block-form">
+                                    <p>Régime matrimonial</p>
+                                    <div>
+                                        <input type="radio" name="matrimonial-regime" class="me-2" value="Séparation de bien" data-bind="checked: $root.familyPersonalInfo.MatrimonialSituation" />
+                                        <label class="me-4">Séparation de bien</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="matrimonial-regime" class="me-2" value="Communauté légale" data-bind="checked: $root.familyPersonalInfo.MatrimonialSituation" />
+                                        <label class="me-4">Communauté légale</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="matrimonial-regime" class="me-2" value="Communauté universelle" data-bind="checked: $root.familyPersonalInfo.MatrimonialSituation" />
+                                        <label class="me-4">Communauté universelle</label>
+                                    </div>
+                                </div>
+
+                                <div data-bind="visible: $root.familyPersonalInfo.MatrimonialSituation() == 'Séparation de bien' || $root.familyPersonalInfo.MatrimonialSituation() == 'Communauté légale'">
+                                    <div class="block-form">
+                                        <p>Donation au vivant</p>
+                                        <div>
+                                            <input type="radio" name="living-donation" class="me-2" data-bind="checked: $root.familyPersonalInfo.LivingDonation, checkedValue: true" />
+                                            <label class="me-4">Oui</label>
+
+                                            <input type="radio" name="living-donation" class="me-2" data-bind="checked: $root.familyPersonalInfo.LivingDonation, checkedValue: false" />
+                                            <label class="me-4">Non</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="block-form flex align-items-center mb-4" data-bind="visible: $root.familyPersonalInfo.LivingDonation()">
+                                    <p class="mb-0 me-4">Ajouter l'acte de donation au dernier vivant :</p>
+                                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.DeedGiftToLastLivingPerson))
+                                    {
+                                        <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, FamilySituationViewModel.familyPersonalInfo.VaultId(), 'Acte de donation au dernier vivant', '@((int)FolderDocumentTypeEnum.DeedGiftToLastLivingPerson)', 'Situation Familiale')">Créer le document</button>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block-form">
+                            <p>La personne a-t-elle des enfants</p>
+                            <div>
+                                <input type="radio" name="children" class="me-2" data-bind="checked: $root.familyPersonalInfo.Children, checkedValue: true" />
+                                <label class="me-4">Oui</label>
+
+                                <input type="radio" name="children" class="me-2" data-bind="checked: $root.familyPersonalInfo.Children, checkedValue: false" />
+                                <label class="me-4">Non</label>
+                            </div>
+                        </div>
+
+                        <div class="block-form" data-bind="visible: $root.familyPersonalInfo.Children()">
+                            <label class="labelinput" for="NbChildren">Nombre d'enfants :</label>
+                            <input class="form-control" type="number" id="NbChildren" data-bind="value: $root.familyPersonalInfo.NbChildren" />
+                        </div>
+
+                        <div data-bind="visible: $root.familyPersonalInfo.FamilialSituation() == 'En couple' || $root.familyPersonalInfo.FamilialSituation() == 'Seule - en couple' || $root.familyPersonalInfo.FamilialSituation() == 'Seule-en instance de séparation'">
+                            <div class="block-form">
+                                <p>Le couple est-il une famille recomposée</p>
+                                <div>
+                                    <input type="radio" name="blended-family" class="me-2" data-bind="checked: $root.familyPersonalInfo.BlendedFamily, checkedValue: true" />
+                                    <label class="me-4">Oui</label>
+
+                                    <input type="radio" name="blended-family" class="me-2" data-bind="checked: $root.familyPersonalInfo.BlendedFamily, checkedValue: false" />
+                                    <label class="me-4">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-form">
+                            <label for="FamilialSituationDetails" class="labelinput w-100">Merci d’apporter toute précision sur la situation de famille de la personne :</label>
+                            <textarea id="FamilialSituationDetails" rows="5" placeholder="Renseignez votre texte ici" data-bind="value:  $root.familyPersonalInfo.FamilialSituationDetails"></textarea>
+                        </div>
+
+
+                        <div class="block-form">
+                            <p>Qualité des relations familiales</p>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Bonnes" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Bonnes</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Tendues" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Tendues</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Tendues avec certains membres de la famille" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Tendues avec certains membres de la famille</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Conflictuelles" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Conflictuelles</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Conflictuelles avec certains membres de la famille" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Conflictuelles avec certains membres de la famille</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Pas de relation" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Pas de relation</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="family-relationships" class="me-2" value="Pas de relation avec certains membres de la famille" data-bind="checked: $root.familyPersonalInfo.FamilyRelationships" />
+                                <label class="me-4">Pas de relation avec certains membres de la famille</label>
+                            </div>
+                        </div>
+
+                        <div class="block-form">
+                            <label for="FamilyRelationshipsDetails" class="labelinput w-100">Merci d’apporter toute précision sur la qualité des relations familliales :</label>
+                            <textarea id="FamilyRelationshipsDetails" rows="5" placeholder="Renseignez votre texte ici" data-bind="value: $root.familyPersonalInfo.FamilyRelationshipsDetails"></textarea>
+                        </div>
+
+                        <div data-bind="visible: $root.familyPersonalInfo.FamilyRelationships() != 'Bonnes' && $root.familyPersonalInfo.FamilyRelationships() != null">
+                            <div class="block-form">
+                                <p>La personne souhaite-t-elle une médiation</p>
+                                <div>
+                                    <input type="radio" name="meditation" class="me-2" data-bind="checked: $root.familyPersonalInfo.Meditation, checkedValue: true" />
+                                    <label class="me-4">Oui</label>
+
+                                    <input type="radio" name="meditation" class="me-2" data-bind="checked: $root.familyPersonalInfo.Meditation, checkedValue: false" />
+                                    <label class="me-4">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 mb-0">
+                            <div class="block-form">
+                                <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous terminé de compléter le formulaire ?</label>
+                                <div>
+                                    <input class="me-2" type="radio" id="completedForm-yes" name="CompletedForm" data-bind="checked: $root.familyPersonalInfo.CompletedForm, checkedValue: true">
+                                    <label class="me-5" for="completedForm-yes">Oui</label>
+                                    <div class="me-4"></div>
+                                    <input class="me-2" type="radio" id="completedForm-no" name="CompletedForm" data-bind="checked: $root.familyPersonalInfo.CompletedForm, checkedValue: false">
+                                    <label for="completedForm-no">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" value="Enregistrer les modifications" class="btn btn-purple mx-auto d-block" data-bind="click: function(){ $root.save() }" />
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card pb-4">
+                <div class="d-flex align-items-center header-card">
+                    <img src="~/img/icons/bulb.svg" />
+                    <p class="ps-2 title">Information :</p>
+                </div>
+                <p>
+                    Des documents ont été ajoutés à l’onglet « Mes documents » de votre dossier. Les boutons "créé le document" concernent des documents facultatifs que vous pouvez ajouter.<br /><br />
+                    Vous compléterez les contacts dans le carnet d'adresse
+                </p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/lib/knockout.mapping/knockout.mapping.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/VaultFormulaires/FamilySituationViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new familySituationViewModel(@JsonHelper.GetJson(Model._folderFamilyInfo), @JsonHelper.GetJson(Model._returnUrl)), document.getElementById('FamilySituationInfoForm'));
+    });
+</script>

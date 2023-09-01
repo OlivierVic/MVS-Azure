@@ -1,0 +1,54 @@
+@page
+@model MVS.Web.Pages.Home.SuperAdminRegisterModel
+@{
+    ViewData["Title"] = "Super Admin";
+    Layout = "~/Pages/Shared/_LayoutLoginRegister.cshtml";
+}
+
+<div class="col-6 right-content justify-content-around p-5">
+    <h1>CRÉATION DE COMPTE SUPER-ADMIN</h1>
+
+    <form method="post">
+        <div class="block-form ms-0">
+@*            <div>
+                @if (Model._errorEmail)
+                {
+                    <span class="text-danger auto-margin">Cet email est déjà utilisé</span>
+                }
+                @if (Model._errorPassword)
+                {
+                    <div id="password-error" class="text-danger auto-margin mb-3">
+                        Le mot de passe doit contenir au moins 6 caractères dont :
+                        <br />
+                        - Une majuscule
+                        <br />
+                        - Une minuscule
+                        <br />
+                        - Un caractère spécial
+                        <br />
+                        - Un chiffre
+                    </div>
+                }
+            </div>*@
+            <label class="labelinput" for="lastname">Nom</label>
+            <input type="email" class="form-control required" name="RegisterSuperAdmin" id="lastname" placeholder="Ex. Dupond" required />
+            <label class="labelinput" for="name">Prénom</label>
+            <input type="email" class="form-control required" name="RegisterSuperAdmin" id="name" placeholder="Ex. Marie" required />
+            <label class="labelinput" for="email">Email</label>
+            <input type="email" class="form-control required" name="RegisterSuperAdmin" id="email" placeholder="adresse@email.com" required />
+            <label class="labelinput" for="password">Mot de passe</label>
+            <input type="password" class="form-control required" name="RegisterSuperAdmin" id="password" placeholder="Mot de passe" required />
+            <label class="labelinput" for="password2">Répétez votre mot de passe</label>
+            <input type="password" class="form-control required" name="RegisterSuperAdmin" id="password2" placeholder="Mot de passe" required />
+        </div>
+        <div class="block_formcheck mb-4 ms-0 align-items-center">
+            <input class="form-check-input mt-0" type="checkbox" name="RegisterSuperAdmin" value="" id="rememberMe" required>
+            <label class="form-check-label" for="rememberMe">En vous inscrivant vous acceptez nos C.G.U et notre charte RGPD</label> 
+        </div>
+@*        @if (Model._errorCGU)
+        {
+            <div class="text-danger auto-margin">Vous devez accepter les C.G.U.</div>
+        }*@
+        <input type="submit" class="btn btn-purple mx-auto d-block mt-4" value="Je créé mon compte" />
+    </form>
+</div>

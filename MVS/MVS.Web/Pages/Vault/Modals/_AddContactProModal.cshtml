@@ -1,0 +1,32 @@
+@using MVS.Common.Enum
+@using MVS.Common.Models
+
+<div class="modal fade" id="addContactProModal" tabindex="-1" aria-labelledby="addContactProLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addContactProLabel">Ajouter un contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="block-form">
+                    <label class="labelinput" for="documentType">Fonction du contact</label>
+                    <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: $root.job">
+                        <option value="" disabled selected hidden>Sélectionnez la profession</option>
+                        @foreach (var job in Model._jobs)
+                        {
+                            <option value="@job.Id">@job.JobProfessionel</option>
+                        }
+                    </select>
+
+                </div>
+                <div data-bind="visible: $root.job() == @((int)JobEnum.Other)">
+                    <input type="text" class="form-control required" name="OtherJob" id="otherJob" placeholder="Ex. Infirmière" data-bind="value: $root.otherJob ">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-purple" data-bind="click: function() { $root.createEmptyContactPro() }">Ajouter le contact</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="modal fade" id="uploadDocumentModal" tabindex="-1" aria-labelledby="uploadDocumentModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDocumentLabel">Charger le document document : <span data-bind="text: uploadDocument.title"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="block-form">
+                        <label class="labelinput" for="documentType">Document</label>
+                        <input name="file" type="file" class="form-control mb-1 required" accept="application/pdf" />
+                        <label class="form-check-label red" for="file">Attention de bien mettre le document en PDF sous risque de bug.</label>
+                    </div>
+                </div>
+                <input name="type" type="text" data-bind="value: uploadDocument.type" hidden/>
+                <input name="typeName" type="text" data-bind="value: uploadDocument.typeName" hidden/>
+                <input name="folderDocumentId" data-bind="value: uploadDocument.folderDocumentId" hidden/>
+                <input name="folderId" data-bind="value: folder.Id" hidden/>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-purple" value="Charger le document" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

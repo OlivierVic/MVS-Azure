@@ -1,0 +1,43 @@
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+    font-family: "gotham_book", "sans-serif";
+    color: @blue;
+    background-color: @light-grey;
+}
+
+li {
+    list-style-type: none;
+}
+
+main, #left-nav {
+    min-height: calc(100vh - 68px);
+}
+
+#LoginRegister {
+    main {
+        min-height: calc(100vh - 108px);
+    }
+}
+
+footer {
+    height: 40px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    background-color: @blue;
+
+    &, p, a, a:hover {
+        color: @white;
+        font-size: 14px;
+    }
+
+    a {
+        &:hover {
+            text-decoration: underline;
+        }
+
+        margin: 0 8px;
+    }
+}

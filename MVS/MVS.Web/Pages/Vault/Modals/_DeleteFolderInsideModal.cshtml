@@ -1,0 +1,25 @@
+<div class="modal fade" id="deleteFolderInsideModal" tabindex="-1" aria-labelledby="deleteFolderInsideLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="deleteFolderInsideLabel">Vous souhaitez supprimer le dossier <span>@(Model._folderInfoHeader["Id"]) ?</span></h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><br /> Cette action est irréversible assurez-vous de vouloir supprimer le dossier.</p>
+            </div>
+            <div class="modal-footer">
+                @if (Model._folderInfoHeader["PaymentStatus"] == "2")
+                {
+                    <a href="@(Url.Page("/Vault/Gestion/DeleteFolderInside", new { folderId = Model._folderId }))" class="btn-icon btn-delete"><img src="~/img/icons/bin.svg" />Demander la suppression</a>
+                }
+                else
+                {
+                    <a href="@(Url.Page("/Vault/Gestion/DeleteFolderInside", new { folderId = Model._folderId }))" class="btn-icon btn-delete"><img src="~/img/icons/bin.svg" />Supprimer le dossier</a>
+                }
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Conserver le dossier</button>
+            </div>
+        </div>
+    </div>
+</div>

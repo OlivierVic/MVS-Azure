@@ -1,0 +1,39 @@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using MVS.Common.Enum
+<div class="modal fade" id="updateFolderPropertyModal" tabindex="-1" aria-labelledby="updateFolderPropertyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyFolderLabel">Modifier l'identité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: folder">
+                        <select class="form-select required" data-bind="value: Sex">
+                            <option value="null" disabled selected hidden>Sélectionnez le genre</option>
+                            <option value="@((int)Gender.Man)">Homme</option>
+                            <option value="@((int)Gender.Woman)">Femme</option>
+                            <option value="@((int)Gender.NonBinary)">Non binaire</option>
+                        </select>
+
+                        <label class="labelinput">Nouveau prénom :</label>
+                        <input type="text" class="form-control required" data-bind="textInput: FirstName"/>
+
+                        <label class="labelinput">Nouveau nom :</label>
+                        <input type="text" class="form-control required" data-bind="textInput: LastName"/>
+
+                        <label data-bind="visible: HaveBirthName()" class="labelinput">Nouveau nom de naissance :</label>
+                        <input type="text" class="form-control required" data-bind="visible: HaveBirthName(), textInput: BirthName" />
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateProperty()}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

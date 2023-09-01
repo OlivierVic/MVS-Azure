@@ -1,0 +1,38 @@
+@page
+@model MVS.Web.Pages.Home.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/Shared/_LayoutLoginRegister.cshtml";
+}
+
+<div class="col-6 right-content justify-content-around p-5">
+    <h1>CONNEXION</h1>
+    <form method="post">
+        <div class="block-form">
+            <div>
+                @if (Model._errorConnect)
+                {
+                    <span class="text-danger auto-margin">Email ou Mot de passe incorrect</span>
+                }
+            </div>
+
+            <label class="labelinput" for="email">Email</label>
+            @Html.TextBoxFor(Model => Model._email, new { placeholder = "adresse@email.com", @class = "form-control required mb-0", id = "email" })
+            @Html.ValidationMessageFor(Model => Model._email, "", new { @class = "text-danger auto-margin" })
+            <label class="labelinput" for="password">Mot de passe</label>
+            @Html.PasswordFor(Model => Model._password, new { placeholder = "Mot de passe", @class = "form-control required mb-0", id = "email" })
+            @Html.ValidationMessageFor(Model => Model._password, "", new { @class = "text-danger auto-margin" })
+        </div>
+        <div class="block_formcheck mb-4 justify-content-between align-items-center">
+            <div>
+                @Html.CheckBoxFor(model => model._rememberMe, new { @class = "form-check-input" })
+                <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+            </div>
+            <a class="green-link ms-3" href="/Home/PasswordForget">Mot de passe oublié ?</a>
+        </div>
+        <input type="submit" class="btn btn-purple mx-auto d-block" value="Je me connecte"/>
+    </form>
+    <div class="d-flex">
+        <p>Vous n’avez pas encore de compte ?</p><a class="green-link ms-3" href="/Home/Register">Inscrivez-vous</a>
+    </div>
+</div>                   

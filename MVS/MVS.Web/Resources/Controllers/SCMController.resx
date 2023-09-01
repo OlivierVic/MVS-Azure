@@ -1,0 +1,2371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="AcceptSuggestion" xml:space="preserve">
+    <value>Accepter la suggestion</value>
+  </data>
+	<data name="Access" xml:space="preserve">
+    <value>Accès</value>
+  </data>
+	<data name="AccessDocument" xml:space="preserve">
+    <value>Accéder au document</value>
+  </data>
+	<data name="AccessDocumentFromFollowingLink" xml:space="preserve">
+    <value>Vous pouvez accéder à ce document pour le relire, le modifier, et le valider en cliquant sur le lien ci-dessous.</value>
+  </data>
+	<data name="AccessToAllMyData" xml:space="preserve">
+    <value>PORTER L’ENSEMBLE DE MES DONNÉES</value>
+  </data>
+	<data name="AccessToData" xml:space="preserve">
+    <value>ACCÈS AUX DONNÉES</value>
+  </data>
+	<data name="AccessToMyPersonalData" xml:space="preserve">
+    <value>ACCÉDER À MES DONNÉES PERSONNELLES</value>
+  </data>
+	<data name="Account" xml:space="preserve">
+    <value>Compte</value>
+  </data>
+	<data name="ActiveDocuments" xml:space="preserve">
+    <value>Documents actifs</value>
+  </data>
+	<data name="ActiveTemplates" xml:space="preserve">
+    <value>Modèles actifs</value>
+  </data>
+	<data name="AddClause" xml:space="preserve">
+    <value>Ajouter une clause</value>
+  </data>
+	<data name="AddClause1" xml:space="preserve">
+    <value>Ajouter une clause</value>
+  </data>
+	<data name="AddCondition" xml:space="preserve">
+    <value>Ajouter une condition</value>
+  </data>
+	<data name="AddCondition1" xml:space="preserve">
+    <value>Ajouter une condition</value>
+  </data>
+	<data name="Added" xml:space="preserve">
+    <value>A ajouter</value>
+  </data>
+	<data name="AddField" xml:space="preserve">
+    <value>Ajouter comme champs</value>
+  </data>
+	<data name="AddField1" xml:space="preserve">
+    <value>Ajouter comme champs</value>
+  </data>
+	<data name="AddParty" xml:space="preserve">
+    <value>Ajouter une partie</value>
+  </data>
+	<data name="AddUser" xml:space="preserve">
+    <value>Ajouter un utilisateur</value>
+  </data>
+	<data name="AddVariable" xml:space="preserve">
+    <value>Ajouter une variable</value>
+  </data>
+	<data name="AddVariable1" xml:space="preserve">
+    <value>Ajouter une variable</value>
+  </data>
+	<data name="Agree" xml:space="preserve">
+    <value>J'accepte</value>
+  </data>
+	<data name="AllApplicableLaws" xml:space="preserve">
+    <value>Toutes les lois applicables</value>
+  </data>
+	<data name="AllContributorsMustValidate" xml:space="preserve">
+    <value>Tous les contributeurs doivent avoir validé l'étape.</value>
+  </data>
+	<data name="AllDataInformation" xml:space="preserve">
+    <value>De même, vous pouvez effectuer à tout moment la portabilité de l’ensemble de vos données liées à votre compte et conservées sur la plateforme SCM.
+                        Vous recevrez ces informations par email dans  un format libre, ouvert et lisible par machine.</value>
+  </data>
+	<data name="AllFeaturesIncluded" xml:space="preserve">
+    <value>Toutes les fonctionnalités de SCM sont incluses</value>
+  </data>
+	<data name="AllLanguages" xml:space="preserve">
+    <value>Toutes les langues</value>
+  </data>
+	<data name="AllRightsReserved" xml:space="preserve">
+    <value>Tous droits réservés</value>
+  </data>
+	<data name="AllSubjects" xml:space="preserve">
+    <value>Toutes les matières</value>
+  </data>
+	<data name="And" xml:space="preserve">
+    <value>Et</value>
+  </data>
+	<data name="AndIf" xml:space="preserve">
+    <value>et si</value>
+  </data>
+	<data name="AndIf1" xml:space="preserve">
+    <value>et si</value>
+  </data>
+	<data name="AnnualLicense" xml:space="preserve">
+    <value>Licence annuelle SCM</value>
+  </data>
+	<data name="AnnualLicense_GivenTemplates" xml:space="preserve">
+    <value>5 modèles de contrats publics fournis par nos partenaires</value>
+  </data>
+	<data name="AnnualLicense_Price" xml:space="preserve">
+    <value>4 500€ HT / an</value>
+  </data>
+	<data name="AnnualLicense_SignAmount" xml:space="preserve">
+    <value>Pack de 100 signatures électroniques Docusign</value>
+  </data>
+	<data name="AnswerOption" xml:space="preserve">
+    <value>Option de réponse</value>
+  </data>
+	<data name="AnswerOption1" xml:space="preserve">
+    <value>Option de réponse</value>
+  </data>
+	<data name="AppearIf" xml:space="preserve">
+    <value>Cette question sera posée si</value>
+  </data>
+	<data name="AppearIf1" xml:space="preserve">
+    <value>Cette question sera posée si</value>
+  </data>
+	<data name="AppliedLaw" xml:space="preserve">
+    <value>Loi appliquée</value>
+  </data>
+	<data name="ArchivedDate" xml:space="preserve">
+    <value>Date d'archivage</value>
+  </data>
+	<data name="ArchivedDocuments" xml:space="preserve">
+    <value>Documents archivés</value>
+  </data>
+	<data name="ArchivedDocumentTitle" xml:space="preserve">
+    <value>Document archivé !</value>
+  </data>
+	<data name="ArchiveDocument" xml:space="preserve">
+    <value>Archiver le document</value>
+  </data>
+	<data name="ArchivedTemplates" xml:space="preserve">
+    <value>Modèles archivés</value>
+  </data>
+	<data name="ArchiveTemplate" xml:space="preserve">
+    <value>Archiver le modèle</value>
+  </data>
+	<data name="ArchiveTemplate_Info" xml:space="preserve">
+    <value>Les documents générés sur ce modèle &lt;br /&gt;
+            &lt;text style="margin-left: 25px;"&gt;
+                seront conservés sans modifications
+            &lt;/text&gt;</value>
+  </data>
+	<data name="ArchiveThisContract" xml:space="preserve">
+    <value>Archiver ce contrat</value>
+  </data>
+	<data name="ArchiveThisTemplate" xml:space="preserve">
+    <value>Archiver ce modèle</value>
+  </data>
+	<data name="AreYouSure" xml:space="preserve">
+    <value>Êtes-vous sûr?</value>
+  </data>
+	<data name="AreYouSure1" xml:space="preserve">
+    <value>Êtes-vous sûr?</value>
+  </data>
+	<data name="AskForDemo" xml:space="preserve">
+    <value>Demander une démo</value>
+  </data>
+	<data name="AskForSignature" xml:space="preserve">
+    <value>Demander la signature</value>
+  </data>
+	<data name="AskToForceValidation" xml:space="preserve">
+    <value>Tous les éditeurs du document n'ont pas encore validé cette version du document.</value>
+  </data>
+	<data name="AskToReopen" xml:space="preserve">
+    <value>Rouvrir la négociation permettra aux éditeurs de modifier le document à nouveau.</value>
+  </data>
+	<data name="AssociateTemplate" xml:space="preserve">
+    <value>Associer un modèle</value>
+  </data>
+	<data name="AtRoot" xml:space="preserve">
+    <value>A la racine</value>
+  </data>
+	<data name="Author" xml:space="preserve">
+    <value>Auteur</value>
+  </data>
+	<data name="AuthorsOrSource" xml:space="preserve">
+    <value>Auteur(s) / Source</value>
+  </data>
+	<data name="AutoAllYourDocuments" xml:space="preserve">
+    <value>Automatisez tous vos documents</value>
+  </data>
+	<data name="AutoAllYourDocuments_Description" xml:space="preserve">
+    <value>Créez vos propres modèles de documents juridiques intelligents grâce à l’éditeur SCM : actes, contrats, lettres, PV...&lt;br /&gt;Transformez vos documents word en modèles réutilisables en quelques clics !</value>
+  </data>
+	<data name="BackToFolder" xml:space="preserve">
+    <value>Revenir au dossier</value>
+  </data>
+	<data name="BackToVersions" xml:space="preserve">
+    <value>Retour à la liste des versions</value>
+  </data>
+	<data name="BeforeVal1" xml:space="preserve">
+    <value>Valider le document vous permet d'informer vos partenaires que la version actuelle de la convention vous convient.</value>
+  </data>
+	<data name="BeforeVal2" xml:space="preserve">
+    <value>Lorsque l'ensemble des partenaires ont validé le document, celui-ci pourra être signé électroniquement.</value>
+  </data>
+	<data name="BeforeVal3" xml:space="preserve">
+    <value>Êtes-vous sur de vouloir valider ce document ? Si oui, merci de renseigner les informations ci-dessous. Un lien de validation vous sera envoyé par email.</value>
+  </data>
+	<data name="Block" xml:space="preserve">
+    <value>Bloc</value>
+  </data>
+	<data name="Block1" xml:space="preserve">
+    <value>Bloc</value>
+  </data>
+	<data name="BlockName" xml:space="preserve">
+    <value>Nom du bloc</value>
+  </data>
+	<data name="BlockName1" xml:space="preserve">
+    <value>Nom du bloc</value>
+  </data>
+	<data name="ByRemovingClause" xml:space="preserve">
+    <value>En supprimant la clause, deux choix s'offrent à vous :</value>
+  </data>
+	<data name="ByRemovingClause1" xml:space="preserve">
+    <value>En supprimant la clause, deux choix s'offrent à vous :</value>
+  </data>
+	<data name="ByRemovingClause_Option1" xml:space="preserve">
+    <value>Vous pouvez la remplacez par la variante actuelle &lt;span class="red"&gt;(les autres variantes seront supprimées)&lt;/span&gt;</value>
+  </data>
+	<data name="ByRemovingClause_Option11" xml:space="preserve">
+    <value>Vous pouvez la remplacez par la variante actuelle &lt;span class="red"&gt;(les autres variantes seront supprimées)&lt;/span&gt;</value>
+  </data>
+	<data name="ByRemovingClause_Option2" xml:space="preserve">
+    <value>Vous pouvez la remplacer par son contenu intial &lt;span class="red"&gt;(toutes les variantes seront supprimées)&lt;/span&gt;</value>
+  </data>
+	<data name="ByRemovingClause_Option21" xml:space="preserve">
+    <value>Vous pouvez la remplacer par son contenu intial &lt;span class="red"&gt;(toutes les variantes seront supprimées)&lt;/span&gt;</value>
+  </data>
+	<data name="CallAPI" xml:space="preserve">
+    <value>Appel API</value>
+  </data>
+	<data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+	<data name="Cancel1" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+	<data name="CancelReason" xml:space="preserve">
+    <value>Raison de l'annulation</value>
+  </data>
+	<data name="CancelSignature" xml:space="preserve">
+    <value>Annuler la signature</value>
+  </data>
+	<data name="CannotCompareTwoVersions" xml:space="preserve">
+    <value>Vous ne pouvez pas comparer une version avec elle-même.</value>
+  </data>
+	<data name="CantCreateFieldOverAnother" xml:space="preserve">
+    <value>Impossible de créer un champ par dessus un autre.</value>
+  </data>
+	<data name="CantCreateFieldOverAnother1" xml:space="preserve">
+    <value>Impossible de créer un champ par dessus un autre.</value>
+  </data>
+	<data name="CantCreateFolder" xml:space="preserve">
+    <value>Impossible de créer ce nouveau dossier pour l'instant, veuillez réessayer dans quelques instants.</value>
+  </data>
+	<data name="CantMoveFile" xml:space="preserve">
+    <value>Impossible de déplacer le fichier pour l'instant. Merci de réessayer ultérieurement.</value>
+  </data>
+	<data name="CantRemoveSelectionBecauseOfField" xml:space="preserve">
+    <value>Il est impossible de supprimer la sélection car un champ est présent à l'intérieur.</value>
+  </data>
+	<data name="CantRemoveSelectionBecauseOfField1" xml:space="preserve">
+    <value>Il est impossible de supprimer la sélection car un champ est présent à l'intérieur.</value>
+  </data>
+	<data name="CantRenameDocument" xml:space="preserve">
+    <value>Impossible de renommer le document. Veuillez réessayer ultérieurement.</value>
+  </data>
+	<data name="CantRenameFolder" xml:space="preserve">
+    <value>Impossible de renommer le dossier. Veuillez réessayer ultérieurement.</value>
+  </data>
+	<data name="CantRenameTemplate" xml:space="preserve">
+    <value>Impossible de renommer le template. Veuillez réessayer ultérieurement.</value>
+  </data>
+	<data name="CentralizedClauses" xml:space="preserve">
+    <value>Clausier centralisé : bibliothèque de clauses réutilisables automatisée, ajout manuel de nouvelles clauses, synchronisation des modifications</value>
+  </data>
+	<data name="Chat" xml:space="preserve">
+    <value>Messagerie</value>
+  </data>
+	<data name="CheckFieldsAreAllFilled" xml:space="preserve">
+    <value>Veuillez vérifier que tous les champs soient bien remplis.</value>
+  </data>
+	<data name="ChooseAFile" xml:space="preserve">
+    <value>Choisir un fichier</value>
+  </data>
+	<data name="ChooseAFile1" xml:space="preserve">
+    <value>Choisir un fichier</value>
+  </data>
+	<data name="ChooseClause" xml:space="preserve">
+    <value>Veuillez sélectionner un bloc</value>
+  </data>
+	<data name="ChooseClause1" xml:space="preserve">
+    <value>Veuillez sélectionner un bloc</value>
+  </data>
+	<data name="ChooseDestination" xml:space="preserve">
+    <value>Choisissez un emplacement</value>
+  </data>
+	<data name="ChooseDestination1" xml:space="preserve">
+    <value>Choisissez un emplacement</value>
+  </data>
+	<data name="ChooseField" xml:space="preserve">
+    <value>Veuillez sélectionner un champ</value>
+  </data>
+	<data name="ChooseField1" xml:space="preserve">
+    <value>Veuillez sélectionner un champ</value>
+  </data>
+	<data name="ChooseVariation" xml:space="preserve">
+    <value>Veuillez sélectionner une variante</value>
+  </data>
+	<data name="ChooseVariation1" xml:space="preserve">
+    <value>Veuillez sélectionner une variante</value>
+  </data>
+	<data name="Clause" xml:space="preserve">
+    <value>Clause</value>
+  </data>
+	<data name="ClauseLibrary" xml:space="preserve">
+    <value>Clausier</value>
+  </data>
+	<data name="Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+	<data name="Comment" xml:space="preserve">
+    <value>Commenter</value>
+  </data>
+	<data name="Comment1" xml:space="preserve">
+    <value>Commenter</value>
+  </data>
+	<data name="Commentator" xml:space="preserve">
+    <value>Commentateur</value>
+  </data>
+	<data name="Commentator1" xml:space="preserve">
+    <value>Commentateur</value>
+  </data>
+	<data name="Commentator2" xml:space="preserve">
+    <value>Commentateur</value>
+  </data>
+	<data name="CommentatorInfo" xml:space="preserve">
+    <value>l'utilisateur peut lire et commenter le document.</value>
+  </data>
+	<data name="Commented" xml:space="preserve">
+    <value>A commenter</value>
+  </data>
+	<data name="Comments" xml:space="preserve">
+    <value>Commentaires</value>
+  </data>
+	<data name="Compare" xml:space="preserve">
+    <value>Comparer</value>
+  </data>
+	<data name="CompareTwoVersions" xml:space="preserve">
+    <value>Comparer deux versions</value>
+  </data>
+	<data name="CompatibilitySCM" xml:space="preserve">
+    <value>Compatibilité de la plateforme SCM</value>
+  </data>
+	<data name="CompatibilitySCM_Description" xml:space="preserve">
+    <value>Il semble que vous utilisez Internet Explorer.&lt;br /&gt;
+            Ce navigateur est obsolète et la plateforme SCM ne peut pas être affichée dans de bonnes conditions. La plateforme a été conçue et optimisée pour les navigateurs suivants :</value>
+  </data>
+	<data name="CompatibilitySCM_Title" xml:space="preserve">
+    <value>Compatibilité des navigateurs</value>
+  </data>
+	<data name="ComputedField" xml:space="preserve">
+    <value>Champ calculé</value>
+  </data>
+	<data name="ComputedField1" xml:space="preserve">
+    <value>Champ calculé</value>
+  </data>
+	<data name="ConditionalClause" xml:space="preserve">
+    <value>Bloc conditionné</value>
+  </data>
+	<data name="ConditionalClause1" xml:space="preserve">
+    <value>Bloc conditionné</value>
+  </data>
+	<data name="ConditionalDescription" xml:space="preserve">
+    <value>Ce texte n'apparait que si sa condition est réalisé. Veuillez créer votre condition.</value>
+  </data>
+	<data name="ConditionalDescription1" xml:space="preserve">
+    <value>Ce texte n'apparait que si sa condition est réalisé. Veuillez créer votre condition.</value>
+  </data>
+	<data name="ConfigureBlock" xml:space="preserve">
+    <value>Paramétrer ce bloc</value>
+  </data>
+	<data name="ConfigureBlock1" xml:space="preserve">
+    <value>Paramétrer ce bloc</value>
+  </data>
+	<data name="Confirm" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+	<data name="Confirm1" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+	<data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+	<data name="Congrats" xml:space="preserve">
+    <value>Félicitations !</value>
+  </data>
+	<data name="Connect" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+	<data name="ConnectToolsWithScmAPI" xml:space="preserve">
+    <value>Connectez vos outils avec l'API SCM</value>
+  </data>
+	<data name="ConnectToolsWithScmAPI_Description" xml:space="preserve">
+    <value>SCM est entièrement interconnectable :&lt;br /&gt;
+                - Intégration du module de signature électronique de votre choix&lt;br /&gt;
+                - Connexion avec votre système d'authentification (SSO)&lt;br /&gt;
+                - Connexion avec vos systèmes d'informations (fichiers clients, RH…)&lt;br /&gt;
+                - Intégration de toute base de données</value>
+  </data>
+	<data name="ContactDPO" xml:space="preserve">
+    <value>Contacter le DPO</value>
+  </data>
+	<data name="ContactUs" xml:space="preserve">
+    <value>Contactez-nous</value>
+  </data>
+	<data name="ContactUs_Description" xml:space="preserve">
+    <value>Nous réfléchissons avec vous pour créer l'outil qui correspond à vos usages et aux besoins de votre équipe juridique.</value>
+  </data>
+	<data name="ContractDescription" xml:space="preserve">
+    <value>Description de contrat</value>
+  </data>
+	<data name="ContractManagementDashboard" xml:space="preserve">
+    <value>Tableau de bord contract management</value>
+  </data>
+	<data name="ContractParties" xml:space="preserve">
+    <value>Parties au contrat :</value>
+  </data>
+	<data name="ContractReader" xml:space="preserve">
+    <value>Lecteur de contrat</value>
+  </data>
+	<data name="ContractTitle" xml:space="preserve">
+    <value>Titre du contrat</value>
+  </data>
+	<data name="ContractTitleAlreadyTaken" xml:space="preserve">
+    <value>Vous possédez déjà un contrat avec le même nom. Merci de bien vouloir en choisir un autre.</value>
+  </data>
+	<data name="ContractToUpload" xml:space="preserve">
+    <value>Le contrat à uploader</value>
+  </data>
+	<data name="CookiesMsg" xml:space="preserve">
+    <value>En poursuivant votre navigation sur ce site, vous acceptez l’utilisation de cookies.</value>
+  </data>
+	<data name="Create" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+	<data name="CreateAccount" xml:space="preserve">
+    <value>Nouveau compte</value>
+  </data>
+	<data name="CreateAndUseTemplates" xml:space="preserve">
+    <value>Créer et utiliser ses modèles</value>
+  </data>
+	<data name="CreateBlock" xml:space="preserve">
+    <value>Créer un bloc</value>
+  </data>
+	<data name="CreateBlock1" xml:space="preserve">
+    <value>Créer un bloc</value>
+  </data>
+	<data name="CreateDate" xml:space="preserve">
+    <value>Date de création</value>
+  </data>
+	<data name="CreateNewContract" xml:space="preserve">
+    <value>Créer un nouveau contrat</value>
+  </data>
+	<data name="CreateNewFolder" xml:space="preserve">
+    <value>Créer un nouveau dossier</value>
+  </data>
+	<data name="CreateNewTemplate" xml:space="preserve">
+    <value>Créer un nouveau modèle</value>
+  </data>
+	<data name="CreateNewTemplate_Editor" xml:space="preserve">
+    <value>Projet vierge &lt;br /&gt; Créer un modèle avec l'éditeur SCM</value>
+  </data>
+	<data name="CreateNewTemplate_Empty" xml:space="preserve">
+    <value>Projet vierge &lt;br /&gt; Coder un modèle avec CMACCJS</value>
+  </data>
+	<data name="CreateNewTemplate_FromCmacc" xml:space="preserve">
+    <value>Uploadez un projet CMACCJS existant</value>
+  </data>
+	<data name="CreateNewTemplate_FromDocument" xml:space="preserve">
+    <value>Créer un modèle à partir d'un document Word</value>
+  </data>
+	<data name="CreatingTemplate" xml:space="preserve">
+    <value>Création du modèle en cours</value>
+  </data>
+	<data name="CurrentVersion" xml:space="preserve">
+    <value>Version courante</value>
+  </data>
+	<data name="CustomMadeSCM" xml:space="preserve">
+    <value>SCM sur mesure</value>
+  </data>
+	<data name="Dashboard" xml:space="preserve">
+    <value>Tableau de bord</value>
+  </data>
+	<data name="DataCollection" xml:space="preserve">
+    <value>Collecte de données</value>
+  </data>
+	<data name="DataCollection1" xml:space="preserve">
+    <value>Collecte de données</value>
+  </data>
+	<data name="DataPortability" xml:space="preserve">
+    <value>PORTABILITÉ DES DONNÉES</value>
+  </data>
+	<data name="DataWillBeSentByEmail" xml:space="preserve">
+    <value>Vous recevrez très prochainement un e-mail contenant une archive en pièce jointe.</value>
+  </data>
+	<data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+	<data name="Date1" xml:space="preserve">
+    <value>Date</value>
+  </data>
+	<data name="DateFormat" xml:space="preserve">
+    <value>DD/MM/YYYY</value>
+  </data>
+	<data name="DateFormat1" xml:space="preserve">
+    <value>DD/MM/YYYY</value>
+  </data>
+	<data name="DateFormatAnyPicker" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+  </data>
+	<data name="DateFormatAnyPicker1" xml:space="preserve">
+    <value>dd/MM/yyyy</value>
+  </data>
+	<data name="DateHourFormat" xml:space="preserve">
+    <value>DD/MM/YYYY à HH[h]mm</value>
+  </data>
+	<data name="DateHourFormat1" xml:space="preserve">
+    <value>DD/MM/YYYY à HH[h]mm</value>
+  </data>
+	<data name="DateSpan" xml:space="preserve">
+    <value>Intervalle de jours</value>
+  </data>
+	<data name="DateSpan1" xml:space="preserve">
+    <value>Intervalle de jours</value>
+  </data>
+	<data name="Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+	<data name="Delete1" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+	<data name="DeleteContributorMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer ce contributeur ?</value>
+  </data>
+	<data name="Deleted" xml:space="preserve">
+    <value>A supprimer</value>
+  </data>
+	<data name="DeleteMyAccount" xml:space="preserve">
+    <value>SUPPRIMER MON COMPTE</value>
+  </data>
+	<data name="DeleteMyAccount_Description1" xml:space="preserve">
+    <value>En application du régime de protection des données personnelles, vous êtes en mesure de demander l’effacement de vos données personnelles. La suppression de votre compte SCM entraînera leur effacement ainsi que la suppression de l’ensemble des autres données.</value>
+  </data>
+	<data name="DeleteMyAccount_Description2" xml:space="preserve">
+    <value>&lt;b&gt;Attention :&lt;/b&gt; cette action est totalement irréversible et entraîne résiliation d'office de votre abonnement.</value>
+  </data>
+	<data name="DeleteMyAccount_Description3" xml:space="preserve">
+    <value>Les contrats que vous partagez avec d’autres personnes ne seront pas directement effacés. Ceux que vous avez partagés avec des non-utilisateurs de SCM seront archivés pour une durée de 3 mois, laissant la possibilité à ces derniers de les récupérer. Ceux que vous partagez avec d’autres utilisateurs de SCM continueront d’être dans leur contrathèque jusqu’à ce qu’ils les suppriment eux-mêmes.</value>
+  </data>
+	<data name="DeleteMyAccount_Description4" xml:space="preserve">
+    <value>Un e-mail de confirmation de suppression sera envoyé à l'adresse e-mail liée à votre compte. Si vous souhaitez à nouveau utiliser les services SCM, vous devrez créer un nouveau compte.</value>
+  </data>
+	<data name="Disconnect" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+	<data name="Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+	<data name="DocumentAccessBlocked_Archived" xml:space="preserve">
+    <value>Le document auquel vous cherchez à accéder a été archivé. Seul son propriétaire peut le désarchiver.&lt;br /&gt;
+                    Par conséquent le lien d'accès pour collaborer sur la plateforme n'est plus valide.</value>
+  </data>
+	<data name="DocumentAccessBlocked_OwnerArchived" xml:space="preserve">
+    <value>Vous avez archivé le document auquel vous cherchez à accéder.&lt;br /&gt;
+                    S'il s'agit d'une erreur ou que vous souhaitez le désarchiver, cliquez ci-dessous.&lt;br /&gt;</value>
+  </data>
+	<data name="DocumentAccessBlocked_Signed" xml:space="preserve">
+    <value>Le document auquel vous cherchez à accéder a été signé.&lt;br /&gt;
+                    Par conséquent, le lien d’accès pour collaborer sur la plateforme n’est plus valide.</value>
+  </data>
+	<data name="DocumentAlreadyExist" xml:space="preserve">
+    <value>Ce document existe déjà</value>
+  </data>
+	<data name="DocumentAvailable" xml:space="preserve">
+    <value>Un document a été mis à votre disposition</value>
+  </data>
+	<data name="DocumentCompleted" xml:space="preserve">
+    <value>La complétion de votre document est terminée. Vous pouvez désormais le réviser, le relire puis l'emmener en signature.</value>
+  </data>
+	<data name="DocumentGenerationAndTransmissionToParties" xml:space="preserve">
+    <value>Génération d'un document et transmission aux parties prenantes (y compris aux tiers sans création de compte grâce à un lien de partage)</value>
+  </data>
+	<data name="Documents" xml:space="preserve">
+    <value>Documents générés</value>
+  </data>
+	<data name="DocumentSent" xml:space="preserve">
+    <value>Document transmis</value>
+  </data>
+	<data name="DocumentSuccessfulySent" xml:space="preserve">
+    <value>Le document a bien été transmis</value>
+  </data>
+	<data name="DocumentTitle" xml:space="preserve">
+    <value>Titre du document</value>
+  </data>
+	<data name="DocumentToSign" xml:space="preserve">
+    <value>Document à signer</value>
+  </data>
+	<data name="DoneOn" xml:space="preserve">
+    <value>Achevée le</value>
+  </data>
+	<data name="Download" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+	<data name="DownloadDocument" xml:space="preserve">
+    <value>Télécharger le document</value>
+  </data>
+	<data name="DownloadPDF" xml:space="preserve">
+    <value>Télécharger au format PDF</value>
+  </data>
+	<data name="DownloadTemplate" xml:space="preserve">
+    <value>Télécharger le modèle</value>
+  </data>
+	<data name="DownloadWord" xml:space="preserve">
+    <value>Télécharger au format Word</value>
+  </data>
+	<data name="dsfg" xml:space="preserve">
+    <value />
+  </data>
+	<data name="DuplicateDocument" xml:space="preserve">
+    <value>Dupliquer ce document</value>
+  </data>
+	<data name="EasyNavigation" xml:space="preserve">
+    <value>Navigation facilitée : Moteur de recherche, gestion par dossiers, options de tri</value>
+  </data>
+	<data name="Edit" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+	<data name="Editor" xml:space="preserve">
+    <value>Éditeur</value>
+  </data>
+	<data name="Editor1" xml:space="preserve">
+    <value>Éditeur</value>
+  </data>
+	<data name="Editor2" xml:space="preserve">
+    <value>Éditeur</value>
+  </data>
+	<data name="EditorInfo" xml:space="preserve">
+    <value>l'utilisateur peut lire, commenter et modifier le document.</value>
+  </data>
+	<data name="EditorRole" xml:space="preserve">
+    <value>Éditeur</value>
+  </data>
+	<data name="ElectronicSignature" xml:space="preserve">
+    <value>Signature éléctronique</value>
+  </data>
+	<data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+	<data name="Email1" xml:space="preserve">
+    <value>Adresse e-mail</value>
+  </data>
+	<data name="EmailPlaceholder" xml:space="preserve">
+    <value>adresse@email.com</value>
+  </data>
+	<data name="EmailSentForValidation" xml:space="preserve">
+    <value>Un email vient de vous être envoyé pour valider le document. Vous pouvez fermer cette fenêtre à présent.</value>
+  </data>
+	<data name="End" xml:space="preserve">
+    <value>Terminer</value>
+  </data>
+	<data name="Error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+	<data name="Error403" xml:space="preserve">
+    <value>Erreur 403</value>
+  </data>
+	<data name="Error404" xml:space="preserve">
+    <value>Erreur 404</value>
+  </data>
+	<data name="Error500" xml:space="preserve">
+    <value>Erreur 500</value>
+  </data>
+	<data name="ErrorHappened" xml:space="preserve">
+    <value>Une erreur est survenue,&lt;br /&gt;
+                    ou la page recherchée est introuvable.</value>
+  </data>
+	<data name="ErrorPersist" xml:space="preserve">
+    <value>Si le problème persiste, n'héstiez pas à</value>
+  </data>
+	<data name="ErrorReport" xml:space="preserve">
+    <value>Un rapport d'erreur a été automatiquement envoyé à notre équipe technique afin d'analyser le problème que vous avez rencontré.</value>
+  </data>
+	<data name="ErrorServer" xml:space="preserve">
+    <value>Il semblerait que nous ayons&lt;br /&gt;
+                    un problème sur notre serveur...</value>
+  </data>
+	<data name="ErrorUnauthorized" xml:space="preserve">
+    <value>Accès non autorisé.</value>
+  </data>
+	<data name="ErrorWhenSendingDocumentMessage" xml:space="preserve">
+    <value>Une erreur est survenue lors de l'envoi de votre document. Vous pouvez toujours transmettre le lien ci-dessous par vos propre moyen</value>
+  </data>
+	<data name="ErrorWhenSendingDocuments" xml:space="preserve">
+    <value>Erreur à l'envoi du document</value>
+  </data>
+	<data name="Everyone" xml:space="preserve">
+    <value>Tout le monde</value>
+  </data>
+	<data name="Explanations" xml:space="preserve">
+    <value>Explications</value>
+  </data>
+	<data name="Explanations1" xml:space="preserve">
+    <value>Explications</value>
+  </data>
+	<data name="Features" xml:space="preserve">
+    <value>Fonctionnalités</value>
+  </data>
+	<data name="Field" xml:space="preserve">
+    <value>Domaine</value>
+  </data>
+	<data name="FieldToUse" xml:space="preserve">
+    <value>Champs à utiliser</value>
+  </data>
+	<data name="FieldToUse1" xml:space="preserve">
+    <value>Champs à utiliser</value>
+  </data>
+	<data name="File" xml:space="preserve">
+    <value>Fichier</value>
+  </data>
+	<data name="FillDocument" xml:space="preserve">
+    <value>Compléter le document</value>
+  </data>
+	<data name="Filled" xml:space="preserve">
+    <value>Complété par</value>
+  </data>
+	<data name="Filled1" xml:space="preserve">
+    <value>Complété</value>
+  </data>
+	<data name="Filling" xml:space="preserve">
+    <value>Complétion</value>
+  </data>
+	<data name="FillUpFields" xml:space="preserve">
+    <value>Merci de bien vouloir remplir les champs suivants :</value>
+  </data>
+	<data name="FillUpFields1" xml:space="preserve">
+    <value>Merci de bien vouloir remplir les champs suivants :</value>
+  </data>
+	<data name="FilterBy" xml:space="preserve">
+    <value>Trier par :</value>
+  </data>
+	<data name="FinalVersion" xml:space="preserve">
+    <value>Version finale</value>
+  </data>
+	<data name="FirstName" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+	<data name="FirstName1" xml:space="preserve">
+    <value>Prénom</value>
+  </data>
+	<data name="FolderAlreadyExist" xml:space="preserve">
+    <value>Ce dossier existe déjà</value>
+  </data>
+	<data name="FolderName" xml:space="preserve">
+    <value>Nom du dossier</value>
+  </data>
+	<data name="FolderRename" xml:space="preserve">
+    <value>Renommer le dossier</value>
+  </data>
+	<data name="Forced" xml:space="preserve">
+    <value>Forcé par</value>
+  </data>
+	<data name="ForceValidation" xml:space="preserve">
+    <value>Forcer la validation</value>
+  </data>
+	<data name="ForceValidationInfo" xml:space="preserve">
+    <value>Si vous forcez la validation, toutes les modifications encore en suspens seront refusées et les commentaires fermés. Vous pourrez envoyer le document pour signature mais vous n’avez pas la certitude qu’il convienne aux autres utilisateurs.</value>
+  </data>
+	<data name="ForExample" xml:space="preserve">
+    <value>Par exemple</value>
+  </data>
+	<data name="ForExample1" xml:space="preserve">
+    <value>Par exemple</value>
+  </data>
+	<data name="ForgotPasswordQ" xml:space="preserve">
+    <value>Mot de passe oublié ?</value>
+  </data>
+	<data name="Form" xml:space="preserve">
+    <value>Formulaire</value>
+  </data>
+	<data name="FullReversibility" xml:space="preserve">
+    <value>Réversibilité totale : récupérez vos modèles et les actes générés à tout moment dans un format réexploitable</value>
+  </data>
+	<data name="Gender" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+	<data name="GenderFemale" xml:space="preserve">
+    <value>Madame</value>
+  </data>
+	<data name="GenderMale" xml:space="preserve">
+    <value>Monsieur</value>
+  </data>
+	<data name="Generate" xml:space="preserve">
+    <value>Générer</value>
+  </data>
+	<data name="Generated" xml:space="preserve">
+    <value>Généré par</value>
+  </data>
+	<data name="GenerateDocumentsEasily" xml:space="preserve">
+    <value>Générez facilement des documents</value>
+  </data>
+	<data name="GenerateDocumentsEasily_Description" xml:space="preserve">
+    <value>À partir de vos modèles, générez des documents juridiques interactifs : Partagez le formulaire pour que plusieurs parties puissent le compléter en toute autonomie, gardez la maîtrise sur la validation du document pour générer l’acte final.</value>
+  </data>
+	<data name="GenerateNewDocument" xml:space="preserve">
+    <value>Générer un nouveau document</value>
+  </data>
+	<data name="GeneratingDocument" xml:space="preserve">
+    <value>Génération du document en cours</value>
+  </data>
+	<data name="Generation" xml:space="preserve">
+    <value>Génération</value>
+  </data>
+	<data name="GetMoreInfo" xml:space="preserve">
+    <value>Obtenir des informations sur l'offre Sur Mesure</value>
+  </data>
+	<data name="GoBackHome" xml:space="preserve">
+    <value>Retour à l'accueil du site</value>
+  </data>
+	<data name="GoBackToContracts" xml:space="preserve">
+    <value>Retour aux contrats</value>
+  </data>
+	<data name="GoBackToDocument" xml:space="preserve">
+    <value>Retour au document</value>
+  </data>
+	<data name="GoBackToEditor" xml:space="preserve">
+    <value>Retour à l'éditeur</value>
+  </data>
+	<data name="GoBackToNegotiation" xml:space="preserve">
+    <value>Rouvrir la négociation</value>
+  </data>
+	<data name="GoToNextStep" xml:space="preserve">
+    <value>Passer à l'étape suivante</value>
+  </data>
+	<data name="HandleJuridicalProduction" xml:space="preserve">
+    <value>Gérer sa production juridique</value>
+  </data>
+	<data name="HasAdded" xml:space="preserve">
+    <value>A &lt;b&gt;ajouté&lt;/b&gt;</value>
+  </data>
+	<data name="HasCommented" xml:space="preserve">
+    <value>A &lt;b&gt;commenté&lt;/b&gt;</value>
+  </data>
+	<data name="HasDeleted" xml:space="preserve">
+    <value>A &lt;b&gt;supprimé&lt;/b&gt;</value>
+  </data>
+	<data name="Hello" xml:space="preserve">
+    <value>Bonjour</value>
+  </data>
+	<data name="Help" xml:space="preserve">
+    <value>Aide</value>
+  </data>
+	<data name="HideReplies" xml:space="preserve">
+    <value>Cacher les réponses</value>
+  </data>
+	<data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+	<data name="Image1" xml:space="preserve">
+    <value>Image</value>
+  </data>
+	<data name="ImportedDocument" xml:space="preserve">
+    <value>Document importé</value>
+  </data>
+	<data name="ImportNewVersion" xml:space="preserve">
+    <value>Importer une nouvelle version</value>
+  </data>
+	<data name="ImpossibleValidation" xml:space="preserve">
+    <value>Validation impossible</value>
+  </data>
+	<data name="ImpossibleValidation_Description" xml:space="preserve">
+    <value>Les modifications apportées au document doivent toutes être validées ou refusées avant que le document lui-même ne puisse être validé.</value>
+  </data>
+	<data name="Information" xml:space="preserve">
+    <value>Informations</value>
+  </data>
+	<data name="InsertPicture" xml:space="preserve">
+    <value>Insérer une image</value>
+  </data>
+	<data name="InsertPicture1" xml:space="preserve">
+    <value>Insérer une image</value>
+  </data>
+	<data name="IntuitiveTemplateEditor" xml:space="preserve">
+    <value>Éditeur de modèles intuitif intégré à un traitement de texte traditionnel</value>
+  </data>
+	<data name="IntuitiveTemplateReader" xml:space="preserve">
+    <value>Lecteur de modèles intuitif permettant à des opérationnels de compléter des documents juridiques en quelques clics grâce au formulaire interactif associé :
+                            Seules sont modifiables les données définies comme telles par le juriste concepteur du modèle</value>
+  </data>
+	<data name="Invalidate" xml:space="preserve">
+    <value>Invalider</value>
+  </data>
+	<data name="InvalidContactEmail" xml:space="preserve">
+    <value>Vous devez renseigner une adresse e-mail valide.</value>
+  </data>
+	<data name="IsEqualTo" xml:space="preserve">
+    <value>est ÉGALE à</value>
+  </data>
+	<data name="IsEqualTo1" xml:space="preserve">
+    <value>est ÉGALE à</value>
+  </data>
+	<data name="IsGreaterOrEqualThan" xml:space="preserve">
+    <value>est SUPÉRIEURE ou ÉGALE à</value>
+  </data>
+	<data name="IsGreaterOrEqualThan1" xml:space="preserve">
+    <value>est SUPÉRIEURE ou ÉGALE à</value>
+  </data>
+	<data name="IsGreaterThan" xml:space="preserve">
+    <value>est SUPÉRIEURE à</value>
+  </data>
+	<data name="IsGreaterThan1" xml:space="preserve">
+    <value>est SUPÉRIEURE à</value>
+  </data>
+	<data name="IsLessOrEqualThan" xml:space="preserve">
+    <value>est INFÉRIEURE ou ÉGALE à</value>
+  </data>
+	<data name="IsLessOrEqualThan1" xml:space="preserve">
+    <value>est INFÉRIEURE ou ÉGALE à</value>
+  </data>
+	<data name="IsLessThan" xml:space="preserve">
+    <value>est INFÉRIEURE à</value>
+  </data>
+	<data name="IsLessThan1" xml:space="preserve">
+    <value>est INFÉRIEURE à</value>
+  </data>
+	<data name="IsNotEqualTo" xml:space="preserve">
+    <value>n'est PAS ÉGALE à</value>
+  </data>
+	<data name="IsNotEqualTo1" xml:space="preserve">
+    <value>n'est PAS ÉGALE à</value>
+  </data>
+	<data name="IsQuestionConditionned" xml:space="preserve">
+    <value>L'affichage de cette question est conditionné</value>
+  </data>
+	<data name="IsQuestionConditionned1" xml:space="preserve">
+    <value>L'affichage de cette question est conditionné</value>
+  </data>
+	<data name="JuridicalDocumentLifeCycle" xml:space="preserve">
+    <value>Suivi du cycle de vie des documents juridiques : création, transmission aux parties, négociations, signature en ligne</value>
+  </data>
+	<data name="LabelEmail" xml:space="preserve">
+    <value>Votre adresse e-mail</value>
+  </data>
+	<data name="LabelMessage" xml:space="preserve">
+    <value>Votre message</value>
+  </data>
+	<data name="LabelName" xml:space="preserve">
+    <value>Votre prénom, nom</value>
+  </data>
+	<data name="LabelObject" xml:space="preserve">
+    <value>L'objet de votre message</value>
+  </data>
+	<data name="LanguageAndAppliedLaw" xml:space="preserve">
+    <value>Langue et droit appliqué:</value>
+  </data>
+	<data name="LastModification" xml:space="preserve">
+    <value>Dernière modification</value>
+  </data>
+	<data name="LastName" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+	<data name="LastUpdate" xml:space="preserve">
+    <value>Dernière modification</value>
+  </data>
+	<data name="LegalNotice" xml:space="preserve">
+    <value>Mentions légales</value>
+  </data>
+	<data name="LiveChatFeature" xml:space="preserve">
+    <value>Module de chat pour discuter en direct avec les personnes connectées sur le document</value>
+  </data>
+	<data name="LoadingDocument" xml:space="preserve">
+    <value>Chargement de votre document...</value>
+  </data>
+	<data name="LoadingDocument1" xml:space="preserve">
+    <value>Chargement de votre document...</value>
+  </data>
+	<data name="LoadingEditor" xml:space="preserve">
+    <value>Chargement de l'éditeur</value>
+  </data>
+	<data name="Login" xml:space="preserve">
+    <value>Connexion</value>
+  </data>
+	<data name="LostConnectionWithServer" xml:space="preserve">
+    <value>Perte de la synchronisation avec le serveur</value>
+  </data>
+	<data name="LostConnectionWithServer_Description" xml:space="preserve">
+    <value>Afin d'assurer une synchronisation optimale avec le serveur et les potentiels autres collaborateurs, un rechargement de la page va devoir etre effectué.</value>
+  </data>
+	<data name="LostConnectionWithServer_ReloadImmediately" xml:space="preserve">
+    <value>Cliquez ici pour recharger immédiatement.</value>
+  </data>
+	<data name="LostConnectionWithServer_ReloadTime" xml:space="preserve">
+    <value>Celui-ci s'effectuera automatiquement dans &lt;b&gt;5&lt;/b&gt; secondes.</value>
+  </data>
+	<data name="MalfunctionSignal" xml:space="preserve">
+    <value>Signaler un dysfonctionnement</value>
+  </data>
+	<data name="MandatoryQuestion" xml:space="preserve">
+    <value>Question obligatoire</value>
+  </data>
+	<data name="MandatoryQuestion1" xml:space="preserve">
+    <value>Question obligatoire</value>
+  </data>
+	<data name="MandatoryToolTip" xml:space="preserve">
+    <value>En cochant cette option, l'utilisateur sera contraint de répondre à cette question pour passer à la suite du formulaire</value>
+  </data>
+	<data name="MandatoryToolTip1" xml:space="preserve">
+    <value>En cochant cette option, l'utilisateur sera contraint de répondre à cette question pour passer à la suite du formulaire</value>
+  </data>
+	<data name="MarkAsSeen" xml:space="preserve">
+    <value>Marquer comme vue</value>
+  </data>
+	<data name="MarkAsUnseen" xml:space="preserve">
+    <value>Marquer comme non-vue</value>
+  </data>
+	<data name="Menu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+	<data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+	<data name="MessageSent" xml:space="preserve">
+    <value>Votre message a été envoyé ! Nos équipes reviendront vers vous dans les plus brefs délais.</value>
+  </data>
+	<data name="Minimize" xml:space="preserve">
+    <value>réduire</value>
+  </data>
+	<data name="MissingF" xml:space="preserve">
+    <value>Non présente</value>
+  </data>
+	<data name="MissingF1" xml:space="preserve">
+    <value>Non présente</value>
+  </data>
+	<data name="MobileCompatibility" xml:space="preserve">
+    <value>Compatibilité mobile</value>
+  </data>
+	<data name="MobileCompatibility_Description1" xml:space="preserve">
+    <value>&lt;b&gt;SCM est un service juridique en ligne.&lt;/b&gt;&lt;br /&gt;
+            Pour que tout soit clair, nous devons afficher beaucoup d'informations à l'écran.</value>
+  </data>
+	<data name="MobileCompatibility_Description2" xml:space="preserve">
+    <value>C'est pourquoi certaines parties de l'application sont uniquement optimisées pour les ordinateurs et sont indisponibles sur les téléphones mobiles.</value>
+  </data>
+	<data name="MobileCompatibility_Description3" xml:space="preserve">
+    <value>Retrouvez toutes les fontionnalités de SCM sur votre ordinateur !</value>
+  </data>
+	<data name="MobileSupport" xml:space="preserve">
+    <value>Support mobile</value>
+  </data>
+	<data name="Modify" xml:space="preserve">
+    <value>Modifier</value>
+  </data>
+	<data name="ModifyInformation" xml:space="preserve">
+    <value>Modifier les informations</value>
+  </data>
+	<data name="ModifyMyPassword" xml:space="preserve">
+    <value>Modifier mon mot de passe</value>
+  </data>
+	<data name="ModifyPersonalInformation" xml:space="preserve">
+    <value>Modifier mes informations personnelles</value>
+  </data>
+	<data name="ModifyTemplate_Cmacc" xml:space="preserve">
+    <value>Modifier le modèle (CMACCJS)</value>
+  </data>
+	<data name="ModifyTemplate_Editor" xml:space="preserve">
+    <value>Modifier le modèle (éditeur)</value>
+  </data>
+	<data name="ModifyWorkflowDocument" xml:space="preserve">
+    <value>Modifier le workflow pour ce document</value>
+  </data>
+	<data name="MoreInformation" xml:space="preserve">
+    <value>En savoir plus</value>
+  </data>
+	<data name="Move" xml:space="preserve">
+    <value>Déplacer</value>
+  </data>
+	<data name="MoveDocument" xml:space="preserve">
+    <value>Déplacer un document</value>
+  </data>
+	<data name="MoveFileQuestion" xml:space="preserve">
+    <value>Souhaitez-vous déplacer le fichier</value>
+  </data>
+	<data name="MoveFileTitle" xml:space="preserve">
+    <value>Déplacer le fichier ?</value>
+  </data>
+	<data name="MoveTemplate" xml:space="preserve">
+    <value>Déplacer le modèle</value>
+  </data>
+	<data name="MoveToFolder" xml:space="preserve">
+    <value>Déplacer dans un dossier</value>
+  </data>
+	<data name="MultilineText" xml:space="preserve">
+    <value>Texte multiligne</value>
+  </data>
+	<data name="MultilineText1" xml:space="preserve">
+    <value>Texte multiligne</value>
+  </data>
+	<data name="MultipleChoice" xml:space="preserve">
+    <value>Choix multiple</value>
+  </data>
+	<data name="MultipleChoice1" xml:space="preserve">
+    <value>Choix multiple</value>
+  </data>
+	<data name="MustGiveReasonForCancel" xml:space="preserve">
+    <value>Vous devez donner une raison à l'annulation</value>
+  </data>
+	<data name="MyArchives" xml:space="preserve">
+    <value>Mes archives</value>
+  </data>
+	<data name="MyCurrentPlan" xml:space="preserve">
+    <value>MON OFFRE EN COURS</value>
+  </data>
+	<data name="MyData" xml:space="preserve">
+    <value>Mes données</value>
+  </data>
+	<data name="MyDocuments" xml:space="preserve">
+    <value>Mes documents</value>
+  </data>
+	<data name="MyInformation" xml:space="preserve">
+    <value>Mes informations</value>
+  </data>
+	<data name="MyPlan" xml:space="preserve">
+    <value>Mon abonnement</value>
+  </data>
+	<data name="MyTemplates" xml:space="preserve">
+    <value>Mes modèles</value>
+  </data>
+	<data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+	<data name="Negociated" xml:space="preserve">
+    <value>Négocié par</value>
+  </data>
+	<data name="Negotiate" xml:space="preserve">
+    <value>Négocier</value>
+  </data>
+	<data name="Negotiated" xml:space="preserve">
+    <value>Négocié</value>
+  </data>
+	<data name="NegotiateJuridicalDocuments" xml:space="preserve">
+    <value>Négociation de documents juridiques 100% dématérialisée</value>
+  </data>
+	<data name="NegotiateOnline" xml:space="preserve">
+    <value>Négociez en ligne</value>
+  </data>
+	<data name="NegotiateOnline_Description" xml:space="preserve">
+    <value>Négociez dans un module de travail collaboratif sécurisé : partagez le document avec chaque partie, suivez leur activité et discutez en temps réel avec les personnes connectées sur le document. Tracez les apports de chacun grâce au suivi des modifications, aux commentaires et à l'enregistrement des versions clé.</value>
+  </data>
+	<data name="Negotiation" xml:space="preserve">
+    <value>Négociation</value>
+  </data>
+	<data name="NewContract" xml:space="preserve">
+    <value>Nouveau contrat</value>
+  </data>
+	<data name="NewFolder" xml:space="preserve">
+    <value>Nouveau dossier</value>
+  </data>
+	<data name="NewPassword" xml:space="preserve">
+    <value>Nouveau mot de passe</value>
+  </data>
+	<data name="NewTemplate" xml:space="preserve">
+    <value>Nouveau modèle</value>
+  </data>
+	<data name="NewVersionName" xml:space="preserve">
+    <value>Nom de la version</value>
+  </data>
+	<data name="Next" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+	<data name="Next1" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+	<data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+	<data name="NoArchive" xml:space="preserve">
+    <value>Aucune archive à afficher.</value>
+  </data>
+	<data name="NoClauseFoundForQuestionnaire" xml:space="preserve">
+    <value>Pour accédez au questionnaire, veuillez ajouter au moins un bloc.</value>
+  </data>
+	<data name="NoClauseFoundForQuestionnaire1" xml:space="preserve">
+    <value>Pour accédez au questionnaire, veuillez ajouter au moins un bloc.</value>
+  </data>
+	<data name="NoDocument" xml:space="preserve">
+    <value>Aucun document à afficher.</value>
+  </data>
+	<data name="NoFileChosen" xml:space="preserve">
+    <value>Aucun fichier choisi</value>
+  </data>
+	<data name="NoInformation" xml:space="preserve">
+    <value>Aucune information</value>
+  </data>
+	<data name="NoSelectedFile" xml:space="preserve">
+    <value>Pas de fichier selectionné</value>
+  </data>
+	<data name="NoTemplate" xml:space="preserve">
+    <value>Aucun modèle à afficher.</value>
+  </data>
+	<data name="NotFoundInContract" xml:space="preserve">
+    <value>mais celle-ci est introuvable dans votre contrat.</value>
+  </data>
+	<data name="NotificationEmpty" xml:space="preserve">
+    <value>Aucune notification à afficher.</value>
+  </data>
+	<data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+	<data name="Notify" xml:space="preserve">
+    <value>Notifier</value>
+  </data>
+	<data name="NotifyByEmail" xml:space="preserve">
+    <value>Notifier par email</value>
+  </data>
+	<data name="NoVariables" xml:space="preserve">
+    <value>Cette option ne présente pas de variables.</value>
+  </data>
+	<data name="NoVariables1" xml:space="preserve">
+    <value>Cette option ne présente pas de variables.</value>
+  </data>
+	<data name="NoVersionAvailable" xml:space="preserve">
+    <value>Aucune autre version disponible</value>
+  </data>
+	<data name="Number" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="Number1" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+	<data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+	<data name="OldPassword" xml:space="preserve">
+    <value>Ancien mot de passe</value>
+  </data>
+	<data name="OnlineSignatureFeature" xml:space="preserve">
+    <value>Signature en ligne (signature ayant la même valeur juridique qu'une signature manuscrite avec Docusign)</value>
+  </data>
+	<data name="OnQuote" xml:space="preserve">
+    <value>Sur devis</value>
+  </data>
+	<data name="OptimizeYourContractManagement" xml:space="preserve">
+    <value>Optimisez votre contract management</value>
+  </data>
+	<data name="OptimizeYourContractManagement_Description" xml:space="preserve">
+    <value>Centralisez votre production juridique et accédez à votre tableau de bord sur un cloud sécurisé. Suivez le cycle de vie de chaque document : création, transmission, validation, signature, exécution.</value>
+  </data>
+	<data name="Option" xml:space="preserve">
+    <value>Option</value>
+  </data>
+	<data name="Option1" xml:space="preserve">
+    <value>Option</value>
+  </data>
+	<data name="OptionsTitle" xml:space="preserve">
+    <value>Intitulé des options de réponse</value>
+  </data>
+	<data name="OptionsTitle1" xml:space="preserve">
+    <value>Intitulé des options de réponse</value>
+  </data>
+	<data name="OptionsTooltip" xml:space="preserve">
+    <value>Vous pouvez donner la possibilité à votre utilisateur de choisir entre une ou plusieurs options à afficher dans le document qu'il complète</value>
+  </data>
+	<data name="OptionsTooltip1" xml:space="preserve">
+    <value>Vous pouvez donner la possibilité à votre utilisateur de choisir entre une ou plusieurs options à afficher dans le document qu'il complète</value>
+  </data>
+	<data name="OptionYouLike" xml:space="preserve">
+    <value>Choisissez l'option qui vous convient</value>
+  </data>
+	<data name="OptionYouLike1" xml:space="preserve">
+    <value>Choisissez l'option qui vous convient</value>
+  </data>
+	<data name="OtherDemand" xml:space="preserve">
+    <value>Autre demande</value>
+  </data>
+	<data name="OurPrices" xml:space="preserve">
+    <value>Nos tarifs</value>
+  </data>
+	<data name="Owner" xml:space="preserve">
+    <value>Propriétaire</value>
+  </data>
+	<data name="Parties" xml:space="preserve">
+    <value>Parties</value>
+  </data>
+	<data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+	<data name="Pending" xml:space="preserve">
+    <value>En attente</value>
+  </data>
+	<data name="Pending1" xml:space="preserve">
+    <value>En attente</value>
+  </data>
+	<data name="Percentage" xml:space="preserve">
+    <value>Pourcentage</value>
+  </data>
+	<data name="Percentage1" xml:space="preserve">
+    <value>Pourcentage</value>
+  </data>
+	<data name="PersonalMessageFrom" xml:space="preserve">
+    <value>Voici le message personnel de</value>
+  </data>
+	<data name="PersonalSpace" xml:space="preserve">
+    <value>Espace personnel</value>
+  </data>
+	<data name="Phone" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+	<data name="Phone1" xml:space="preserve">
+    <value>Téléphone</value>
+  </data>
+	<data name="PlaceholderContractDescription" xml:space="preserve">
+    <value>Contexte d'utilisation du contrat, variantes incluses...</value>
+  </data>
+	<data name="PlaceholderContractDescription1" xml:space="preserve">
+    <value>Contexte d'utilisation du contrat, variantes incluses...</value>
+  </data>
+	<data name="PlaceholderEmail" xml:space="preserve">
+    <value>nom.prenom@gmail.com</value>
+  </data>
+	<data name="PlaceholderEmail1" xml:space="preserve">
+    <value>nom.prenom@gmail.com</value>
+  </data>
+	<data name="PlaceholderExplanations" xml:space="preserve">
+    <value>Vous pouvez ajouter ici une explication de la question et des différents choix ou champs à remplir</value>
+  </data>
+	<data name="PlaceholderExplanations1" xml:space="preserve">
+    <value>Vous pouvez ajouter ici une explication de la question et des différents choix ou champs à remplir</value>
+  </data>
+	<data name="PlaceholderField" xml:space="preserve">
+    <value>Ex: Droit de la propriété intellectuelle, droit du travail, droit immobilier...</value>
+  </data>
+	<data name="PlaceholderField1" xml:space="preserve">
+    <value>Ex: Droit de la propriété intellectuelle, droit du travail, droit immobilier...</value>
+  </data>
+	<data name="PlaceholderFolder" xml:space="preserve">
+    <value>Nom de dossier</value>
+  </data>
+	<data name="PlaceholderFolder1" xml:space="preserve">
+    <value>Nom de dossier</value>
+  </data>
+	<data name="PlaceholderMessage" xml:space="preserve">
+    <value>Pour préserver la vie privée, ne communiquez que les informations strictement nécessaire au traitement de votre demande.</value>
+  </data>
+	<data name="PlaceholderMessage1" xml:space="preserve">
+    <value>Pour préserver la vie privée, ne communiquez que les informations strictement nécessaire au traitement de votre demande.</value>
+  </data>
+	<data name="PlaceholderSearch" xml:space="preserve">
+    <value>Rechercher...</value>
+  </data>
+	<data name="PlaceholderSearch1" xml:space="preserve">
+    <value>Rechercher...</value>
+  </data>
+	<data name="PlaceholderTemplateDescription" xml:space="preserve">
+    <value>Contexte d'utilisation du modèle, variantes incluses...</value>
+  </data>
+	<data name="PlaceholderTemplateDescription1" xml:space="preserve">
+    <value>Contexte d'utilisation du modèle, variantes incluses...</value>
+  </data>
+	<data name="PlaceholderTooltip" xml:space="preserve">
+    <value>Valeur de suggestion affichée en grisé, s'efface dès que l'utilisateur saisit du texte</value>
+  </data>
+	<data name="PlaceholderTooltip1" xml:space="preserve">
+    <value>Valeur de suggestion affichée en grisé, s'efface dès que l'utilisateur saisit du texte</value>
+  </data>
+	<data name="PossibleValues" xml:space="preserve">
+    <value>Valeurs possibles</value>
+  </data>
+	<data name="PossibleValues1" xml:space="preserve">
+    <value>Valeurs possibles</value>
+  </data>
+	<data name="PreFill" xml:space="preserve">
+    <value>Pré-remplir</value>
+  </data>
+	<data name="PreFill1" xml:space="preserve">
+    <value>Pré-remplir</value>
+  </data>
+	<data name="PresentF" xml:space="preserve">
+    <value>Présente</value>
+  </data>
+	<data name="PresentF1" xml:space="preserve">
+    <value>Présente</value>
+  </data>
+	<data name="Preview" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+	<data name="Preview1" xml:space="preserve">
+    <value>Aperçu</value>
+  </data>
+	<data name="PreviewTooltip" xml:space="preserve">
+    <value>Voici un aperçu du formulaire qu'il faudra compléter lors de la génération de ce document</value>
+  </data>
+	<data name="PreviewTooltip1" xml:space="preserve">
+    <value>Voici un aperçu du formulaire qu'il faudra compléter lors de la génération de ce document</value>
+  </data>
+	<data name="Previous" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+	<data name="Previous1" xml:space="preserve">
+    <value>Précédent</value>
+  </data>
+	<data name="Prices" xml:space="preserve">
+    <value>Tarifs</value>
+  </data>
+	<data name="PrivacyPolicy" xml:space="preserve">
+    <value>Politique de confidentialité</value>
+  </data>
+	<data name="PrivacyPolicy_Authorization" xml:space="preserve">
+    <value>J’autorise Seraphin.legal à &lt;b&gt;utiliser les informations complétées dans ce formulaire afin de me recontacter pour répondre à mes questions.&lt;/b&gt; Pour en savoir plus sur la gestion de mes données et l’exercice de mes droits, je consulte la</value>
+  </data>
+	<data name="PrivacyPolicy_Unchecked" xml:space="preserve">
+    <value>Vous devez autoriser Seraphin.legal a utiliser les données presente dans ce formulaire afin de vous recontacter pour repondre à vos questions.</value>
+  </data>
+	<data name="PrivateChat" xml:space="preserve">
+    <value>Messagerie Interne</value>
+  </data>
+	<data name="PrivateDataInformation" xml:space="preserve">
+    <value>En application de la législation en vigueur sur le traitement des données personnelles, vous pouvez accéder à vos données à tout moment dans un format compréhensible,
+                        accessible et formulée en des termes clairs et simples.</value>
+  </data>
+	<data name="ProblemFoundWithNextQuestion" xml:space="preserve">
+    <value>Il y a un problème avec votre fichier de contrat. Vous nous indiquez de passer à la question suivante nommée</value>
+  </data>
+	<data name="ProblemFoundWithPreviousQuestion" xml:space="preserve">
+    <value>Il y a un problème avec votre fichier de contrat. Vous nous indiquez de passer à la question précédente nommée</value>
+  </data>
+	<data name="Project" xml:space="preserve">
+    <value>Projet</value>
+  </data>
+	<data name="Question" xml:space="preserve">
+    <value>Question</value>
+  </data>
+	<data name="Question1" xml:space="preserve">
+    <value>Question</value>
+  </data>
+	<data name="QuestionTitle" xml:space="preserve">
+    <value>Intitulé de la question</value>
+  </data>
+	<data name="QuestionTitle1" xml:space="preserve">
+    <value>Intitulé de la question</value>
+  </data>
+	<data name="QuestionType" xml:space="preserve">
+    <value>Type de question</value>
+  </data>
+	<data name="QuestionType1" xml:space="preserve">
+    <value>Type de question</value>
+  </data>
+	<data name="QuitPage" xml:space="preserve">
+    <value>Votre document n'est pas encore totalement sauvegardé, être vous sûr vouloir de quitter la page ?</value>
+  </data>
+	<data name="QuitPage1" xml:space="preserve">
+    <value>Votre document n'est pas encore totalement sauvegardé, être vous sûr vouloir de quitter la page ?</value>
+  </data>
+	<data name="Reader" xml:space="preserve">
+    <value>Lecteur</value>
+  </data>
+	<data name="Reader1" xml:space="preserve">
+    <value>Lecteur</value>
+  </data>
+	<data name="Reader2" xml:space="preserve">
+    <value>Lecteur</value>
+  </data>
+	<data name="ReaderInfo" xml:space="preserve">
+    <value>l'utilisateur peut seulement lire le document.</value>
+  </data>
+	<data name="ReadyToSignDocument" xml:space="preserve">
+    <value>Document à signer :</value>
+  </data>
+	<data name="ReceiveMessageCopy" xml:space="preserve">
+    <value>Je souhaite recevoir une copie de ce message</value>
+  </data>
+	<data name="RecurringQuestion" xml:space="preserve">
+    <value>Question récurrente</value>
+  </data>
+	<data name="RecurringQuestion1" xml:space="preserve">
+    <value>Question récurrente</value>
+  </data>
+	<data name="RecurringTooltip" xml:space="preserve">
+    <value>En cochant cette option, la question pourra figurer autant de fois que le souhaite l'utilisateur</value>
+  </data>
+	<data name="RecurringTooltip1" xml:space="preserve">
+    <value>En cochant cette option, la question pourra figurer autant de fois que le souhaite l'utilisateur</value>
+  </data>
+	<data name="RefuseSuggestion" xml:space="preserve">
+    <value>Refuser la suggestion</value>
+  </data>
+	<data name="RegisteredVersionHistory" xml:space="preserve">
+    <value>Historique des versions enregistrées</value>
+  </data>
+	<data name="RememberMe" xml:space="preserve">
+    <value>Se souvenir de moi</value>
+  </data>
+	<data name="RemovalConfirmation" xml:space="preserve">
+    <value>Confirmation de suppression</value>
+  </data>
+	<data name="RemovalConfirmation1" xml:space="preserve">
+    <value>Confirmation de suppression</value>
+  </data>
+	<data name="RemoveFolder" xml:space="preserve">
+    <value>Supprimer le dossier</value>
+  </data>
+	<data name="RemoveThisFolder" xml:space="preserve">
+    <value>Supprimer ce dossier</value>
+  </data>
+	<data name="RemovingOption" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette option ?</value>
+  </data>
+	<data name="RemovingOption1" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette option ?</value>
+  </data>
+	<data name="Rename" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+	<data name="RenameFolder" xml:space="preserve">
+    <value>Renommer dossier</value>
+  </data>
+	<data name="ReopenInfo" xml:space="preserve">
+    <value>Vous devrez attendre que tous les éditeurs valident ou forcer la validation pour pouvoir envoyer le document en signature à nouveau.</value>
+  </data>
+	<data name="ReplaceByActualOption" xml:space="preserve">
+    <value>Remplacer par la variante actuelle</value>
+  </data>
+	<data name="ReplaceByActualOption1" xml:space="preserve">
+    <value>Remplacer par la variante actuelle</value>
+  </data>
+	<data name="ReplaceByInitialContent" xml:space="preserve">
+    <value>Remplacer par le contenu initial</value>
+  </data>
+	<data name="ReplaceByInitialContent1" xml:space="preserve">
+    <value>Remplacer par le contenu initial</value>
+  </data>
+	<data name="Reply" xml:space="preserve">
+    <value>Répondre</value>
+  </data>
+	<data name="RequiredField" xml:space="preserve">
+    <value>Champs requis</value>
+  </data>
+	<data name="RequiredField1" xml:space="preserve">
+    <value>Champs requis</value>
+  </data>
+	<data name="RequiredTooltip" xml:space="preserve">
+    <value>L'utilisateur devra impérativement renseigner la valeur de cette variable pour passer à la suite du formulaire.</value>
+  </data>
+	<data name="RequiredTooltip1" xml:space="preserve">
+    <value>L'utilisateur devra impérativement renseigner la valeur de cette variable pour passer à la suite du formulaire.</value>
+  </data>
+	<data name="RequiredVariable" xml:space="preserve">
+    <value>Variable requise</value>
+  </data>
+	<data name="RequiredVariable1" xml:space="preserve">
+    <value>Variable requise</value>
+  </data>
+	<data name="Response" xml:space="preserve">
+    <value>réponse</value>
+  </data>
+	<data name="Restore" xml:space="preserve">
+    <value>Restaurer</value>
+  </data>
+	<data name="RestoreDocument" xml:space="preserve">
+    <value>Restaurer le document</value>
+  </data>
+	<data name="RestoreThisVersion" xml:space="preserve">
+    <value>Restaurer la version</value>
+  </data>
+	<data name="RestoreThisVersion_Question" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir écraser la version courante et restaurer la version suivante :</value>
+  </data>
+	<data name="Review" xml:space="preserve">
+    <value>Validation</value>
+  </data>
+	<data name="Reviewed" xml:space="preserve">
+    <value>Revu par</value>
+  </data>
+	<data name="Revisions" xml:space="preserve">
+    <value>Révisions</value>
+  </data>
+	<data name="RGPD" xml:space="preserve">
+    <value>Sous-traitance des données personnelles</value>
+  </data>
+	<data name="Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+	<data name="Save1" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+	<data name="SaveArea" xml:space="preserve">
+    <value>Emplacement d'enregistrement</value>
+  </data>
+	<data name="SaveArea1" xml:space="preserve">
+    <value>Emplacement d'enregistrement</value>
+  </data>
+	<data name="Saved" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+	<data name="Saved1" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+	<data name="SavedBy" xml:space="preserve">
+    <value>Enregistrée par</value>
+  </data>
+	<data name="SavedDocument" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+	<data name="SavedDocument1" xml:space="preserve">
+    <value>Enregistré</value>
+  </data>
+	<data name="SavedTemplate" xml:space="preserve">
+    <value>Le modèle a bien été sauvegardé.</value>
+  </data>
+	<data name="SavedTemplate1" xml:space="preserve">
+    <value>Le modèle a bien été sauvegardé.</value>
+  </data>
+	<data name="SaveTemplate" xml:space="preserve">
+    <value>Sauvegarder le modèle</value>
+  </data>
+	<data name="SaveTemplate1" xml:space="preserve">
+    <value>Sauvegarder le modèle</value>
+  </data>
+	<data name="SaveThisVersion" xml:space="preserve">
+    <value>Enregistrer cette version</value>
+  </data>
+	<data name="Saving" xml:space="preserve">
+    <value>Enregistrement</value>
+  </data>
+	<data name="Saving1" xml:space="preserve">
+    <value>Enregistrement</value>
+  </data>
+	<data name="ScmLogo" xml:space="preserve">
+    <value>Logo SCM</value>
+  </data>
+	<data name="ScmSlogan" xml:space="preserve">
+    <value>Easy contract,&lt;br /&gt; easy business</value>
+  </data>
+	<data name="SecuredDocumentValidation" xml:space="preserve">
+    <value>Sécurisation des documents jusqu'à sa signature grâce à un module de validation par toutes les parties</value>
+  </data>
+	<data name="SeeCallAPI" xml:space="preserve">
+    <value>Voir l'appel API</value>
+  </data>
+	<data name="SeeUserRevisions" xml:space="preserve">
+    <value>Voir les révisions de :</value>
+  </data>
+	<data name="SeeYouSoon" xml:space="preserve">
+    <value>À bientôt sur SCM</value>
+  </data>
+	<data name="Select" xml:space="preserve">
+    <value>Liste déroulante</value>
+  </data>
+	<data name="Select1" xml:space="preserve">
+    <value>Liste déroulante</value>
+  </data>
+	<data name="SelectDate" xml:space="preserve">
+    <value>Choisissez une date</value>
+  </data>
+	<data name="SelectDate1" xml:space="preserve">
+    <value>Choisissez une date</value>
+  </data>
+	<data name="SelectTypePlaceholder" xml:space="preserve">
+    <value>Exemple : Madame, Monsieur</value>
+  </data>
+	<data name="SelectTypePlaceholder1" xml:space="preserve">
+    <value>Exemple : Madame, Monsieur</value>
+  </data>
+	<data name="SelectTypeTooltip" xml:space="preserve">
+    <value>Une liste déroulante met à la disposition d'utilisateur remplissant le formulaire une liste parmi laquelle il devra choisir une valeur. Cette valeur sera ensuite injectée dans le document.
+Vous devez séparer chacune des valeurs possibles par une virgule, sans espace.</value>
+  </data>
+	<data name="SelectTypeTooltip1" xml:space="preserve">
+    <value>Une liste déroulante met à la disposition d'utilisateur remplissant le formulaire une liste parmi laquelle il devra choisir une valeur. Cette valeur sera ensuite injectée dans le document.
+Vous devez séparer chacune des valeurs possibles par une virgule, sans espace.</value>
+  </data>
+	<data name="Send" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+	<data name="Send1" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+	<data name="SendToSignature" xml:space="preserve">
+    <value>Envoyer en signature</value>
+  </data>
+	<data name="Share" xml:space="preserve">
+    <value>Partager</value>
+  </data>
+	<data name="Share1" xml:space="preserve">
+    <value>Partager</value>
+  </data>
+	<data name="SharedWithYouThisDocument" xml:space="preserve">
+    <value>a partagé avec vous le document suivant :</value>
+  </data>
+	<data name="ShareMultipleFiles" xml:space="preserve">
+    <value>Transmettre plusieurs documents</value>
+  </data>
+	<data name="ShareWithOtherUsers" xml:space="preserve">
+    <value>Partager avec d'autres utilisateurs :</value>
+  </data>
+	<data name="SharingContract" xml:space="preserve">
+    <value>Partage du contrat</value>
+  </data>
+	<data name="ShowAll" xml:space="preserve">
+    <value>tout afficher</value>
+  </data>
+	<data name="ShowFormatBar" xml:space="preserve">
+    <value>Afficher la bar de formattage</value>
+  </data>
+	<data name="ShowRevisionsOf" xml:space="preserve">
+    <value>Voir les rvisions de:</value>
+  </data>
+	<data name="Sign" xml:space="preserve">
+    <value>Signer</value>
+  </data>
+	<data name="Signatories" xml:space="preserve">
+    <value>Signataires</value>
+  </data>
+	<data name="SignatoriesWillReceiveEmail" xml:space="preserve">
+    <value>Les signataires recevront un mail afin de signer le document.</value>
+  </data>
+	<data name="Signature" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+	<data name="SignDate" xml:space="preserve">
+    <value>Date de signature</value>
+  </data>
+	<data name="SignDocument" xml:space="preserve">
+    <value>Signer le document</value>
+  </data>
+	<data name="Signed" xml:space="preserve">
+    <value>Signé par tous les signataires</value>
+  </data>
+	<data name="Signed1" xml:space="preserve">
+    <value>Signé</value>
+  </data>
+	<data name="SignedVersion" xml:space="preserve">
+    <value>Exemplaire signé</value>
+  </data>
+	<data name="SigningParties" xml:space="preserve">
+    <value>Signataire(s) :</value>
+  </data>
+	<data name="SpecificNeeds" xml:space="preserve">
+    <value>Vous avez des besoins spécifiques ?</value>
+  </data>
+	<data name="SpecificNeeds_Description" xml:space="preserve">
+    <value>Vous souhaitez mettre en place un outil de contract management sur mesure pour votre structure ?</value>
+  </data>
+	<data name="SpecifyNameForContract" xml:space="preserve">
+    <value>Merci de bien vouloir renseigner un nom pour ce contrat.</value>
+  </data>
+	<data name="SpecifyNameForDocument" xml:space="preserve">
+    <value>Merci de bien vouloir renseigner un nom pour ce document.</value>
+  </data>
+	<data name="SpecifyNameForFolder" xml:space="preserve">
+    <value>Merci de bien vouloir renseigner un nom pour ce dossier.</value>
+  </data>
+	<data name="SpecifyNameForTemplate" xml:space="preserve">
+    <value>Merci de bien vouloir renseigner un nom pour ce modèle.</value>
+  </data>
+	<data name="StartedOn" xml:space="preserve">
+    <value>Entamée le</value>
+  </data>
+	<data name="Subscribe" xml:space="preserve">
+    <value>Souscrire</value>
+  </data>
+	<data name="SubscribeToSCM" xml:space="preserve">
+    <value>Souscrire à l'abonnement SCM</value>
+  </data>
+	<data name="SuggestedValue" xml:space="preserve">
+    <value>Valeur de suggestion</value>
+  </data>
+	<data name="SuggestedValue1" xml:space="preserve">
+    <value>Valeur de suggestion</value>
+  </data>
+	<data name="Template" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
+	<data name="TemplateAlreadyExist" xml:space="preserve">
+    <value>Ce modèle existe déjà</value>
+  </data>
+	<data name="TemplateAndDocumentLibraries" xml:space="preserve">
+    <value>Bibliothèques de modèles et de documents</value>
+  </data>
+	<data name="TemplateAutoWithFewClics" xml:space="preserve">
+    <value>Automatisation de modèles de documents juridiques en quelques clics</value>
+  </data>
+	<data name="TemplateDescription" xml:space="preserve">
+    <value>Description du modèle</value>
+  </data>
+	<data name="TemplateDetails" xml:space="preserve">
+    <value>Détails du modèle</value>
+  </data>
+	<data name="TemplateInformation" xml:space="preserve">
+    <value>Informations sur le modèle</value>
+  </data>
+	<data name="Templates" xml:space="preserve">
+    <value>Modèles</value>
+  </data>
+	<data name="TemplateSelect" xml:space="preserve">
+    <value>Choix du modèle :</value>
+  </data>
+	<data name="TemplateTitle" xml:space="preserve">
+    <value>Titre du modèle</value>
+  </data>
+	<data name="TemplateTitle1" xml:space="preserve">
+    <value>Titre du modèle</value>
+  </data>
+	<data name="Text" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+	<data name="Text1" xml:space="preserve">
+    <value>Texte</value>
+  </data>
+	<data name="ThankYouForYouTrust" xml:space="preserve">
+    <value>Merci de votre confiance</value>
+  </data>
+	<data name="ThereIs" xml:space="preserve">
+    <value>Il y a</value>
+  </data>
+	<data name="TheUser" xml:space="preserve">
+    <value>L'utilisateur</value>
+  </data>
+	<data name="TheUser1" xml:space="preserve">
+    <value>L'utilisateur</value>
+  </data>
+	<data name="Thread" xml:space="preserve">
+    <value>Trame</value>
+  </data>
+	<data name="Thread1" xml:space="preserve">
+    <value>Trame</value>
+  </data>
+	<data name="Time" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+	<data name="Time1" xml:space="preserve">
+    <value>Heure</value>
+  </data>
+	<data name="TimeSpan" xml:space="preserve">
+    <value>Plage horaire</value>
+  </data>
+	<data name="TimeSpan1" xml:space="preserve">
+    <value>Plage horaire</value>
+  </data>
+	<data name="Title" xml:space="preserve">
+    <value>Titre du document</value>
+  </data>
+	<data name="Title1" xml:space="preserve">
+    <value>Titre du document</value>
+  </data>
+	<data name="ToggleAll" xml:space="preserve">
+    <value>Tout sélectionner/déselectionner</value>
+  </data>
+	<data name="ToggleAll1" xml:space="preserve">
+    <value>Tout sélectionner/déselectionner</value>
+  </data>
+	<data name="ToRemoveClauseUseCross" xml:space="preserve">
+    <value>Pour supprimer un bloc, cliquez sur la croix rouge à côté de son nom.</value>
+  </data>
+	<data name="ToRemoveClauseUseCross1" xml:space="preserve">
+    <value>Pour supprimer un bloc, cliquez sur la croix rouge à côté de son nom.</value>
+  </data>
+	<data name="ToRemoveFieldUseCross" xml:space="preserve">
+    <value>Pour supprimer un champ, merci de bien vouloir cliquer sur la croix rouge en haut a droite de ce dernier.</value>
+  </data>
+	<data name="ToRemoveFieldUseCross1" xml:space="preserve">
+    <value>Pour supprimer un champ, merci de bien vouloir cliquer sur la croix rouge en haut a droite de ce dernier.</value>
+  </data>
+	<data name="ToTheFolder" xml:space="preserve">
+    <value>vers le dossier</value>
+  </data>
+	<data name="TrackChangesAndComments" xml:space="preserve">
+    <value>Traçage des modifications et commentaires de chaque partie</value>
+  </data>
+	<data name="Transmitted" xml:space="preserve">
+    <value>Transmis</value>
+  </data>
+	<data name="Try" xml:space="preserve">
+    <value>Tester</value>
+  </data>
+	<data name="Try1" xml:space="preserve">
+    <value>Tester</value>
+  </data>
+	<data name="TryContractGenerator" xml:space="preserve">
+    <value>Testez notre générateur de contrats !</value>
+  </data>
+	<data name="TryMe" xml:space="preserve">
+    <value>Testez-moi !</value>
+  </data>
+	<data name="TryMe_Disclaimer" xml:space="preserve">
+    <value>Aucune donnée personnelle n'est enregistrée. &lt;br /&gt; Il s'agit d'un simple module de test ! ;)</value>
+  </data>
+	<data name="TryMe_DoingTest" xml:space="preserve">
+    <value>Réalise aujourd'hui un test de la solution</value>
+  </data>
+	<data name="TryMe_Welcome" xml:space="preserve">
+    <value>Bienvenue dans le module de test !</value>
+  </data>
+	<data name="TryMe_WorkingAs" xml:space="preserve">
+    <value>Exerçant la profession de</value>
+  </data>
+	<data name="TryWithAPI" xml:space="preserve">
+    <value>Tester par api</value>
+  </data>
+	<data name="UnarchivedAndRedirect" xml:space="preserve">
+    <value>Désarchiver et accéder au document</value>
+  </data>
+	<data name="UnarchiveThisContract" xml:space="preserve">
+    <value>Désarchiver ce contrat</value>
+  </data>
+	<data name="UnarchiveThisTemplate" xml:space="preserve">
+    <value>Désarchiver ce modèle</value>
+  </data>
+	<data name="UniqueChoice" xml:space="preserve">
+    <value>Choix unique</value>
+  </data>
+	<data name="UniqueChoice1" xml:space="preserve">
+    <value>Choix unique</value>
+  </data>
+	<data name="UniquePricing" xml:space="preserve">
+    <value>Tarification unique : accédez à l'intégralité des fonctionnalités et des montées de version SCM avec votre abonnement</value>
+  </data>
+	<data name="UnitsExample" xml:space="preserve">
+    <value>par exemple : jours, mois, années</value>
+  </data>
+	<data name="UnitsExample1" xml:space="preserve">
+    <value>par exemple : jours, mois, années</value>
+  </data>
+	<data name="UnitTooltip" xml:space="preserve">
+    <value>Utile si vous souhaitez attribuer une unité à votre variable. Ex : jours, mois années ou $, €, £.</value>
+  </data>
+	<data name="UnitTooltip1" xml:space="preserve">
+    <value>Utile si vous souhaitez attribuer une unité à votre variable. Ex : jours, mois années ou $, €, £.</value>
+  </data>
+	<data name="UnlimitedDocuments" xml:space="preserve">
+    <value>Génération de documents illimitée</value>
+  </data>
+	<data name="UnlimitedTemplates" xml:space="preserve">
+    <value>Modèles personnalisés illimités</value>
+  </data>
+	<data name="UnlimitedUsers" xml:space="preserve">
+    <value>Nombre d'utilisateurs illimité</value>
+  </data>
+	<data name="Update" xml:space="preserve">
+    <value>Mettre à jour</value>
+  </data>
+	<data name="UpdatingTemplate" xml:space="preserve">
+    <value>Mise à jour du modèle en cours</value>
+  </data>
+	<data name="UploadContract" xml:space="preserve">
+    <value>Importer le contrat</value>
+  </data>
+	<data name="UploadNewDocument" xml:space="preserve">
+    <value>Uploader un nouveau document</value>
+  </data>
+	<data name="UseAlreadyExistingField" xml:space="preserve">
+    <value>Utiliser un champ déjà existant</value>
+  </data>
+	<data name="UseAlreadyExistingField1" xml:space="preserve">
+    <value>Utiliser un champ déjà existant</value>
+  </data>
+	<data name="UseExistingDocument" xml:space="preserve">
+    <value>Réutiliser un document existant</value>
+  </data>
+	<data name="UseExistingField" xml:space="preserve">
+    <value>Utiliser un champ existant</value>
+  </data>
+	<data name="UseExistingVariable" xml:space="preserve">
+    <value>Utiliser une variable existante</value>
+  </data>
+	<data name="UseExistingVariable1" xml:space="preserve">
+    <value>Utiliser une variable existante</value>
+  </data>
+	<data name="UserGuide" xml:space="preserve">
+    <value>Guide d'utilisation</value>
+  </data>
+	<data name="Users" xml:space="preserve">
+    <value>Utilisateurs</value>
+  </data>
+	<data name="Validate" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+	<data name="Validate1" xml:space="preserve">
+    <value>Valider</value>
+  </data>
+	<data name="ValidateBeforeSignature" xml:space="preserve">
+    <value>Valider avant signature</value>
+  </data>
+	<data name="ValidateEverything" xml:space="preserve">
+    <value>Tout valider</value>
+  </data>
+	<data name="Value" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+	<data name="Value1" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+	<data name="Variable" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+	<data name="Variable1" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+	<data name="Variables" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+	<data name="Variables1" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+	<data name="VariableType" xml:space="preserve">
+    <value>Type de variable</value>
+  </data>
+	<data name="VariableType1" xml:space="preserve">
+    <value>Type de variable</value>
+  </data>
+	<data name="VersionName" xml:space="preserve">
+    <value>Nom de la version (précisez les principales modifications effectuées) :</value>
+  </data>
+	<data name="VersionningFeature" xml:space="preserve">
+    <value>Sauvegarde de chaque version clé du document (versionning)</value>
+  </data>
+	<data name="Versions" xml:space="preserve">
+    <value>Versions</value>
+  </data>
+	<data name="ViewComments" xml:space="preserve">
+    <value>Voir les commentaires</value>
+  </data>
+	<data name="WantToArchiveThisContract" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir archiver le contrat</value>
+  </data>
+	<data name="WantToArchiveThisTemplate" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir archiver le modèle</value>
+  </data>
+	<data name="WantToRemoveThisFolder" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer le dossier</value>
+  </data>
+	<data name="WantToUnarchiveThisContract" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir désarchiver le contrat</value>
+  </data>
+	<data name="WantToUnarchiveThisTemplate" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir désarchiver le modèle</value>
+  </data>
+	<data name="WithUnits" xml:space="preserve">
+    <value>Ajouter une unité ?</value>
+  </data>
+	<data name="WithUnits1" xml:space="preserve">
+    <value>Ajouter une unité ?</value>
+  </data>
+	<data name="WordSpacing" xml:space="preserve">
+    <value>Espacement entre les mots</value>
+  </data>
+	<data name="WordSpacing1" xml:space="preserve">
+    <value>Espacement entre les mots</value>
+  </data>
+	<data name="WorkingTogether" xml:space="preserve">
+    <value>Travail à plusieurs sur un même document en temps réel</value>
+  </data>
+	<data name="WritingLanguage" xml:space="preserve">
+    <value>Langue de rédaction</value>
+  </data>
+	<data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
+	<data name="YourJob" xml:space="preserve">
+    <value>Votre profession</value>
+  </data>
+	<data name="YourNames" xml:space="preserve">
+    <value>Votre nom et prénom</value>
+  </data>
+	<data name="YourPersonalMessage" xml:space="preserve">
+    <value>Ton message personnel</value>
+  </data>
+	<data name="ZeroLimit" xml:space="preserve">
+    <value>Zéro limite : nombre illimité d'utilisateurs, de modèles et de documents générés</value>
+  </data>
+	<data name="Operational" xml:space="preserve">
+    <value>Opérationnel</value>
+  </data>
+	<data name="Jurist" xml:space="preserve">
+    <value>Juriste</value>
+  </data>
+	<data name="Buyers" xml:space="preserve">
+    <value>Achats</value>
+  </data>
+	<data name="Extern" xml:space="preserve">
+    <value>Externe</value>
+  </data>
+	<data name="YouCanIndicateTheCancellationReason" xml:space="preserve">
+    <value>Vous pouvez ici indiquer la raison de l'annulation.</value>
+  </data>
+	<data name="YourMessageWillBeForwarded" xml:space="preserve">
+    <value>Votre message sera transmis aux signataires.</value>
+  </data>
+	<data name="EachSignatoryReceivedAnEmailFromDocuSign" xml:space="preserve">
+    <value>Chaque signataire a reçu un email de la part de DocuSign.</value>
+  </data>
+	<data name="TheDocumentHasBeenSentForSignature" xml:space="preserve">
+    <value>Le document a été envoyé en signature.</value>
+  </data>
+	<data name="Annexes" xml:space="preserve">
+    <value>Annexes</value>
+  </data>
+	<data name="BelowYouCanRearrangeOrderAppendicesUsingPoints" xml:space="preserve">
+    <value>Vous pouvez ci-dessous réorganiser l’ordre des annexes à l’aide des points</value>
+  </data>
+	<data name="AddAnnex" xml:space="preserve">
+    <value>Ajouter une annexe</value>
+  </data>
+	<data name="AnnexName" xml:space="preserve">
+    <value>Nom de l’annexe</value>
+  </data>
+	<data name="BelowYouCanRearrangeOrderOfAnnexesUsingPoints" xml:space="preserve">
+    <value>Vous pouvez ci-dessous réorganiser l’ordre des annexes à l’aide des points</value>
+  </data>
+	<data name="Choose" xml:space="preserve">
+    <value>Choisir</value>
+  </data>
+	<data name="FileToImport" xml:space="preserve">
+    <value>Fichier à importer (PDF)</value>
+  </data>
+	<data name="FromMyComputer" xml:space="preserve">
+    <value>Depuis mon ordinateur</value>
+  </data>
+	<data name="FromThePlatform" xml:space="preserve">
+    <value>Depuis la plateforme</value>
+  </data>
+	<data name="MustChooseAnnex" xml:space="preserve">
+    <value>Vous devez choisir une annexe</value>
+  </data>
+	<data name="MustGiveNameToAnnex" xml:space="preserve">
+    <value>Vous devez donner un nom à votre annexe</value>
+  </data>
+	<data name="NewAnnex" xml:space="preserve">
+    <value>Nouvelle annexe</value>
+  </data>
+	<data name="SameAnnexName" xml:space="preserve">
+    <value>Une annexe avec le même nom existe déjà</value>
+  </data>
+	<data name="Show" xml:space="preserve">
+    <value>Voir</value>
+  </data>
+	<data name="BackToTheDocument" xml:space="preserve">
+    <value>Retour au document</value>
+  </data>
+	<data name="EditThisWorkflow" xml:space="preserve">
+    <value>Modifier ce workflow</value>
+  </data>
+	<data name="EqualTo" xml:space="preserve">
+    <value>égale à</value>
+  </data>
+	<data name="GreaterThanOrEqualTo" xml:space="preserve">
+    <value>supérieur ou égale à</value>
+  </data>
+	<data name="LessThan" xml:space="preserve">
+    <value>inférieur à</value>
+  </data>
+	<data name="DeleteAnnexMessage" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir supprimer cette annexe ?</value>
+  </data>
+	<data name="EmpyAnnex" xml:space="preserve">
+    <value>Aucune annexe n'a été ajoutée</value>
+  </data>
+	<data name="AnnexesToSign" xml:space="preserve">
+    <value>Annexes à signer</value>
+  </data>
+	<data name="DragNDropAnnexe" xml:space="preserve">
+    <value>Lâchez pour importer l'annexe</value>
+  </data>
+	<data name="PleaseImportAPdf" xml:space="preserve">
+    <value>Le document sélectionné est invalide. Veuillez importer un fichier PDF.</value>
+  </data>
+	<data name="ChooseTheFilePdf" xml:space="preserve">
+    <value>Choisir le fichier (PDF)</value>
+  </data>
+	<data name="SearchInTheTreeStructure" xml:space="preserve">
+    <value>Chercher dans l'arborescence</value>
+  </data>
+	<data name="SearchByName" xml:space="preserve">
+    <value>Chercher par le nom de fichier</value>
+  </data>
+	<data name="AddContributor" xml:space="preserve">
+    <value>Ajouter un contributeur</value>
+  </data>
+	<data name="Contributor" xml:space="preserve">
+    <value>Contributeur</value>
+  </data>
+	<data name="Rights" xml:space="preserve">
+    <value>Droits</value>
+  </data>
+	<data name="InformationMissing" xml:space="preserve">
+    <value>Certaines informations sont manquantes.</value>
+  </data>
+	<data name="ErrorOccured" xml:space="preserve">
+    <value>Une erreur est survenue.</value>
+  </data>
+	<data name="ContributorAlreadyPresent" xml:space="preserve">
+    <value>Le contributeur est déjà présent dans l'étape courante.</value>
+  </data>
+	<data name="EditMyContribution" xml:space="preserve">
+    <value>Modifier ma contribution à l'étape en cours</value>
+  </data>
+	<data name="ValidateMyContribution" xml:space="preserve">
+    <value>Valider ma contribution à l'étape en cours</value>
+  </data>
+	<data name="RevWarningSignature" xml:space="preserve">
+    <value>Veuillez traiter les révisions/commentaires restants avant de passer à l'étape de signature.</value>
+  </data>
+	<data name="FollowingPeopleInvited" xml:space="preserve">
+    <value>Les personnes suivantes seront invitées à collaborer sur le document :</value>
+  </data>
+	<data name="GoToStep" xml:space="preserve">
+    <value>Passer à l’étape</value>
+  </data>
+	<data name="NoAccessWorkflow" xml:space="preserve">
+    <value>Non, accéder au workflow</value>
+  </data>
+	<data name="OptionalNextStepMessage" xml:space="preserve">
+    <value>Un contributeur facultatif n'a pas été renseigné dans le workflow ou n'a pas validé l'étape en cours. Êtes-vous sûr de vouloir passer à l'étape suivante</value>
+  </data>
+	<data name="TheStep" xml:space="preserve">
+    <value>L’étape</value>
+  </data>
+	<data name="WillBeValidated" xml:space="preserve">
+    <value>sera validée et vous ne pourrez plus la modifier.</value>
+  </data>
+	<data name="YesNextStep" xml:space="preserve">
+    <value>Oui, passer à l'étape suivante</value>
+  </data>
+	<data name="Import" xml:space="preserve">
+    <value>Importer</value>
+  </data>
+	<data name="SaveNewVersion" xml:space="preserve">
+    <value>Enregistrer une nouvelle version</value>
+  </data>
+	<data name="CompareVersion" xml:space="preserve">
+    <value>comparer version</value>
+  </data>
+	<data name="With" xml:space="preserve">
+    <value>avec</value>
+  </data>
+</root>

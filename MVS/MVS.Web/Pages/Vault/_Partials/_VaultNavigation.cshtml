@@ -1,0 +1,52 @@
+@using MVS.Common.Enum
+@using MVS.Web.Helpers;
+@{
+}
+
+<div class="row mb-4" id="folder">
+    <div class="col-7">
+        <div class="row">
+            <div class="col-12 header-folder">
+                <h1 class="mb-3">@(Model._folderInfoHeader["Title"])</h1>
+                @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+                <ul class="card mt-3 mb-0">
+                    <li><a href="@(Url.Page("/Vault/Informations", new { vaultId = Model._vaultId }))" id="tab3">Informations</a></li>
+                    <li><a href="@(Url.Page("/Vault/Documents", new { vaultId = Model._vaultId }))" id="tab4">Documents</a></li>
+                    <li><a href="@(Url.Page("/Vault/AddressBook", new { vaultId = Model._vaultId }))" id="tab5">Carnet d’adresses</a></li>
+                    <li><a href="@(Url.Page("/Vault/Volontes", new { vaultId = Model._vaultId }))" id="tab2">Volontés signées</a></li>
+                    <li><a href="@(Url.Page("/Vault/RespectVolontes", new { vaultId = Model._vaultId }))" id="tab3">Respect des volontés</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card smallcard mb-3">
+            @*<p class="subtitle">Protection Future</p>*@
+            @*<p class="subtitle">@(Model._folderInfoHeader["Field"])</p>*@
+            <div class="dropdown">
+                <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <img src="~/img/icons/points.svg" />
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Que voulez-vous faire ?<img src="~/img/icons/close.svg" class="ms-auto me-0" /></a></li>
+                    <li><a class="dropdown-item warning" href="@(Url.Page("/Vault/UpdateVault/Index", new { vaultId = Model._vaultId }))"><img src="~/img/icons/infos_red.svg" />Modifier le dossier</a></li>
+                    <li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#deleteFolderInsideModal"><img src="~/img/icons/bin_red.svg" />Supprimer le dossier</a></li>
+                    <li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#archiveFolderInsideModal"><img src="~/img/icons/archive.svg" />Archiver le dossier</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <p class="title">@(Model._folderInfoHeader["Title"])</p>
+                    <a href="@(Url.Page("/Vault/UpdateVault/Index", new { vaultId = Model._vaultId }))" class="name">@(Model._folderInfoHeader["Name"])</a>
+                    <p class="dateCreated">Créé le @(Model._folderInfoHeader["CreationDate"])</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a class="badge bg-purple" href="@(Url.Page("/Contact/TiersConfiance/Index", new { vaultId = Model._vaultId }))"><img src="~/img/icons/print_green.svg"/> Créer un tiers de confiance</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

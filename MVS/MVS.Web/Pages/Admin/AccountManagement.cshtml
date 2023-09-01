@@ -1,0 +1,110 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Admin.AccountManagementModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="admin">
+    <div class="row mb-4">
+        <div class="col-auto">
+            <h1 class="mb-3">Admin</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row justify-content-between mb-4">
+                <div class="col-auto">
+                    <h2 class="mb-3">Gestion des comptes utilisateurs</h2>
+                </div>
+                <div class="col-auto">
+                    <div class="d-flex">
+                        <form class="d-flex me-4">
+                            <button class="btn p-0" type="submit"><img src="/img/icons/search.svg"></button>
+                            <input class="form-control p-0 ps-2 bg-transparent border-0" type="search" placeholder="Rechercher par nom" aria-label="Search" data-bind="textInput: search">
+                        </form>
+                        <div class="customSort">
+                            <select class="outline-success" data-bind="value: sort">
+                                <option value="@((int)UserSort.Name)">Nom A-Z</option>
+                                <option value="@((int)UserSort.NameDesc)">Nom Z-A</option>
+                                <option value="@((int)UserSort.NbFolder)">Nombre de dossier</option>
+                            </select>
+                            <img src="/img/icons/sort.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5"></div>
+    </div>
+    <div class="row">
+        <article class="col-12">
+            <div class="card">
+                <h3>Utilisateurs</h3>
+                <div class="row tableRowHeader mt-4">
+                    <div class="col">
+                        <p>NOM</p>
+                    </div>
+                    <div class="col text-center">
+                        <p>PRÉNOM</p>
+                    </div>
+                    <div class="col text-center">
+                        <p>EMAIL</p>
+                    </div>
+                    <div class="col text-center">
+                        <p>STATUT</p>
+                    </div>
+                    <div class="col text-center">
+                        <p>NOMBRE DOSSIER</p>
+                    </div>
+                </div>
+                <!-- ko foreach: users -->
+                <a data-bind="attr: { href: '/Account/Index?userId=' + id }">
+                    <div class="row tableRowContent">
+                        <div class="col">
+                            <p data-bind="text: lastName">Locze</p>
+                        </div>
+                        <div class="col text-center">
+                            <p data-bind="text: firstName">Nathalie</p>
+                        </div>
+                        <div class="col text-center"><p data-bind="text: email">NathalieL@gmail.com</p></div>
+                        <div class="col text-center">
+                            <p data-bind="visible: roles.length == 0">Particulier</p>
+                            <p data-bind="visible: roles.length != 0 && roles[0].name == 'Pro'">Professionnel</p>
+                            <p data-bind="visible: roles.length != 0 && roles[0].name == 'SuperAdmin'">Super Admin</p>
+                        </div>
+                        <div class="col text-center"><p data-bind="text: folders.length">1</p></div>
+                    </div>
+                </a>
+                <!-- /ko -->
+            </div>
+            <div class="row justify-content-between mb-4 mt-3">
+                <div class="col-auto">
+                    <!-- ko if: users().length != 0-->
+                    <div id="pagination-area">
+                        <img src="/img/icons/chevron-left.svg" class="me-1" data-bind="click: function() {currentPage(self.currentPage() == 1 ? 1 : self.currentPage() - 1 )}" />
+
+                        <!-- ko foreach: pages -->
+                        <span data-bind="text: $data, css:{ 'item-selected' : $data == $root.currentPage() }, click: function(){$root.currentPage($data)}" class="item"></span>
+                        <!-- /ko -->
+
+                        <img src="/img/icons/chevron-right.svg" class="ms-1" data-bind="click: function() {currentPage(self.currentPage() == nbPages() ? nbPages() : self.currentPage() + 1 )}" />
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+@section Scripts
+{
+<script src="~/js/ViewModels/AdminUsersViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new adminUsersViewModel(), document.getElementById('admin'));
+    });
+</script>
+}

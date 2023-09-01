@@ -1,0 +1,91 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactRoleFutureModal" tabindex="-1" aria-labelledby="updateContactRoleFutureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier la relation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <p>Administrateur du dossier :</p>
+                        <div>
+                            <input class="me-2" type="radio" id="isFolderAdmin-true" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: true">
+                            <label for="isFolderAdmin-true">Oui</label>
+                            <input class="ms-4 me-2" type="radio" id="isFolderAdmin-false" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: false">
+                            <label for="isFolderAdmin-false">Non</label>
+                        </div>
+
+                        <p>Mandataire futur(e) :</p>
+                        <div>
+                            <input class="me-2" type="radio" id="isFutureAgent-true" name="IsFutuAgent" data-bind="checked: IsFutuAgent, checkedValue: true">
+                            <label for="isFutureAgent-true">Oui</label>
+                            <input class="ms-4 me-2" type="radio" id="isFutureAgent-false" name="IsFutuAgent" data-bind="checked: IsFutuAgent, checkedValue: false">
+                            <label for="isFutureAgent-false">Non</label>
+                        </div>
+
+                        <p data-bind="visible: IsFutuAgent()">Mission mandataire :</p>
+                        <div data-bind="visible: IsFutuAgent()">
+                            <input class="mt-0 mb-0 mr-05" type="checkbox" id="ProtectPeople" name="AgentMission" data-bind="checked: ProtectPeople, checkedValue: true">
+                            <label class="mt-0 mb-0" for="ProtectPeople">Protection de la personne</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent()">
+                            <input class="mt-0 mb-0 mr-05" type="checkbox" id="ProtectAllProperty" name="AgentMission" data-bind="checked: ProtectAllProperty, checkedValue: true">
+                            <label class="mt-0 mb-0" for="ProtectAllProperty">Protection de tous les biens</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent()">
+                            <input class="mt-0 mb-0 mr-05" type="checkbox" id="ProtectOfCertainGoods" name="ProtectOfCertainGoods" data-bind="checked: ProtectOfCertainGoods, checkedValue: true">
+                            <label class="mt-0 mb-0" for="ProtectOfCertainGoods">Protection de certains biens</label>
+                        </div>
+
+                        <p data-bind="visible: ProtectOfCertainGoods()">Type de biens :</p>
+                        <div data-bind="visible: ProtectOfCertainGoods()">
+                            <textarea class="w-100" type="text" placeholder="Renseignez votre texte ici" rows="5" name="PropertyDetails" id="PropertyDetails-input" data-bind="value: PropertyDetails"></textarea>
+                        </div>
+
+                        <p data-bind="visible: IsFutuAgent()">Autre mission :</p>
+                        <p data-bind="visible: !IsFutuAgent()">Type de mission :</p>
+                        <div data-bind="visible: IsFutuAgent() != null">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-protecteur2" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Controleur)">
+                            <label class="mt-0 mb-0" for="typeMission-protecteur2">Contrôleur</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent() != null">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-controleur2" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Observateur)">
+                            <label class="mt-0 mb-0" for="typeMission-controleur2">Observateur</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent() != null">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-replaceControleur" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.ReplaceControleur)">
+                            <label class="mt-0 mb-0" for="typeMission-replaceControleur">Remplaçant Contrôleur</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent() != null">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-replaceMandataire" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.ReplaceMandataire)">
+                            <label class="mt-0 mb-0" for="typeMission-replaceMandataire">Remplaçant Mandataire</label>
+                        </div>
+                        <div data-bind="visible: IsFutuAgent() != null">
+                            <input class="mt-0 mb-0 mr-05" type="radio" id="typeMission-aucune2" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Aucune)">
+                            <label class="mt-0 mb-0" for="typeMission-aucune2">Aucune</label>
+                        </div>
+
+                        <p>Personne de confiance :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="Confidence-true" name="Confidence" data-bind="checked: Confidence, checkedValue: true">
+                            <label for="Confidence-true">Oui</label>
+                            <input type="radio" class="ms-4 me-2" id="Confidence-false" name="Confidence" data-bind="checked: Confidence, checkedValue: false">
+                            <label for="Confidence-false">Non</label>
+                        </div>
+
+                        <p>Informer le professionnel de la rédaction du mandat :</p>
+                        <div>
+                            <input class="required me-2" type="radio" id="InformProfessional-true" name="InfoPro" data-bind="checked: InfoPro, checkedValue: true">
+                            <label for="InformProfessional-true">Oui</label>
+                            <input class="required ms-4 me-2" type="radio" id="InformProfessional-false" name="InfoPro" data-bind="checked: InfoPro, checkedValue: false">
+                            <label for="InformProfessional-false">Non</label>
+                        </div>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateRoleFutureProtection() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

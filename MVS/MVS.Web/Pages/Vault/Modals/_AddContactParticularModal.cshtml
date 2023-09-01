@@ -1,0 +1,40 @@
+@using MVS.Common.Enum
+@using MVS.Common.Models
+
+<div class="modal fade" id="addContactParticularModal" tabindex="-1" aria-labelledby="addContactParticularLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addContactParticularLabel">Ajouter un contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="block-form">
+                    <label class="labelinput" for="kinship-select">Liens de parenté :</label>
+                    <select class="form-select required" name="Kinship" id="kinship-select" data-bind="value: $root.kinship">
+                        <option value="null" disabled selected hidden>Sélectionnez le lien de parenté</option>
+                        <option value="@((int)Kinship.Spouse)">Conjoint / Concubin / Partenaire de PACS</option>
+                        <option value="@((int)Kinship.GrandParent)">Grand-parent</option>
+                        <option value="@((int)Kinship.FatherMother)">Père / Mère</option>
+                        <option value="@((int)Kinship.Child)">Enfant</option>
+                        <option value="@((int)Kinship.GrandChild)">Petit-enfant</option>
+                        <option value="@((int)Kinship.BrotherSister)">Frère / Soeur</option>
+                        <option value="@((int)Kinship.OncleAunt)">Oncle / Tante</option>
+                        <option value="@((int)Kinship.Nephew)">Neveu / Nièce</option>
+                        <option value="@((int)Kinship.Cousin)">Cousin / Cousine</option>
+                        <option value="@((int)Kinship.Friend)">Ami(e)</option>s
+                        <option value="@((int)Kinship.OtherFamilyTies)">Autre lien de famille</option> <!--ouvre un champ texte-->
+                        <option value="@((int)Kinship.Other)">Autre</option> <!--ouvre un champ texte-->
+                    </select>
+
+                </div>
+                <div data-bind="visible: $root.kinship() == @((int)Kinship.Other)">
+                    <input type="text" class="form-control required" name="OtherJob" id="otherJob" placeholder="Ex. Infirmière" data-bind="value: $root.other">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-purple" data-bind="click: function() { $root.createEmptyContactParticular() }">Ajouter le contact</a>
+            </div>
+        </div>
+    </div>
+</div>

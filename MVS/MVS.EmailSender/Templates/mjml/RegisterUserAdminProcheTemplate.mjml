@@ -1,0 +1,48 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Création de votre compte Alix accompagne</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour,
+                    <br/> <br/>
+                    Un de vos proches vous a désigné(e) comme administrateur d’un dossier de protection juridique sur notre plateforme Alix accompagne.
+                    <br/> <br/>
+                    <a href="@Model.MoreInfoPageUrl" font-weight="900">Plus d’info</a> sur Alix Accompagne.
+                    <br/> <br/>
+                    Pour accéder à ce dossier, vous devez valider la création de votre compte sur Alix accompagne en :
+                    <br/> <br/>
+                    1- cliquant sur ce lien <a href="@Model.DefinePasswordUrl" font-weight="900">Validation création compte Alix Accompagne</a>
+                    <br/><br/>
+                    2- en créant votre mot de passe et en acceptant les conditions générales d’utilisation.
+                    <br/> <br/>
+                    Les informations que vous allez saisir sur Alix accompagne seront utilisées uniquement pour le dossier de protection juridique de votre proche. <a href="@Model.RGPDPageUrl" font-weight="900">Plus d’info RGPD.</a>
+                    <br/> <br/>
+                    En vous remerciant,
+                    <br/> <br/>
+                    Bien cordialement,
+                    <br/> <br/>
+                    Mélanie PARNOT
+                </mj-text>
+
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

@@ -1,0 +1,242 @@
+@page
+@model MVS.Web.Pages.VaultContact.Particular.ImmediateProtection.AddStep3Model
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+
+<section class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">@(Model._folderInfoHeader["Title"])</h1>
+
+        @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="addContactParticulierImmediateStep3" data-bind="with: newContact">
+                    <h3>Création du contact d'un proche</h3>
+                    <div class="d-flex my-4">
+                        <ul id="timeline" class="threeChildren">
+                            <li class="tl-active">Coordonnés du contact</li>
+                            <li class="tl-active">Identité du contact</li>
+                            <li class="tl-active">Rôle au sein du dossier</li>
+                        </ul>
+                    </div>
+                    <a href="@(Url.Page("/VaultContact/Particular/AddStep2", new { contactId = Model._contactId }))" class="goToBack"><img src="~/img/icons/chevron-left.svg" />Retour à l’étape précédente </a>
+                    <form method="post" id="add-contact-particulier-Immediate-form">
+
+                        <h4 class="subtitle-form mt-3">Rôle du contact</h4>
+                        <div class="block-form" id="isFolderAdmin-select">
+                            <p>Administrateur du dossier :</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="isFolderAdmin-true" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: true">
+                                <label for="isFolderAdmin-true">Oui</label>
+                                <input class="required ms-4 me-2" type="radio" id="isFolderAdmin-false" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: false">
+                                <label for="isFolderAdmin-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" id="isSetAskProtection-select">
+                            <p>Demandeur à la protection</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="isSetAskProtection-true" name="IsSetAskProtection" data-bind="checked: IsSetAskProtection, checkedValue: true">
+                                <label for="isSetAskProtection-true">Oui</label>
+
+                                <input class="required ms-4 me-2" type="radio" id="isSetAskProtection-false" name="IsSetAskProtection" data-bind="checked: IsSetAskProtection, checkedValue: false">
+                                <label for="isSetAskProtection-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+
+                        <div class="block-form" id="RequestCopy-select">
+                            <p>Envoyer la copie de la demande ?</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="requestCopy-true" name="RequestCopy" data-bind="checked: RequestCopy, checkedValue: true">
+                                <label for="requestCopy-true">Oui</label>
+
+                                <input class="required ms-4 me-2" type="radio" id="RequestCopy-false" name="RequestCopy" data-bind="checked: RequestCopy, checkedValue: false">
+                                <label for="requestCopy-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+
+
+                        <div class="block-form" id="isSetJudge-select">
+                            <p>Désigné par le juge ?</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="isSetJudge-true" name="IsSetJudge" data-bind="checked: $root.IsSetJudge, checkedValue: true">
+                                <label for="isSetJudge-true">Oui</label>
+
+                                <input class="required ms-4 me-2" type="radio" id="isSetJudge-false" name="IsSetJudge" data-bind="checked: $root.IsSetJudge, checkedValue: false">
+                                <label for="isSetJudge-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div data-bind="visible: $root.IsSetJudge() == true && $root.IsSetJudge() != false">
+                            <div class="block-form" id="typeMission-select">
+                                <p>Type de mission :</p>
+                                <div>
+                                    <input type="radio" class="me-2" id="typeMission-protecteur" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Protecteur)">
+                                    <label for="typeMission-protecteur">Protecteur (ex: habilité, curateur, tuteur)</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="me-2" id="typeMission-controleur" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Controleur)">
+                                    <label for="typeMission-controleur">Contrôleur (ex: subrogé-curateur)</label>
+                                </div>
+                            </div>
+
+                            <div class="block-form">
+                                <label class="labelinput">Nom et prénom de la mère</label>
+                                <input type="text" class="form-control mb-3" placeholder="Ex. Dupond Marie" name="FirstLastNameMother" id="FirstLastNameMother-input" data-bind="value: FirstLastNameMother" />
+                            </div>
+                            <div class="block_formcheck ms-5 mb-3">
+                                <input type="checkbox" class="form-check-input mt-0" id="UnknownMother-ratio" name="UnknownMother" data-bind="checked: UnknownMother, checkedValue: true">
+                                <label class="form-check-label" for="UnknownMother-ratio">Mère inconnue</label>
+                            </div>
+                            <div class="block-form">
+                                <label class="labelinput">Nom et prénom du père</label>
+                                <input type="text" class="form-control mb-3" placeholder="Ex. Dupond Marc" name="FirstLastNameFather" id="FirstLastNameFather-input" data-bind="value: FirstLastNameFather" />
+                            </div>
+                            <div class="block_formcheck ms-5 mb-3">
+                                <input type="checkbox" class="form-check-input mt-0" id="UnknownFather-ratio" name="UnknownFather" data-bind="checked: UnknownFather, checkedValue: true">
+                                <label class="form-check-label" for="UnknownFather-ratio">Père inconnu</label>
+                            </div>
+                            <div class="block-form" id="AdoptedPerson-select">
+                                <p>La personne a été adoptée :</p>
+                                <div>
+                                    <input type="radio" class="me-2" id="AdoptedPerson-true" name="AdoptedPerson" data-bind="checked: AdoptedPerson, checkedValue: true">
+                                    <label for="AdoptedPerson-true">Oui</label>
+                                    <input type="radio" class="ms-4 me-2" id="AdoptedPerson-false" name="AdoptedPerson" data-bind="checked: AdoptedPerson, checkedValue: false">
+                                    <label for="AdoptedPerson-false">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block-form" id="OpinionPro-select">
+                            <p>Demander l'avis de ce proche :</p>
+                            <div>
+                                <input type="radio" class="me-2 required" id="OpinionPro-true" name="OpinionPro" data-bind="checked: OpinionPro, checkedValue: true">
+                                <label for="OpinionPro-true">Oui</label>
+                                <input type="radio" class="ms-4 me-2 required" id="OpinionPro-false" name="OpinionPro" data-bind="checked: OpinionPro, checkedValue: false">
+                                <label for="OpinionPro-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" id="RelationshipQuality-select">
+                            <p>Qualité des relations :</p>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipQuality-good" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.Good)">
+                                <label for="RelationshipQuality-good">Bonnes</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipQuality-conflict" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.Conflict)">
+                                <label for="RelationshipQuality-conflict">Conflictuelles</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipQuality-norelationship" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.NoRelationship)">
+                                <label for="RelationshipQuality-norelationship">Pas de relation</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form" id="RelationshipFrequencies-select">
+                            <p>Fréquences des relations :</p>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipFrequencies-everyweek" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.EveryWeek)">
+                                <label for="RelationshipFrequencies-everyweek">Toutes les semaines</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipFrequencies-everymonth" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.EveryMonth)">
+                                <label for="RelationshipFrequencies-everymonth">Tous les mois</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipFrequencies-several-times-a-year" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.SeveralTimesAYear)">
+                                <label for="RelationshipFrequencies-several-times-a-year">Plusieurs fois par an</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2 required" id="RelationshipFrequencies-less-than-once-a-year" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.LessThanOnceAYear)">
+                                <label for="RelationshipFrequencies-less-than-once-a-year">Moins d'une fois par an</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" id="Confidence-select">
+                            <p>Personne de confiance :</p>
+                            <div>
+                                <input type="radio" class="me-2 required" id="Confidence-true" name="Confidence" data-bind="checked: Confidence, checkedValue: true">
+                                <label for="Confidence-true">Oui</label>
+                                <input type="radio" class="ms-4 me-2 required" id="Confidence-false" name="Confidence" data-bind="checked: Confidence, checkedValue: false">
+                                <label for="Confidence-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <p class="labelinput">Précisions sur le contact : <span class="optional">(facultatif)</span></p>
+                            <textarea type="text" placeholder="Renseignez votre texte ici" rows="5" name="ContactDetails" id="ContactDetails-input" data-bind="value: ContactDetails"></textarea>
+                        </div>
+
+                        <input type="text" name="id" value="@Model._contactId" hidden />
+                        <input type="button" class="btn btn-purple mx-auto d-block" value="Créer le contact" data-bind="click: function() { $root.checkAdd() }" />
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card smallcard mb-3">
+                <p class="subtitle">@(Model._folderInfoHeader["Field"])</p>
+                <div class="dropdown">
+                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="~/img/icons/points.svg" />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Que voulez-vous faire ?<img src="~/img/icons/close.svg"
+                                                            class="ms-auto me-0" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#deleteFolderModal">
+                                <img src="~/img/icons/bin_red.svg" />Supprimer le
+                                dossier
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#archiveFolderModal">
+                                <img src="~/img/icons/archive.svg" />Archiver le
+                                dossier
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @Html.Partial("~/Pages/Vault/_Partials/_InfoFolder.cshtml")
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/addContactParticulierImmediateViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new addContactParticulierImmediateViewModel(@JsonHelper.GetJson(Model._contact)), document.getElementById('addContactParticulierImmediateStep3'));
+    });
+</script>

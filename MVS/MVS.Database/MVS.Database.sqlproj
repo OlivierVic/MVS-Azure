@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>AdventureWorks</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{2bcc622f-5c36-4e1f-a562-4b77f56e9ddd}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>AdventureWorks</RootNamespace>
+    <AssemblyName>AdventureWorks</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="ContinuousDeployment" />
+    <Folder Include="ContinuousDeployment\StaticTables" />
+    <Folder Include="ContinuousDeployment\StoredProcedures" />
+    <Folder Include="Scripts" />
+    <Folder Include="ContinuousDeployment\Tables" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Storage\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Database Triggers\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ContinuousDeployment\1.PreDeployment.Updates.sql" />
+    <None Include="ContinuousDeployment\3.PostDeployment.Updates.sql" />
+    <None Include="ContinuousDeployment\2.PostDeployment.StaticTablesList.sql" />
+    <None Include="ContinuousDeployment\StaticTables\dbo.CountryRegion.sql" />
+    <None Include="ContinuousDeployment\StaticTables\dbo.ContactType.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\JobParticular.sql" />
+    <Build Include="dbo\Tables\JobProfessionel.sql" />
+    <Build Include="dbo\Tables\VaultUsers.sql" />
+    <Build Include="dbo\Tables\Vaults.sql" />
+    <Build Include="dbo\Tables\VaultPersonalInfos.sql" />
+    <Build Include="dbo\Tables\VaultHeritage.sql" />
+    <Build Include="dbo\Tables\VaultFamilyInfos.sql" />
+    <Build Include="dbo\Tables\VaultDocuments.sql" />
+    <Build Include="dbo\Tables\VaultContracts.sql" />
+    <Build Include="dbo\Tables\VaultAnticipationMeasuresInfos.sql" />
+    <Build Include="dbo\Tables\CounterVaultCreate.sql" />
+    <Build Include="dbo\Tables\VaultContacts.sql" />
+    <Build Include="dbo\Tables\VaultCategory.sql" />
+    <Build Include="dbo\Tables\AspNetUserTokens.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\AspNetRoleClaims.sql" />
+    <Build Include="dbo\Tables\Answers.sql" />
+    <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteUser.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteVault.sql" />
+    <Build Include="dbo\Tables\VaultAnswersHeritage.sql" />
+    <Build Include="dbo\Tables\VaultAnswersAnticipationMeasures.sql" />
+    <Build Include="dbo\Tables\VaultAnswersPersonal.sql" />
+    <Build Include="dbo\Stored Procedures\GetVaults.sql" />
+    <Build Include="dbo\Tables\VaultDigitalLife.sql" />
+    <Build Include="dbo\Tables\VaultFuneraryVolonte.sql" />
+    <Build Include="dbo\Tables\VaultAdministrativeLife.sql" />
+    <Build Include="dbo\Tables\VaultTiersContacts.sql" />
+    <Build Include="dbo\Tables\VaultAnswersDigitalLife.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MVS.Database.refactorlog" />
+  </ItemGroup>
+</Project>

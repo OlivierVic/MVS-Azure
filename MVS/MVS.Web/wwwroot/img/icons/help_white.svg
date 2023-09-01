@@ -1,0 +1,6 @@
+<svg id="help_white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="Tracé_384" data-name="Tracé 384" d="M0,0H24V24H0Z" fill="none"/>
+  <path id="Ellipse_1" data-name="Ellipse 1" d="M9-1A10,10,0,1,1-1,9,10.011,10.011,0,0,1,9-1ZM9,17A8,8,0,1,0,1,9,8.009,8.009,0,0,0,9,17Z" transform="translate(3 3)" fill="#fff"/>
+  <path id="Ligne_22" data-name="Ligne 22" d="M0,1.01a1,1,0,0,1-1-1V0A1,1,0,0,1,0-1,1,1,0,0,1,1,0V.01A1,1,0,0,1,0,1.01Z" transform="translate(12 17)" fill="#fff"/>
+  <path id="Tracé_385" data-name="Tracé 385" d="M12,14.5a1,1,0,0,1-1-.943,2.512,2.512,0,0,1,1.651-2.494A1.6,1.6,0,1,0,10.8,8.6,1,1,0,0,1,9.2,7.4a3.6,3.6,0,1,1,4.154,5.538l-.025.009a.5.5,0,0,0-.333.5,1,1,0,0,1-.942,1.055Z" fill="#fff"/>
+</svg>

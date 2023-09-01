@@ -1,0 +1,149 @@
+@page
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+@model MVS.Web.Pages.VaultContact.Professional.ImmediateProtection.AddStep2Model
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<section class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">@(Model._folderInfoHeader["Title"])</h1>
+
+        @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="udpateContact" data-bind="with: newContact">
+                    <h3>Création d'un contact professionnel</h3>
+                    <div class="d-flex my-4">
+                        <ul id="timeline">
+                            <li class="tl-active">Coordonnés du contact</li>
+                            <li class="tl-active">Rôle au sein du dossier</li>
+                        </ul>
+                    </div>
+                    <a href="@(Url.Page("/VaultContact/Add", new { vaultId = Model._folderId, contactId = Model._contactId }))" class="goToBack"><img src="~/img/icons/chevron-left.svg" />Retour à l’étape précédente </a>
+                    <form method="post" id="add-contact-step2-form">
+                        <h4 class="subtitle-form mt-3">Rôles du contact</h4>
+
+                        <div class="block-form" id="isFolderAdmin-select">
+                            <p>Administrateur du dossier :</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="isFolderAdmin-true" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: true">
+                                <label for="isFolderAdmin-true">Oui</label>
+                                <input class="required ms-4 me-2" type="radio" id="isFolderAdmin-false" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: false">
+                                <label for="isFolderAdmin-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" id="isSetJudge-select">
+                            <p>Désigné par le juge ?</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="isSetJudge-true" name="IsSetJudge" data-bind="checked: $root.IsSetJudge, checkedValue: true">
+                                <label for="isSetJudge-true">Oui</label>
+                                <input class="required ms-4 me-2" type="radio" id="isSetJudge-false" name="IsSetJudge" data-bind="checked: $root.IsSetJudge, checkedValue: false">
+                                <label for="isSetJudge-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" id="typeMission-select" data-bind="visible: $root.IsSetJudge() == true && $root.IsSetJudge() != false">
+                            <p>Type de mission :</p>
+                            <div>
+                                <input class="me-2" type="radio" id="typeMission-protecteur" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Protecteur)">
+                                <label for="typeMission-protecteur">Protecteur (ex: habilité, curateur, tuteur)</label>
+                            </div>
+                            <div>
+                                <input class="me-2" type="radio" id="typeMission-controleur" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Controleur)">
+                                <label for="typeMission-controleur">Contrôleur (ex: subrogé-curateur)</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+
+                        <div class="block-form" id="Opinionpro-select">
+                            <p>Demander l'avis de ce professionnel :</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="Opinionpro-true" name="OpinionPro" data-bind="checked: OpinionPro, checkedValue: true">
+                                <label for="Opinionpro-true">Oui</label>
+                                <input class="required ms-4 me-2" type="radio" id="Opinionpro-false" name="OpinionPro" data-bind="checked: OpinionPro, checkedValue: false">
+                                <label for="Opinionpro-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form" id="confidence-select">
+                            <p>Personne de confiance :</p>
+                            <div>
+                                <input class="required me-2" type="radio" id="confidence-true" name="Confidence" data-bind="checked: Confidence, checkedValue: true">
+                                <label for="confidence-true">Oui</label>
+                                <input class="required ms-4 me-2" type="radio" id="confidence-false" name="Confidence" data-bind="checked: Confidence, checkedValue: false">
+                                <label for="confidence-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <p>Précisions sur le contact : <span class="optional">(facultatif)</span></p>
+                            <textarea name="MoreInfo" id="moreinfo-input" rows="5" placeholder="Renseignez votre texte ici" data-bind="value: MoreInfo"></textarea>
+                        </div>
+
+                        <input type="text" name="id" value="@Model._contactId" hidden/>
+
+                        <input type="button" class="btn btn-purple mx-auto d-block" value="Créer le contact" data-bind="click: function() { $root.checkAdd() }" />
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card smallcard mb-3">
+                <p class="subtitle">@(Model._folderInfoHeader["Field"])</p>
+                <div class="dropdown">
+                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="~/img/icons/points.svg" />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Que voulez-vous faire ?<img src="~/img/icons/close.svg"
+                                                            class="ms-auto me-0" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#deleteFolderModal">
+                                <img src="~/img/icons/bin_red.svg" />Supprimer le
+                                dossier
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#archiveFolderModal">
+                                <img src="~/img/icons/archive.svg" />Archiver le
+                                dossier
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @Html.Partial("~/Pages/Vault/_Partials/_InfoFolder.cshtml")
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+
+@section Scripts
+{
+<script src="~/js/ViewModels/AddContactProImmediatViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new addContactProImmediatViewModel(@JsonHelper.GetJson(Model._contact)), document.getElementById('udpateContact'));
+    });
+</script>
+}
+

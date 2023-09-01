@@ -1,0 +1,146 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.UpdateFolder.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="vault">
+    @Html.Partial("_Modals/_FolderNavigation")
+    <a href="@(Url.Page("/Vault/Vault", new { folderId = Model._vaultId }))" class="goToBack"><img src="~/img/icons/chevron-left.svg" />Retour au dossier</a>
+    <div class="row mt-3">
+        <article class="col-7">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div class="card smallcard">
+                        <p class="subtitle">@(Model._folderInfoHeader["Field"])</p>
+                        <p class="title">
+                            @if (Model._vault.Sex == (int)Gender.Man)
+                            {
+                                <span>M</span>
+                            }
+                            else if (Model._vault.Sex == (int)Gender.Woman)
+                            {
+                                <span>Mme</span>
+                            }
+
+                            @if ((bool)Model._vault.HaveBirthName)
+                            {
+                                <span>@Model._vault.FirstName @Model._vault.LastName @Model._vault.BirthName</span>
+                            }
+                            else
+                            {
+                                <span>@Model._vault.FirstName @Model._vault.LastName</span>
+                            }
+                            @*
+                            @if (Model._folderInfoHeader["Field"] != "Contentieux" && Model._folderInfoHeader["MandatValidated"] != "True")
+                            {
+                            <li><a href="@(Url.Page("/Vault/MissionLetter", new { folderId = Model._vaultId }))" id="tab2">Lettre de mission</a></li>
+                            }
+                            else if (Model._folderInfoHeader["MandatValidated"] == "True")
+                            {
+                            <li><a href="@(Url.Page("/Vault/Volontes", new { folderId = Model._vaultId }))" id="tab2">Mes Volontés</a></li>
+                            }
+                            *@
+                        </p>
+                        <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateFolderPropertyModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card">
+                        <h3 class="mb-4 title">À propos du dossier :</h3>
+                        <div class="line-grey">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h5 class="mb-0">Identité :  </h5>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateFolderIdentityModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Date de naissance :</p>
+                                    <p>@(Model._vault.BirthDate == null ? "Non renseigné" : Model._vault.BirthDate?.ToString("dd/MM/yyyy"))</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Lieu de naissance :</p>
+                                    <p>@Model._vault.BirthLocation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h5 class="mb-0">VaultContact :  </h5>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateFolderContactModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Adresse :</p>
+                                    <p>@Model._vault.Address, @Model._vault.ZipceCodeAndCity, @Model._vault.Country</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Téléphone :</p>
+                                    <p>@Model._vault.PhoneNumber</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Email :</p>
+                                    <p>@Model._vault.Email</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        @if (Model._folderInfoHeader["Field"] != "Contentieux" && Model._folderInfoHeader["MandatValidated"] == "True")
+        {
+            <aside class="col-5">
+                <div class="mb-4">
+                    <div class="col-6">
+                        <div class="card">
+                            <h3 class="mb-0 title">Autre :</h3>
+                            <ul class="mt-3 mb-0">
+
+                                <li><a href="@(Url.Page("/Vault/MissionLetter", new { folderId = Model._vaultId }))" id="tab1">Lettre de mission</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        }
+    </div>
+
+    @*Partial en dessous*@
+    <partial name="_Modals/_UpdateFolderContactModal" />
+    <partial name="_Modals/_UpdateFolderIdentityModal" />
+    <partial name="_Modals/_UpdateFolderPropertyModal" />
+</section>
+
+@section Scripts
+    {
+    <script src="~/js/ViewModels/FolderInfosViewModel.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new folderInfosViewModel(@JsonHelper.GetJson(Model._vault)), document.getElementById('vault'));
+            $("#tab1").addClass("selected");
+        });
+    </script>
+}

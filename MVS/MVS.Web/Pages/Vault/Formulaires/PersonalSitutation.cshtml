@@ -1,0 +1,429 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.InfosForms.PersonalSitutationModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="personnalsituation-form">
+    <div class="row">
+        <h1 class="mb-3">QUESTIONNAIRE D’INFORMATION DU BÉNÉFICIAIRE</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="PersonalSituationInfoForm" data-bind="using: vaultPersonalInfo">
+                    <h3 class="subtitle-form">Situation personnelle du bénéficiaire</h3>
+                    <form method="post" id="info-personal-form">
+                        <h4>Communication</h4>
+                        <div class="block-form">
+                            <p>Langue maternelle</p>
+                            <div>
+                                <input type="radio" name="language" class="me-2" data-bind="checked: $root.vaultPersonalInfo.FrenchMotherTongue, checkedValue: true" />
+                                <label class="me-4">Français</label>
+
+                                <input type="radio" name="language" class="me-2" data-bind="checked: $root.vaultPersonalInfo.FrenchMotherTongue, checkedValue: false" />
+                                <label class="me-4">Autre</label>
+                            </div>
+                        </div>
+                        <div data-bind="visible: !$root.vaultPersonalInfo.FrenchMotherTongue() && $root.vaultPersonalInfo.FrenchMotherTongue() != null">
+                            <div class="block-form">
+                                <label class="labelinput">La langue maternelle de la personne:</label>
+                                <input class="form-control" type="text" placeholder="Ex. Anglais" data-bind="value: $root.vaultPersonalInfo.OtherLanguage" />
+                            </div>
+                            <div class="block-form">
+                                <p>La personne comprend le français</p>
+                                <div>
+                                    <input type="radio" name="understand-french" class="me-2" value="Un peu" data-bind="checked: $root.vaultPersonalInfo.UnderstandFrench" />
+                                    <label class="me-4">Un peu</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="understand-french" class="me-2" value="Normalement" data-bind="checked: $root.vaultPersonalInfo.UnderstandFrench" />
+                                    <label class="me-4">Normalement</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="understand-french" class="me-2" value="Pas du tout" data-bind="checked: $root.vaultPersonalInfo.UnderstandFrench" />
+                                    <label class="me-4">Pas du tout</label>
+                                </div>
+                            </div>
+                            <div class="block-form">
+                                <p>La personne parle le français</p>
+                                <div>
+                                    <input type="radio" name="speak-french" class="me-2" value="Un peu" data-bind="checked: $root.vaultPersonalInfo.SpeakFrench" />
+                                    <label class="me-4">Un peu</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="speak-french" class="me-2" value="Normalement" data-bind="checked: $root.vaultPersonalInfo.SpeakFrench" />
+                                    <label class="me-4">Normalement</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="speak-french" class="me-2" value="Pas du tout" data-bind="checked: $root.vaultPersonalInfo.SpeakFrench" />
+                                    <label class="me-4">Pas du tout</label>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>Situation professionelle</h4>
+                        <div class="block-form">
+                            <p>Situation professionnelle de la personne</p>
+                            <div>
+                                <input type="radio" name="professional-situation" class="me-2" value="Pas encore à la retraite" data-bind="checked: $root.vaultPersonalInfo.ProfessionalSituation" />
+                                <label class="me-4">Pas encore à la retraite</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="professional-situation" class="me-2" value="A la retraite sans activité" data-bind="checked: $root.vaultPersonalInfo.ProfessionalSituation" />
+                                <label class="me-4">A la retraite sans activité</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="professional-situation" class="me-2" value="A la retraite avec une activité" data-bind="checked: $root.vaultPersonalInfo.ProfessionalSituation" />
+                                <label class="me-4">A la retraite avec une activité</label>
+                            </div>
+                        </div>
+                        <div class="block-form">
+                            <p>Niveau d'étude</p>
+                            <select class="form-select" id="select-study-level" data-bind="value: $root.vaultPersonalInfo.LevelOfStudy">
+                                <option value="">Sélectionner le niveau d'étude</option>
+                                <option value="BEPC">BEPC</option>
+                                <option value="BEP">BEP</option>
+                                <option value="CAP">CAP</option>
+                                <option value="BAC">BAC</option>
+                                <option value="BAC+2">BAC+2</option>
+                                <option value="BAC+3">BAC+3</option>
+                                <option value="BAC+4">BAC+4</option>
+                                <option value="BAC+5 et au-delà">BAC+5 et au-delà</option>
+                            </select>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput w-100" for="LevelOfStudyDetails">Merci d'apporter toute précision sur le niveau d'étude de la personne</label>
+                            <textarea rows="5" id="LevelOfStudyDetails" data-bind="value: $root.vaultPersonalInfo.LevelOfStudyDetails"></textarea>
+                        </div>
+                        <div class="block-form">
+                            <p>Profession</p>
+                            <input type="text" class="form-control" name="job" id="Job" placeholder="Ex. Informaticien" data-bind="value: $root.vaultPersonalInfo.Job" />
+                            @*<textarea rows="5" id="LevelOfStudyDetails" data-bind="value: $root.vaultPersonalInfo.Job"></textarea>*@
+                            @*<select class="form-select" id="select-study-level2" data-bind="value: $root.vaultPersonalInfo.Job">
+                            <option value="">Sélectionner votre profession</option>
+                            @foreach (var job in Model._jobsParticular)
+                            {
+                            <option value="@job.Job">@job.Job</option>
+                            }
+                            </select>*@
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput w-100" for="JobDetails">Merci d'apporter toute précision sur la carrière professionnelle de la personne</label>
+                            <textarea rows="5" id="JobDetails" data-bind="value: $root.vaultPersonalInfo.JobDetails"></textarea>
+                        </div>
+
+                        <div class="block-form">
+                            <p><span>Curriculum Vitae</span> <span class="optional">(facultatif)</span></p>
+                            <div>
+                                <input type="radio" name="cv" class="me-2" data-bind="checked: $root.vaultPersonalInfo.Cv, checkedValue: true" />
+                                <label class="me-4">Oui</label>
+
+                                <input type="radio" name="cv" class="me-2" data-bind="checked: $root.vaultPersonalInfo.Cv, checkedValue: false" />
+                                <label class="me-4">Non</label>
+                            </div>
+                        </div>
+                        <div class="block-form" data-bind="visible: $root.vaultPersonalInfo.Cv()">
+                            <div>
+                                <p class="me-4">Ajouter le CV:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.Cv))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'CV', '@((int)FolderDocumentTypeEnum.Cv)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                        </div>
+                        @if (Model._isImmediateProtection)
+                        {
+                            <h4>Mesure de protection</h4>
+                            <div class="block-form">
+                                <p>La personne est déjà sous mesure de protection</p>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Habilitation familiale avec assistance" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Habilitation familiale avec assistance</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Curatelle simple" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Curatelle simple</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Curatelle renforcée" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Curatelle renforcée</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Sauvegarde de justice autonome" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Sauvegarde de justice autonome</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Aucune" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Aucune</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Tutelle" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Tutelle</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="protective-supervision" class="me-2" value="Habilitation familiale avec représentation" data-bind="checked: $root.vaultPersonalInfo.ProtectiveSupervision" />
+                                    <label class="me-4">Habilitation familiale avec représentation</label>
+                                </div>
+                            </div>
+                        }
+                        <h4>Logement</h4>
+                        <div class="block-form">
+                            <p>Cadre de vie</p>
+                            <div>
+                                <input type="radio" name="living-environment" class="me-2" value="Logement classique" data-bind="checked: $root.vaultPersonalInfo.LivingEnvironment" />
+                                <label class="me-4">Logement classique</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="living-environment" class="me-2" value="Logement social" data-bind="checked: $root.vaultPersonalInfo.LivingEnvironment" />
+                                <label class="me-4">Logement social</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="living-environment" class="me-2" value="Résidence service séniors" data-bind="checked: $root.vaultPersonalInfo.LivingEnvironment" />
+                                <label class="me-4">Résidence service séniors</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="living-environment" class="me-2" value="Résidence autonome" data-bind="checked: $root.vaultPersonalInfo.LivingEnvironment" />
+                                <label class="me-4">Résidence autonome</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="living-environment" class="me-2" value="Maison de retraite" data-bind="checked: $root.vaultPersonalInfo.LivingEnvironment" />
+                                <label class="me-4">Maison de retraite</label>
+                            </div>
+                        </div>
+
+                        <div class="block-form mw-500px" data-bind="visible: $root.vaultPersonalInfo.LivingEnvironment() != 'Maison de retraite' && $root.vaultPersonalInfo.LivingEnvironment() != null">
+                            <div class="justify-content-between">
+                                <p>Ajouter une facture d'électricité:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.ElectricityBill))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event,PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Facture d\'électricité', '@((int)FolderDocumentTypeEnum.ElectricityBill)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                            <div class="justify-content-between">
+                                <p>Ajouter une facture de téléphone:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.PhoneBill))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Facture de téléphone', '@((int)FolderDocumentTypeEnum.PhoneBill)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                            <div class="justify-content-between">
+                                <p>Ajouter une facture d'internet:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.InternetBill))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Facture d\'internet', '@((int)FolderDocumentTypeEnum.InternetBill)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                            <div class="justify-content-between">
+                                <p>Ajouter une facture assurance:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.MultiriskHomeInsurance))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Facture assurance', '@((int)FolderDocumentTypeEnum.MultiriskHomeInsurance)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                            <div class="justify-content-between">
+                                <p>Ajouter la dernière taxe d'habitation:</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.HousingTax))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event,PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Dernière taxe d\'habitation', '@((int)FolderDocumentTypeEnum.HousingTax)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                            </div>
+                        </div>
+
+                        <div data-bind="visible: $root.vaultPersonalInfo.LivingEnvironment() == 'Logement classique'">
+                            <div class="block-form">
+                                <p>Type de logement</p>
+                                <input type="radio" name="house-type" class="me-2" value="Maison" data-bind="checked: $root.vaultPersonalInfo.TypeOfHousing" />
+                                <label class="me-4">Maison</label>
+
+                                <input type="radio" name="house-type" class="me-2" value="Appartement" data-bind="checked: $root.vaultPersonalInfo.TypeOfHousing" />
+                                <label class="me-4">Appartement</label>
+                            </div>
+                        </div>
+
+                        <div class="block-form">
+                            <p>Droit sur le logement</p>
+                            <div>
+                                <input type="radio" name="house-law" class="me-2" value="Propriétaire" data-bind="checked: $root.vaultPersonalInfo.HousingLaw" />
+                                <label class="me-4">Propriétaire</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="house-law" class="me-2" value="Locataire" data-bind="checked: $root.vaultPersonalInfo.HousingLaw" />
+                                <label class="me-4">Locataire</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="house-law" class="me-2" value="Usufruitier" data-bind="checked: $root.vaultPersonalInfo.HousingLaw" />
+                                <label class="me-4">Usufruitier</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="house-law" class="me-2" value="Occupant à titre gratuit" data-bind="checked: $root.vaultPersonalInfo.HousingLaw" />
+                                <label class="me-4">Occupant à titre gratuit</label>
+                            </div>
+                        </div>
+
+                        <div data-bind="visible: $root.vaultPersonalInfo.HousingLaw() == 'Propriétaire'">
+                            <div class="block-form">
+                                <p>Copropriété</p>
+                                <div>
+                                    <input type="radio" name="co-ownership" class="me-2" data-bind="checked: $root.vaultPersonalInfo.CoOwnership, checkedValue: true" />
+                                    <label class="me-4">Oui</label>
+
+                                    <input type="radio" name="co-ownership" class="me-2" data-bind="checked: $root.vaultPersonalInfo.CoOwnership, checkedValue: false" />
+                                    <label class="me-4">Non</label>
+                                </div>
+
+                            </div>
+                            <div class="block-form mw-500px" data-bind="visible: $root.vaultPersonalInfo.HousingLaw() == 'Propriétaire' && $root.vaultPersonalInfo.CoOwnership()">
+                                <div class="justify-content-between">
+                                    <p class="me-4">Ajouter le dernier PV d'AG:</p>
+                                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.GeneralAssemblyReport))
+                                    {
+                                        <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event,PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Dernier PG d\'AG', '@((int)FolderDocumentTypeEnum.GeneralAssemblyReport)', 'Situation Personnelle')">Créer le document</button>
+                                    }
+                                </div>
+                                <div class="justify-content-between">
+                                    <p class="me-4">Ajouter les 4 derniers appels de charge:</p>
+                                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.LastLoadCalls))
+                                    {
+                                        <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-success ms-3" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), '4 derniers appels de charge', '@((int)FolderDocumentTypeEnum.LastLoadCalls)', 'Situation Personnelle')">Créer le document</button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="precisionhousing">Merci d’apporter toute précision sur le logement :</label>
+                            <input type="text" class="form-control required" id="precisionhousing" name="precisionhousing" placeholder="Renseignez votre texte ici" data-bind="value: $root.vaultPersonalInfo.PrecisionHousing" />
+                        </div>
+
+                        <div class="block-form">
+                            <p>Litiges en cours</p>
+                            <div>
+                                <input type="radio" name="ongoing-litigation" class="me-2" data-bind="checked: $root.vaultPersonalInfo.OngoingLitigation, checkedValue: true" />
+                                <label class="me-4">Oui</label>
+
+                                <input type="radio" name="ongoing-litigation" class="me-2" data-bind="checked: $root.vaultPersonalInfo.OngoingLitigation, checkedValue: false" />
+                                <label class="me-4">Non</label>
+                            </div>
+                        </div>
+
+                        <div data-bind="visible: $root.vaultPersonalInfo.OngoingLitigation()">
+                            <div class="block-form">
+                                <label class="labelinput" for="Nblitigations">Nombre de litiges :</label>
+                                <input class="form-control" id="Nblitigations" placeholder="Ex. 2" type="number" data-bind="value: $root.vaultPersonalInfo.Nblitigations" />
+                            </div>
+                            <div class="block-form">
+                                <p>Charger le document envoyé au tribunal (assignation ou déclaration au greffe):</p>
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.LitigationDocument))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, PersonalSituationViewModel.vaultPersonalInfo.VaultId(), 'Document envoyé au tribunal (assignation ou déclaration au greffe)', '@((int)FolderDocumentTypeEnum.LitigationDocument)', 'Situation Personnelle')">Créer le document</button>
+                                }
+                                <a href="#" class="d-flex my-2 green-link">Ajouter un autre document de litige</a>
+                            </div>
+                            <div class="block-form mt-2">
+                                <label class="labelinput" for="NbLawyerFirms">Nombre de cabinet d'avocats:</label>
+                                <input class="form-control mb-2" id="NbLawyerFirms" placeholder="Ex. 2" type="number" data-bind="value: $root.vaultPersonalInfo.NbLawyerFirms" />
+                                @*<a href="#" class="d-flex green-link">Ajouter un autre contact d'avocat</a>*@
+                            </div>
+
+                            <div class="block-form">
+                                <label class="labelinput" for="precisionlitigation">Merci d’apporter toute précision sur le(s) litige(s) :</label>
+                                <input type="text" class="form-control required" id="precisionlitigation" name="precisionlitigation" placeholder="Renseignez votre texte ici" data-bind="value: $root.vaultPersonalInfo.PrecisionLitigation" />
+                            </div>
+                        </div>
+
+                        <div class="mt-3 mb-0">
+                            <div class="block-form">
+                                <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous terminé de compléter le formulaire ?</label>
+                                <div>
+                                    <input class="me-2" type="radio" id="completedForm-yes" name="CompletedForm" data-bind="checked: $root.vaultPersonalInfo.CompletedForm, checkedValue: true">
+                                    <label class="me-5" for="completedForm-yes">Oui</label>
+                                    <div class="me-4"></div>
+                                    <input class="me-2" type="radio" id="completedForm-no" name="CompletedForm" data-bind="checked: $root.vaultPersonalInfo.CompletedForm, checkedValue: false">
+                                    <label for="completedForm-no">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*@if (!Model._isImmediateProtection)
+                        {
+                        <div class="block_formcheck align-items-center mb-4 mt-4">
+                        <input type="checkbox" class="form-check-input check-red mt-0" id="canShare" data-bind="value: true, checked: CanShareInfos" />
+                        <label class="form-check-label me-2" for="canShare">La personne souhaite partager ces informations avec des protecteurs futurs</label>
+                        <img src="~/img/icons/infos.svg" data-toggle="tooltip" data-bs-placement="right" title="En cochant, vous choisissez de partager les informations de ce questionnaire et les documents associés à vos mandataires futurs dès la signature du mandat de protection future.
+
+                        Si vous ne cochez pas, vous choisissez :
+
+                        - de garder confidentielles les informations de ce questionnaire et les documents associés, tant que votre mandat de protection future ne sera pas activé,
+                        - de souscrire l’abonnement à notre service en ligne de coffre-fort numérique ‘lien vers CGS’." />
+                        </div>
+                        }*@
+                        <input type="button" value="Enregistrer les modifications" class="btn btn-purple mx-auto d-block" data-bind="click: function(){ $root.save() }" />
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card pb-4">
+                <div class="d-flex align-items-center header-card">
+                    <img src="~/img/icons/bulb.svg" />
+                    <p class="ps-2 title">Information :</p>
+                </div>
+                <p>Des documents ont été ajoutés à l’onglet « Mes documents » de votre dossier. Les boutons "créé le document" concernent des documents facultatifs que vous pouvez ajouter.<br /><br /> Des contacts ont été ajoutés à l’onglet « Carnets d'adresse » de votre dossier. Les boutons "créé le contact" concernent des contacts facultatifs que vous pouvez ajouter.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/lib/knockout.mapping/knockout.mapping.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/VaultFormulaires/PersonalSituationViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new personalSituationViewModel(@JsonHelper.GetJson(Model._folderPersonalInfo), @JsonHelper.GetJson(Model._returnUrl)), document.getElementById('PersonalSituationInfoForm'));
+    });
+</script>

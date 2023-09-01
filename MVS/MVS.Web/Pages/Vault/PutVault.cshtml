@@ -1,0 +1,111 @@
+@page
+@model MVS.Web.Pages.Vault.PutVaultModel
+
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">COFFRE-FORT</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Modification coffre-fort</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="putVault" data-bind="using: putVault">
+                    <h3 class="mb-4">Modifier coffre-fort numérique</h3>
+                    <form method="post" id="put-vault-form">
+                        <h4 class="subtitle-form">Informations du propriétaire du coffre-fort</h4>
+                        <div class="block-form">
+                            <label class="labelinput" for="sex-select">Genre</label>
+                            <select class="form-select required" name="sex" id="sex-select" data-bind="value: $root.putVault.Sex">
+                                <option value="" disabled selected hidden>Sélectionnez le genre</option>
+                                <option value="@((int)Gender.Man)">Homme</option>
+                                <option value="@((int)Gender.Woman)">Femme</option>
+                                <option value="@((int)Gender.NonBinary)">Non binaire</option>
+                            </select>
+
+                            <label class="labelinput" for="no_birthname">Nom de naissance différent du nom d'usage</label>
+                            <div class="block-form">
+                                <input type="radio" class="me-2 required" id="no_birthname" name="HaveBirthName" data-bind="checked: $root.putVault.HaveBirthName, checkedValue: false" />
+                                <label for="no_birthname">Non</label>
+                                <input type="radio" class="ms-4 me-2 required" id="have_birthname" name="HaveBirthName" data-bind="checked: $root.putVault.HaveBirthName, checkedValue: true" />
+                                <label for="have_birthname">Oui</label>
+                            </div>
+
+                            <label data-bind="visible: $root.putVault.HaveBirthName()" class="labelinput" for="birthname">Nom de naissance</label>
+                            <input type="text" class="form-control" name="birthname" id="birthname" placeholder="Ex. Dupond" data-bind="visible: $root.putVault.HaveBirthName(), value: $root.putVault.BirthName" />
+
+                            <label class="labelinput" for="lastname">Nom</label>
+                            <input type="text" class="form-control required" name="lastname" id="lastname" placeholder="Ex. Dupond" data-bind="value: $root.putVault.LastName" />
+
+                            <label class="labelinput" for="name">Prénom</label>
+                            <input type="text" class="form-control required" name="firstname" id="firstname" placeholder="Ex. Marie" data-bind="value: $root.putVault.FirstName" />
+
+                            <label class="labelinput" for="birthdate">Date de naissannce</label>
+                            <input type="date" class="form-control required" name="birthdate" id="birthdate" data-bind="value: $root.putVault.BirthDate" />
+
+                            <label class="labelinput" for="birthlocation">Lieu de naissance</label>
+                            <input type="text" class="form-control required" id="birthlocation" name="birthlocation" placeholder="Ex. Le Mans" data-bind="value: $root.putVault.BirthLocation" />
+
+                            <label class="labelinput" for="address">Adresse</label>
+                            <input type="text" class="form-control required" name="address" id="address" placeholder="Ex. 12 rue des fleurs" data-bind="value: $root.putVault.Address" />
+
+                            <label class="labelinput" for="Zipcecodeandcity">Code postal et ville</label>
+                            <input type="text" class="form-control required" name="Zipcecodeandcity" id="Zipcecodeandcity" placeholder="Ex. 06600 Antibes" data-bind="value: $root.putVault.ZipceCodeAndCity" />
+
+                            <label class="labelinput" for="country-select">Pays</label>
+                            <input id="countryselector" type="text" name="country" class="form-control required" data-bind="value: $root.putVault.Country" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+
+                            <label class="labelinput" for="nationality-select">Nationalité</label>
+                            <input id="nationalityselector" type="text" name="nationality" class="form-control required" data-bind="value: $root.putVault.Nationality" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+
+                            <label class="labelinput" for="email">Email</label>
+                            <img src="~/img/icons/infos.svg" data-toggle="tooltip" data-bs-placement="right" title="Le renseignement d’une adresse mail est obligatoire pour la suite du coffre-fort. Si la personne a protéger n’a pas d’email, vous devez en créer une avant de continuer la création du coffre-fort" />
+                            <input type="email" class="form-control required" name="email" id="Email" placeholder="Ex. marie@mail.com" data-bind="value: $root.putVault.Email" />
+
+                            <label class="labelinput" for="phonenumber">Téléphone</label>
+                            <input type="tel" class="form-control required" name="phonenumber" id="phonenumber" placeholder="Ex. 0820202020" data-bind="value: $root.putVault.PhoneNumber" />
+
+                            <input type="button" class="btn btn-purple mx-auto d-block" value="Je créer le coffre-fort" data-bind="click: function() { $root.save() }" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card pb-4">
+                <div class="d-flex align-items-center header-card">
+                    <img src="~/img/icons/bulb.svg" />
+                    <p class="ps-2 title">Information :</p>
+                </div>
+                <p>Pour valider la création du coffre-fort vous devrez répondre à toutes les questions.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/PutVaultViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new putVaultViewModel(@JsonHelper.GetJson(Model._vault), @JsonHelper.GetJson(Model._vaultId)), document.getElementById('put-vault-form'));
+    });
+</script>

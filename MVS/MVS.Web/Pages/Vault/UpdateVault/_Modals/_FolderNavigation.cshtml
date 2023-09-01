@@ -1,0 +1,80 @@
+@using MVS.Common.Enum
+@{
+}
+
+<div class="row mb-0" id="folders">
+    <div class="col-7">
+        <div class="row">
+            <div class="col-12 header-folder">
+                <h1 class="mb-3">@(Model._folderInfoHeader["Title"])</h1>
+                @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+                <ul class="card mt-3 mb-0">
+                    <li><a href="@(Url.Page("/Vault/Vault", new { folderId = Model._folderId }))" id="tab1">Avancement du dossier</a></li>
+                    @if (Model._folderInfoHeader["Field"] != "Contentieux" && Model._folderInfoHeader["MandatValidated"] != "True")
+                    {
+                        <li><a href="@(Url.Page("/Vault/MissionLetter", new { folderId = Model._folderId }))" id="tab2">Lettre de mission</a></li>
+                    }
+                    else if (Model._folderInfoHeader["MandatValidated"] == "True")
+                    {
+                        <li><a href="@(Url.Page("/Vault/Volontes", new { folderId = Model._folderId }))" id="tab2">Mes Volontés</a></li>
+                    }
+                    <li><a href="@(Url.Page("/Vault/Informations", new { folderId = Model._folderId }))" id="tab3">Informations</a></li>
+                    <li><a href="@(Url.Page("/Vault/Documents", new { folderId = Model._folderId }))" id="tab4">Documents</a></li>
+                    <li><a href="@(Url.Page("/Vault/AddressBook", new { folderId = Model._folderId }))" id="tab5">Carnet d’adresses</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card smallcard mb-0">
+            <p class="subtitle">@(Model._folderInfoHeader["Field"])</p>
+            <div class="row">
+                <div class="col-6">
+                    <p class="title">@(Model._folderInfoHeader["Title"])</p>
+                    <p class="name">@(Model._folderInfoHeader["Name"])</p>
+                    <p class="dateCreated">Créé le @(Model._folderInfoHeader["CreationDate"])</p>
+                </div>
+                <div class="col-6">
+                    <p class="StatusFolder">Statut du dossier :</p>
+                    @if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifteen)
+                    {
+                        <p class="progress-name danger">@(Model._folderInfoHeader["StatusField"])</p>
+                    }
+                    else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifty)
+                    {
+                        <p class="progress-name warning">@(Model._folderInfoHeader["StatusField"])</p>
+                    }
+                    else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Hundred)
+                    {
+                        <p class="progress-name success">@(Model._folderInfoHeader["StatusField"])</p>
+                    }
+                    else
+                    {
+                        <p class="progress-name completed">@(Model._folderInfoHeader["StatusField"])</p>
+                    }
+
+                    @if (Int32.Parse(Model._folderInfoHeader["Status"]) != (int)FolderStatusPercentageEnum.Completed)
+                    {
+                        <div class="progress">
+                            @if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifteen)
+                            {
+                                <div class="progress-bar state15" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            }
+                            else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifty)
+                            {
+                                <div class="progress-bar state50" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            }
+                            else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Hundred)
+                            {
+                                <div class="progress-bar state100" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+@page
+@model MVS.Web.Pages.LegalNotice.IndexModel
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<section class="col p-5">
+    <h1 class="mb-3">Mentions légales</h1>
+    @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+
+    <div class="block-form">
+        <h2 class="subtitle-form mb-2">Éditeur du site</h2>        
+        <div>
+            <p>
+                <b>Droits Quotidiens Tech</b><br />
+                14 Rue Saint-Claude<br/>
+                34000 Montpellier<br/>
+                France<br />
+                <br />
+                Société par actions simplifiée de l’économie sociale et solidaire au capital de 80 000 €, RCS Montpellier n° Siret : 88234186000014<br/>
+                <br />
+                N° de TVA intracommunautaire : FR61882341860<br/>
+                <br />
+
+
+                Responsable éditoriale : Mme Mélanie Parnot<br/>
+                04 67 58 52 09 – m.parnot@droitsquotidiens.fr
+            </p>
+        </div>
+    </div>
+
+
+    <div class="block-form">
+        <h3 class="subtitle-form mb-2">Hébergement</h3>
+        <div>
+            <p>
+                <b>OVH SAS</b><br />
+                
+                2 rue Kellermann – BP 80157<br/>
+                59053 ROUBAIX CEDEX 1<br/>
+                0972101007<br/>
+                <br />
+
+                <b><a href="/RGPD">NOTRE POLITIQUE D’UTILISATION DES DONNEES PERSONNELLES EST ACCESSIBLE <u>EN CLIQUANT ICI</u>.</a></b>
+            </p>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,67 @@
+#login {
+    min-height: calc(100vh - 108px);
+
+    .left-content {
+        h1 {
+            font-size: 42px;
+            line-height: 52px;
+            letter-spacing: 0.17px;
+
+            span {
+                position: relative;
+                z-index: 0;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: -4%;
+                    bottom: 2px;
+                    height: 20px;
+                    width: 108%;
+                    background-color: #BCD2CF;
+                    z-index: -1;
+                }
+            }
+        }
+    }
+
+    .right-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        form {
+            width: 350px;
+
+            .labelinput {
+                font-family: 'gotham_medium';
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .green-link {
+            font-family: 'gotham_medium';
+            color: @green;
+            font-size: 12px;
+            text-decoration: underline;
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+
+            img {
+                margin-right: 8px;
+            }
+        }
+
+        .successEditPassword {
+            p {
+                font-family: 'gotham_bold';
+                font-size: 13.5px;
+            }
+        }
+    }
+}

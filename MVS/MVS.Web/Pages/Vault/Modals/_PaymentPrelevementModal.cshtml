@@ -1,0 +1,27 @@
+<div class="modal fade" id="paymentPrelevementModal" tabindex="-1" aria-labelledby="paymentPrelevementLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title pointer" id="paymentPrelevementLabel" data-bs-dismiss="modal"><img src="~/img/icons/chevron-left.svg" /> Retour au choix</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Vous avez choisi de payer par prélèvement :</h3>
+                <div class="d-flex justify-content-center">
+                    <p class="btn btn-purple my-4">Valider</p>
+                </div>
+                <form>
+                    <div class="block-form">
+                        <label class="labelinput" for="ibanCase">IBAN</label>
+                        <input type="text" class="form-control required" name="prelevementInfos" id="ibanCase" data-bind="textInput: iban" />
+                        <label class="labelinput" for="bicCase">BIC</label>
+                        <input type="text" class="form-control required" name="prelevementInfos" id="bicCase" data-bind="textInput: bic" />
+                        <label class="labelinput" for="bicCase">Vile de signature</label>
+                        <input type="text" class="form-control required" name="prelevementInfos" id="CityCase" data-bind="textInput: city" />
+                        <input type="button" class="btn btn-purple mx-auto d-block" value="Générer le mandat SEPA" data-bs-dismiss="modal" data-bind="click: function(){PayedByDebits()}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

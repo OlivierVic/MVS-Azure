@@ -1,0 +1,36 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Inscription</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour @Model.Name,
+                    <br/> <br/>
+                    Nous devons vérifier votre adresse e-mail avant que vous puissiez accéder à Alix Accompagne.
+                    <br/> <br/>
+                    Merci !
+                </mj-text>
+                <mj-button background-color="#A86086" href="@Model.ValidEmailUrl">Vérifiez votre adresse e-mail</mj-button>
+
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

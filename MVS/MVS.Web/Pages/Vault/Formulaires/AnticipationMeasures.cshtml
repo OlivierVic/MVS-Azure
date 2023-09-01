@@ -1,0 +1,487 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.InfosForms.AnticipationMeasuresModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="anticipationMeasures-form">
+    <div class="row">
+        <h1 class="mb-3">QUESTIONNAIRE D’INFORMATION DU BÉNÉFICIAIRE</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div data-bind="using: folderAnticipationMeasuresInfo">
+                    <h3 class="subtitle-form">Mesures d'anticipations</h3>
+
+                    @*                    @if (Model._folderField == (int)FolderField.FutureProtection)
+                    {
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.AlreadyDrawnUpFutureProtectionMandate))">
+                    <p data-bind="text: Title">La personne a-t-elle déjà rédigé un mandat de protection future ?</p>
+                    <div>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <input type="radio" class="me-2" name='future-protection-mandate' data-bind="attr: {id: 'future-protection-mandate-' + Id }, value: Name == 'Oui', checked: $root.folderAnticipationMeasuresInfo.AlreadyDrawnUpFutureProtectionMandate" />
+                    <label class="me-4" data-bind="text: Name, attr: {for: 'future-protection-mandate-' + Id}"></label>
+                    <!-- /ko -->
+                    </div>
+                    </div>
+                    <div class="block-form block" data-bind="visible: AlreadyDrawnUpFutureProtectionMandate() && AlreadyDrawnUpFutureProtectionMandate() != null">
+                    <div class="block-form block" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.DraftedBy))">
+                    <p data-bind="text: Title">Ce mandat de protection future a été rédigé</p>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <div>
+                    <input type="radio" class="me-2" name="drafted-by" data-bind="attr: {id: 'drafted-by-' + Id },value: Name, checked: $root.folderAnticipationMeasuresInfo.DraftedBy" />
+                    <label data-bind="text: Name, attr: {for: 'drafted-by-' + Id}"></label>
+                    </div>
+                    <!-- /ko -->
+                    </div>
+                    <div class="block-form block" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.NecessaryTo))">
+                    <p data-bind="text: Title">Il faut</p>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <div>
+                    <input type="radio" class="me-2" name="necessary-to" data-bind="attr: {id: 'necessary-to-' + Id },value: Name, checked: $root.folderAnticipationMeasuresInfo.NecessaryTo" />
+                    <label data-bind="text: Name, attr: {for: 'necessary-to-' + Id}"></label>
+                    </div>
+                    <!-- /ko -->
+                    </div>
+                    <div class="block-form block">
+                    <label class="labelinput w-100" for="MandateDetails">Vous pouvez ajouter des précisions sur ce mandat de protection future: (facultatif)</label>
+                    <textarea data-bind="value: MandateDetails" id="MandateDetails" rows="5" placeholder="Renseingez votre texte ici"></textarea>
+                    </div>
+                    </div>
+                    }
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.LongTermCareInsurance))">
+                    <p data-bind="text: Title">La personne a-t-elle souscrit une assurance dépendance ?</p>
+                    <div>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <input type="radio" class="me-2" name='longtermcare-insurance' data-bind="attr: {id: 'longtermcare-insurance-' + Id }, value: Name == 'Oui', checked: $root.folderAnticipationMeasuresInfo.LongTermCareInsurance" />
+                    <label class="me-4" data-bind="text: Name, attr: {for: 'longtermcare-insurance-' + Id}"></label>
+                    <!-- /ko -->
+                    </div>
+                    </div>
+                    <div class="block-form flex align-items-center mb-4" data-bind="visible: LongTermCareInsurance() && LongTermCareInsurance() != null">
+                    <p class="mb-0 me-4">Ajouter le contract d'assurance:</p>
+                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.InsuranceContract))
+                    {
+                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                    }
+                    else
+                    {
+                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Contract d\'assurance', '@((int)FolderDocumentTypeEnum.InsuranceContract)', 'Mesures d\'anticipations')">Créer le document</button>
+                    }
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.AnticipatedGuidelines))">
+                    <p data-bind="text: Title">La personne a-t-elle rédigé ses directives anticipées ?</p>
+                    <div>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <input type="radio" class="me-2" name='anticipatedguidelines' data-bind="attr: {id: 'anticipatedguidelines-' + Id }, value: Name == 'Oui', checked: $root.folderAnticipationMeasuresInfo.AnticipatedGuidelines" />
+                    <label class="me-4" data-bind="text: Name, attr: {for: 'anticipatedguidelines-' + Id}"></label>
+                    <!-- /ko -->
+                    </div>
+                    </div>
+                    <div class="block-form flex align-items-center mb-4" data-bind="visible: AnticipatedGuidelines() && AnticipatedGuidelines() != null">
+                    <p class="mb-0 me-4">Ajouter les directives anticipées</p>
+                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.AdvanceDirectives))
+                    {
+                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                    }
+                    else
+                    {
+                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Directives anticipées', '@((int)FolderDocumentTypeEnum.AdvanceDirectives)', 'Mesures d\'anticipations')">Créer le document</button>
+                    }
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.RefusesOrganDonation))">
+                    <p data-bind="text: Title">La personne refuse-t-elle le don d'organe ou de tissus ?</p>
+                    <div>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <input type="radio" class="me-2" name='refusesorgandonation' data-bind="attr: {id: 'refusesorgandonation-' + Id }, value: Name == 'Oui', checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonation" />
+                    <label class="me-4" data-bind="text: Name, attr: {for: 'refusesorgandonation-' + Id}"></label>
+                    <!-- /ko -->
+                    </div>
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.RefusesOrganDonationProcess))">
+                    <p data-bind="text: Title">La personne a-t-elle fait la démarche de refus de don d'organe ou de tissus ?</p>
+                    <div>
+                    <!-- ko foreach: PossibleAnswers -->
+                    <input type="radio" class="me-2" name='refusesorgandonationprocess' data-bind="attr: {id: 'refusesorgandonationprocess-' + Id }, value: Name == 'Oui', checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonationProcess" />
+                    <label class="me-4" data-bind="text: Name, attr: {for: 'refusesorgandonationprocess-' + Id}"></label>
+                    <!-- /ko -->
+                    </div>
+                    </div>*@
+
+                    @*@if (Model._folderField == (int)FolderField.FutureProtection)
+                    {
+                        <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.AlreadyDrawnUpFutureProtectionMandate))">
+                            <p>La personne a-t-elle déjà rédigé un mandat de protection future ?</p>
+                            <div>
+                                <input class="me-2" type="radio" id="future-protection-mandate-oui" name="future-protection-mandate" data-bind="checked: $root.folderAnticipationMeasuresInfo.AlreadyDrawnUpFutureProtectionMandate, checkedValue: true">
+                                <label class="me-5" for="personOpinionOnVaccination-for">Oui</label>
+                                <div class="me-4"></div>
+                                <input class="me-2" type="radio" id="future-protection-mandate-non" name="future-protection-mandate" data-bind="checked: $root.folderAnticipationMeasuresInfo.AlreadyDrawnUpFutureProtectionMandate, checkedValue: false">
+                                <label for="future-protection-mandate-non">Non</label>
+                            </div>
+                        </div>
+                        <div class="block-form block" data-bind="visible: AlreadyDrawnUpFutureProtectionMandate() && AlreadyDrawnUpFutureProtectionMandate() != null">
+                            <div class="block-form block" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.DraftedBy))">
+                                <p>Ce mandat de protection future a été rédigé</p>
+                                <div>
+                                    <input class="me-2" type="radio" id="drafted-by-notaire" name="drafted-by" data-bind="checked: $root.folderAnticipationMeasuresInfo.DraftedBy, value: 'Par un notaire'">
+                                    <label class="me-5" for="drafted-by-notaire">Par un notaire</label>
+                                </div>
+                                <div>
+                                    <input class="me-2" type="radio" id="drafted-by-avocat" name="drafted-by" data-bind="checked: $root.folderAnticipationMeasuresInfo.DraftedBy, value: 'Par un avocat'">
+                                    <label class="me-5" for="drafted-by-avocat">Par un avocat</label>
+                                </div>
+                                <div>
+                                    <input class="me-2" type="radio" id="drafted-by-none" name="drafted-by" data-bind="checked: $root.folderAnticipationMeasuresInfo.DraftedBy, value: 'Sans notaire ni avocat'">
+                                    <label class="me-5" for="drafted-by-none">Sans notaire ni avocat</label>
+                                </div>
+                            </div>
+                            <div class="block-form block" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.NecessaryTo))">
+                                <p>Il faut</p>
+                                <div>
+                                    <input class="me-2" type="radio" id="necessary-to-completer" name="necessary-to" data-bind="checked: $root.folderAnticipationMeasuresInfo.NecessaryTo, value: 'Compléter ce mandat de protection future'">
+                                    <label class="me-5" for="necessary-to-completer">Compléter ce mandat de protection future</label>
+                                </div>
+                                <div>
+                                    <input class="me-2" type="radio" id="necessary-to-modifier" name="necessary-to" data-bind="checked: $root.folderAnticipationMeasuresInfo.NecessaryTo, value: 'Modifier ce mandat de protection future'">
+                                    <label class="me-5" for="necessary-to-modifier">Modifier ce mandat de protection future</label>
+                                </div>
+                                <div>
+                                    <input class="me-2" type="radio" id="necessary-to-none" name="necessary-to" data-bind="checked: $root.folderAnticipationMeasuresInfo.NecessaryTo, value: 'Annuler et remplacer ce mandat de protection future'">
+                                    <label class="me-5" for="necessary-to-none">Annuler et remplacer ce mandat de protection future</label>
+                                </div>
+                            </div>
+                            <div class="block-form block">
+                                <label class="labelinput w-100" for="MandateDetails">Vous pouvez ajouter des précisions sur ce mandat de protection future: (facultatif)</label>
+                                <textarea data-bind="value: MandateDetails" id="MandateDetails" rows="5" placeholder="Renseingez votre texte ici"></textarea>
+                            </div>
+                        </div>
+                    }*@
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.LongTermCareInsurance))">
+                        <p>La personne a-t-elle souscrit une assurance dépendance ?</p>
+                        <div>
+                            <input class="me-2" type="radio" id="longtermcare-insurance-oui" name="longtermcare-insurance" data-bind="checked: $root.folderAnticipationMeasuresInfo.LongTermCareInsurance, checkedValue: true">
+                            <label class="me-5" for="longtermcare-insurance-oui">Oui</label>
+                            <div class="me-4"></div>
+                            <input class="me-2" type="radio" id="longtermcare-insurance-non" name="longtermcare-insurance" data-bind="checked: $root.folderAnticipationMeasuresInfo.LongTermCareInsurance, checkedValue: false">
+                            <label for="longtermcare-insurance-non">Non</label>
+                        </div>
+                    </div>
+                    <div class="block-form flex align-items-center mb-4" data-bind="visible: LongTermCareInsurance() && LongTermCareInsurance() != null">
+                        <p class="mb-0 me-4">Ajouter le contract d'assurance:</p>
+                        @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.InsuranceContract))
+                        {
+                            <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Contract d\'assurance', '@((int)FolderDocumentTypeEnum.InsuranceContract)', 'Mesures d\'anticipations')">Créer le document</button>
+                        }
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.AnticipatedGuidelines))">
+                        <p>La personne a-t-elle rédigé ses directives anticipées ?</p>
+                        <div>
+                            <input class="me-2" type="radio" id="anticipatedguidelines-oui" name="anticipatedguidelines" data-bind="checked: $root.folderAnticipationMeasuresInfo.AnticipatedGuidelines, checkedValue: true">
+                            <label class="me-5" for="anticipatedguidelines-oui">Oui</label>
+                            <div class="me-4"></div>
+                            <input class="me-2" type="radio" id="anticipatedguidelines-non" name="anticipatedguidelines" data-bind="checked: $root.folderAnticipationMeasuresInfo.AnticipatedGuidelines, checkedValue: false">
+                            <label for="anticipatedguidelines-non">Non</label>
+                        </div>
+                    </div>
+                    <div class="block-form flex align-items-center mb-4" data-bind="visible: AnticipatedGuidelines() && AnticipatedGuidelines() != null">
+                        <p class="mb-0 me-4">Ajouter les directives anticipées</p>
+                        @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.AdvanceDirectives))
+                        {
+                            <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Directives anticipées', '@((int)FolderDocumentTypeEnum.AdvanceDirectives)', 'Mesures d\'anticipations')">Créer le document</button>
+                        }
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.RefusesOrganDonation))">
+                        <p>La personne refuse-t-elle le don d'organe ou de tissus ?</p>
+                        <div>
+                            <input class="me-2" type="radio" id="refusesorgandonation-oui" name="refusesorgandonation" data-bind="checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonation, checkedValue: true">
+                            <label class="me-5" for="refusesorgandonation-oui">Oui</label>
+                            <div class="me-4"></div>
+                            <input class="me-2" type="radio" id="refusesorgandonation-non" name="refusesorgandonation" data-bind="checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonation, checkedValue: false">
+                            <label for="refusesorgandonation-non">Non</label>
+                        </div>
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.RefusesOrganDonationProcess))">
+                        <p>La personne a-t-elle fait la démarche de refus de don d'organe ou de tissus ?</p>
+                        <div>
+                            <input class="me-2" type="radio" id="refusesorgandonationprocess-oui" name="refusesorgandonationprocess" data-bind="checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonationProcess, checkedValue: true">
+                            <label class="me-5" for="refusesorgandonationprocess-oui">Oui</label>
+                            <div class="me-4"></div>
+                            <input class="me-2" type="radio" id="refusesorgandonationprocess-non" name="refusesorgandonationprocess" data-bind="checked: $root.folderAnticipationMeasuresInfo.RefusesOrganDonationProcess, checkedValue: false">
+                            <label for="refusesorgandonationprocess-non">Non</label>
+                        </div>
+                    </div>
+
+                    @*<div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.EndLifeSteps))">
+                    <p data-bind="text: Title"></p>
+                    <!-- ko foreach: AnswersAnticipationMeasures -->
+                    <div class="block_formcheck">
+                    <input type="checkbox" class="form-check-input mt-0 mb-0 me-2" data-bind="attr: {id : 'pa-' + Answer}, value: true, checked: Selected" />
+                    <label class="form-check-label" data-bind="text: $parent.PossibleAnswers.find(pa => pa.Id == Answer).Name, attr: {for: 'pa-' + Answer}"></label>
+                    </div>
+                    <div data-bind="visible: Selected">
+                    <p class="mb-0 me-4" data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.OrganizedFuneral">Ajouter le document d'organisation des obsèques</p>
+                    <div data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.OrganizedFuneral">
+                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralOrganizationDocument))
+                    {
+                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                    }
+                    else
+                    {
+                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Document organisation obsèques', '@((int)FolderDocumentTypeEnum.FuneralOrganizationDocument)', 'Mesures d\'anticipations')">Créer le document</button>
+                    }
+                    </div>
+
+                    <p class="mb-0 me-4" data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.BuyingBurialPlot">Ajouter le contract de concession funéraire</p>
+                    <div data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.BuyingBurialPlot">
+                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralConcessionContract))
+                    {
+                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                    }
+                    else
+                    {
+                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Contrat concession funéraire', '@((int)FolderDocumentTypeEnum.FuneralConcessionContract)', 'Mesures d\'anticipations')">Créer le document</button>
+                    }
+                    </div>
+
+                    <p class="mb-0 me-4" data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.SubscribeFuneralAgreement">Ajouter la convention obsèques</p>
+                    <div data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.SubscribeFuneralAgreement">
+                    @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralAgreement))
+                    {
+                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                    }
+                    else
+                    {
+                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Convention obsèques', '@((int)FolderDocumentTypeEnum.FuneralAgreement)', 'Mesures d\'anticipations')">Créer le document</button>
+
+                    }
+                    </div>
+                    </div>
+                    <!-- /ko -->
+                    </div>*@
+
+                    <div class="block-form">
+                        <p>La personne a-t-elle fait les démarches de fin de vie suivantes ?</p>
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="ArrangedFuneral" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.ArrangedFuneral" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="ArrangedFuneral">Organiser ses obsèques</label>
+                        </div>
+                        <div data-bind="visible: $root.folderAnticipationMeasuresInfo.ArrangedFuneral() && $root.folderAnticipationMeasuresInfo.ArrangedFuneral() != null">
+                            <p class="mb-0 me-4">Ajouter le document d'organisation des obsèques</p>
+                            <div data-bind="visible: $root.folderAnticipationMeasuresInfo.ArrangedFuneral() && $root.folderAnticipationMeasuresInfo.ArrangedFuneral() != null">
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralOrganizationDocument))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Document organisation obsèques', '@((int)FolderDocumentTypeEnum.FuneralOrganizationDocument)', 'Mesures d\'anticipations')">Créer le document</button>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="BuyFuneralConcession" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.BuyFuneralConcession" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="BuyFuneralConcession">Acheter une concession funéraire</label>
+                        </div>
+                        <div data-bind="visible: $root.folderAnticipationMeasuresInfo.BuyFuneralConcession() && $root.folderAnticipationMeasuresInfo.BuyFuneralConcession() != null">
+                            <p class="mb-0 me-4">Ajouter le contract de concession funéraire</p>
+                            <div data-bind="visible: $root.folderAnticipationMeasuresInfo.BuyFuneralConcession() && $root.folderAnticipationMeasuresInfo.BuyFuneralConcession() != null">
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralConcessionContract))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Contrat concession funéraire', '@((int)FolderDocumentTypeEnum.FuneralConcessionContract)', 'Mesures d\'anticipations')">Créer le document</button>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="SignedFuneralAgreement" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.SignedFuneralAgreement" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="SignedFuneralAgreement">Souscrit une convention obsèques</label>
+                        </div>
+                        <div data-bind="visible: $root.folderAnticipationMeasuresInfo.SignedFuneralAgreement() && $root.folderAnticipationMeasuresInfo.SignedFuneralAgreement() != null">
+                            <p class="mb-0 me-4">Ajouter la convention obsèques</p>
+                            <div data-bind="visible: $root.folderAnticipationMeasuresInfo.SignedFuneralAgreement() && $root.folderAnticipationMeasuresInfo.SignedFuneralAgreement() != null">
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralAgreement))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Convention obsèques', '@((int)FolderDocumentTypeEnum.FuneralAgreement)', 'Mesures d\'anticipations')">Créer le document</button>
+
+                                }
+                            </div>
+                        </div>
+
+                        @*<div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.HasThePerson))">
+                        <p data-bind="text: Title"></p>
+                        <!-- ko foreach: AnswersAnticipationMeasures().filter(a => a.Answer != null) -->
+                        <div>
+                        <input type="checkbox" class="form-check-input mt-0 mb-0 me-2" data-bind="attr: {id : 'pa-' + Answer}, value: true, checked: Selected" />
+                        <label class="form-check-label" data-bind="text: $parent.PossibleAnswers.find(pa => pa.Id == Answer).Name, attr: {for: 'pa-' + Answer}"></label>
+                        </div>
+                        <div data-bind="visible: Answer == AnticipationMeasuresFormSpecialsPossibleAsnwer.SharedDonation && Selected">
+                        <p class="mb-0 me-4">Ajouter l'acte de donation partage</p>
+                        @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.DeedOfGiftSharing))
+                        {
+                        <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                        }
+                        else
+                        {
+                        <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Acte de donation partage', '@((int)FolderDocumentTypeEnum.DeedOfGiftSharing)', 'Mesures d\'anticipations')">Créer le document</button>
+                        }
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko foreach: AnswersAnticipationMeasures().filter(a => a.Answer == null) -->
+                        <div class="block">
+                        <label class="labelinput">Précisez la mesure d'anticipation</label>
+                        <input type="text" class="form-control" data-bind="attr: {id : 'pa-' + Answer}, value: Data" />
+                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                        </div>
+                        <!-- /ko -->
+                        @*<div>
+                        <p class="mb-0 me-4">Ajouter un document justificatif:</p>
+                        <button type="button" class="btn btn-outline-success" onclick="createEmptyDoc(AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Document justificatif', '@((int)FolderDocumentTypeEnum.SupportingDocument)', 'Mesures d\'anticipations')">Créer le document</button>
+                        </div>
+
+                        <a href="#" class="d-block green-link mt-3 mb-4" data-bind="click: function(){ $root.addNewAnswer(Id) }">Ajouter une mesure d'anticipation patrimoniale</a>
+                        </div>*@
+                    </div>
+
+
+                    <div class="block-form">
+                        <p>La personne a-t-elle</p>
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="GivenBankPower" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.GivenBankPower" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="GivenBankPower">Donné procuration bancaire à un de ses proches</label>
+                        </div>
+
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="MakesDonationSharing" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.MakesDonationSharing" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="MakesDonationSharing">Fait une donation partage</label>
+                        </div>
+                        <div data-bind="visible: $root.folderAnticipationMeasuresInfo.MakesDonationSharing() && $root.folderAnticipationMeasuresInfo.MakesDonationSharing() != null">
+                            <p class="mb-0 me-4">Ajouter le contract de concession funéraire</p>
+                            <div data-bind="visible: $root.folderAnticipationMeasuresInfo.MakesDonationSharing() && $root.folderAnticipationMeasuresInfo.MakesDonationSharing() != null">
+                                @if (Model._folderDocumentType.Contains((int)FolderDocumentTypeEnum.FuneralConcessionContract))
+                                {
+                                    <button type="button" class="btn btn-outline-success" disabled>Document créé</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-success" onclick="createEmptyDocWithEvent(event, AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Contrat concession funéraire', '@((int)FolderDocumentTypeEnum.FuneralConcessionContract)', 'Mesures d\'anticipations')">Créer le document</button>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="block_formcheck">
+                            <input type="checkbox" id="MadeWill" data-bind="checkedValue: true, checked: $root.folderAnticipationMeasuresInfo.MadeWill" class="form-check-input mt-0 mb-0 me-2" />
+                            <label class="form-check-label" for="MadeWill">Fait son testament</label>
+                        </div>
+                    </div>
+
+                    <div class="block-form" data-bind="using: $root.questions.find(q => q.Id == @((int)AnticipationMeasuresFormQuestion.HasThePerson))">
+                        <!-- ko foreach: AnswersAnticipationMeasures().filter(a => a.Answer == null) -->
+                        <div class="block">
+                            <label class="labelinput">Précisez la mesure d'anticipation</label>
+                            <input type="text" class="form-control" data-bind="attr: {id : 'pa-' + Answer}, value: Data" />
+                            <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                        </div>
+                        <!-- /ko -->
+                        @*<div>
+                        <p class="mb-0 me-4">Ajouter un document justificatif:</p>
+                        <button type="button" class="btn btn-outline-success" onclick="createEmptyDoc(AnticipationMeasuresViewModel.folderAnticipationMeasuresInfo.VaultId(), 'Document justificatif', '@((int)FolderDocumentTypeEnum.SupportingDocument)', 'Mesures d\'anticipations')">Créer le document</button>
+                        </div>*@
+
+                        <a href="#" class="d-block green-link mt-3 mb-4" data-bind="click: function(){ $root.addNewAnswer(Id) }">Ajouter une mesure d'anticipation</a>
+                    </div>
+
+
+
+
+
+                    <div class="mt-3 mb-0">
+                        <div class="block-form">
+                            <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous terminé de compléter le formulaire ?</label>
+                            <div>
+                                <input class="me-2" type="radio" id="completedForm-yes" name="CompletedForm" data-bind="checked: $root.folderAnticipationMeasuresInfo.CompletedForm, checkedValue: true">
+                                <label class="me-5" for="completedForm-yes">Oui</label>
+                                <div class="me-4"></div>
+                                <input class="me-2" type="radio" id="completedForm-no" name="CompletedForm" data-bind="checked: $root.folderAnticipationMeasuresInfo.CompletedForm, checkedValue: false">
+                                <label for="completedForm-no">Non</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @*@if (Model._isFutureProtection)
+                    {
+                        <div class="block_formcheck align-items-center mb-4">
+                            <input class="form-check-input check-red mt-0" type="checkbox" value="" id="canShare" data-bind="value: true, checked: $root.folderAnticipationMeasuresInfo.CanShareInfos">
+                            <label class="form-check-label me-2" for="canShare">La personne souhaite partager ces informations avec des protecteurs futurs</label>
+                            <img src="~/img/icons/infos.svg" data-toggle="tooltip" data-bs-placement="right" title="En cochant, vous choisissez de partager les informations de ce questionnaire et les documents associés à vos mandataires futurs dès la signature du mandat de protection future.
+
+Si vous ne cochez pas, vous choisissez :
+
+- de garder confidentielles les informations de ce questionnaire et les documents associés, tant que votre mandat de protection future ne sera pas activé,
+- de souscrire l’abonnement à notre service en ligne de coffre-fort numérique ‘lien vers CGS’." />
+                        </div>
+                    }*@
+
+                    <input type="button" value="Enregistrer les modifications" class="btn btn-purple mx-auto d-block" data-bind="click: function(){ $root.save() }" />
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card pb-4">
+                <div class="d-flex align-items-center header-card">
+                    <img src="~/img/icons/bulb.svg" />
+                    <p class="ps-2 title">Information :</p>
+                </div>
+                <p>
+                    Des documents ont été ajoutés à l’onglet « Mes documents » de votre dossier. Les boutons "créé le document" concernent des documents facultatifs que vous pouvez ajouter.<br /><br />
+                    Vous compléterez les contacts dans le carnet d'adresse
+                </p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/lib/knockout.mapping/knockout.mapping.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/FolderInfosForms/AnticipationMeasuresViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new anticipationMeasuresViewModel(@JsonHelper.GetJson(Model._folderAnticipationMeasuresInfo), @JsonHelper.GetJson(Model._returnUrl)), document.getElementById('anticipationMeasures-form'));
+    });
+</script>
+

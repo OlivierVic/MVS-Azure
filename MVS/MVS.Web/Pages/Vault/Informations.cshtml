@@ -1,0 +1,245 @@
+@page
+
+@using MVS.Common.Enum
+@model MVS.Web.Pages.Vault.InformationsModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="vault">
+    @Html.Partial("_Partials/_VaultNavigation")
+    @*@Html.Partial("_Partials/_VaultInformations")*@
+
+    @*f*@
+
+    <div class="card">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Informations</h3>
+        </div>
+        <div class="row tableRowHeader mt-4">
+            <div class="col-3">
+                <p><img src="~/img/icons/file-search-blue.svg" class="me-2" />QUESTIONNAIRE</p>
+            </div>
+            <div class="col text-center">
+                <p>REMPLIR</p>
+            </div>
+            <div class="col text-center">
+                <p>MODIFIER</p>
+            </div>
+            <div class="col text-center">
+                <p>AFFICHER</p>
+            </div>
+            <div class="col text-center">
+                <p>IMPRIMER</p>
+            </div>
+        </div>
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Situation personnelle</p>
+            </div>
+            @if (Model._personalCreate)
+            {
+                <!-- Class for badges available : bg-grey, bg-purple, bg-outline-purple, bg-completed -->
+                <div class="col text-center">
+                    @if (Model._personalComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <!-- Img available : statut-wainting.svg, statut-checked.svg, statut-wainting.svg  -->
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/PersonalSitutation", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center">
+                    <!--<img src="/img/icons/print.svg"/>-->
+                    <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/PersonalSitutation", "DownloadPersonnalInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+                </div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/PersonalSitutation", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Situation familiale</p>
+            </div>
+            @if (Model._familyCreate)
+            {
+                <div class="col text-center">
+                    @if (Model._familyComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/FamilySituation", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/FamilySituation", "DownloadFamilyInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/FamilySituation", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Volontés funéraires</p>
+            </div>
+            @if (Model._volonteFuneraireCreate)
+            {
+                <!-- Class for badges available : bg-grey, bg-purple, bg-outline-purple, bg-completed -->
+                <div class="col text-center">
+                    @if (Model._volonteFuneraireComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <!-- Img available : statut-wainting.svg, statut-checked.svg, statut-wainting.svg  -->
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/FuneraryVolonte", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center">
+                    <!--<img src="/img/icons/print.svg"/>-->
+                    <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/FuneraryVolonte", "DownloadFuneraryVolonteInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+                </div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/FuneraryVolonte", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Mesures d'anticipations</p>
+            </div>
+            @if (Model._measureCreate)
+            {
+                <div class="col text-center">
+                    @if (Model._measureComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/AnticipationMeasures", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/AnticipationMeasures", "DownloadAnticipationMeasuresInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/AnticipationMeasures", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Patrimoine</p>
+            </div>
+            @if (Model._heritageCreate)
+            {
+                <div class="col text-center">
+                    @if (Model._heritageComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/Heritage", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/Heritage", "DownloadHeritageInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/Heritage", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Vie numérique</p>
+            </div>
+            @if (Model._vieNumeriqueCreate)
+            {
+                <div class="col text-center">
+                    @if (Model._vieNumeriqueComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/DigitalLife", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/DigitalLife", "DownloadDigitalLifeInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/DigitalLife", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Vie administrative</p>
+            </div>
+            @if (Model._vieAdministrativeCreate)
+            {
+                <div class="col text-center">
+                    @if (Model._vieAdministrativeComplete)
+                    {
+                        <p><span class="badge bg-completed">Terminé</span></p>
+                    }
+                    else
+                    {
+                        <p><span class="badge bg-current">En cours</span></p>
+                    }
+                </div>
+                <div class="col text-center"><a class="badge bg-outline-purple" href="@Url.Page("/Vault/Formulaires/AdministrativeLife", new {vaultId = Model._vaultId})">Modifier</a></div>
+                <div class="col text-center"><a class="btn-link" href="@(Url.Page("/Vault/Formulaires/AdministrativeLife", "DownloadAdministrativeLifeInfoPdf", new {vaultId = Model._vaultId}))"><img src="~/img/icons/print_green.svg" class="me-2" />Imprimer</a></div>
+            }
+            else
+            {
+                <div class="col text-center"><a class="badge bg-purple" href="@Url.Page("/Vault/Formulaires/AdministrativeLife", new {vaultId = Model._vaultId})">Remplir</a></div>
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+                <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+            }
+        </div>
+
+    </div>
+
+    @*f*@
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tab3").addClass("selected");
+    });
+</script>

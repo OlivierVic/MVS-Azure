@@ -1,0 +1,133 @@
+@using MVS.Common.Enum
+<div class="card">
+    <h3>Lettre de Mission et paiement du service</h3>
+    <div class="row tableRowHeader mt-4">
+        <div class="col-3">
+            <p><img src="~/img/icons/file-search-blue.svg" class="me-2" />DOCUMENT</p>
+        </div>
+        <div class="col text-center">
+            <p>ACTION</p>
+        </div>
+        <div class="col text-center">
+            <p>STATUT</p>
+        </div>
+        <div class="col text-center">
+            <p>AFFICHER</p>
+        </div>
+        <div class="col text-center">
+            <p>IMPRIMER</p>
+        </div>
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Lettre de mission</p>
+        </div>
+        <!-- Class for badges available : bg-grey, bg-purple, bg-outline-purple, bg-completed -->
+        <div class="col text-center">
+            @if (Model._MissionLetterContract.Sign == true)
+            {
+                <p><span class="badge bg-completed">Signé</span></p>
+                
+            }
+            else if (Model._MissionLetterContract.EnvelopeId != null)
+            {
+                <p><span class="badge bg-grey">En signature</span></p>
+            }
+            else
+            {
+                <p><span class="badge bg-purple" data-bind="click: function(){openSignatureModal('@Model._MissionLetterContract.Id', 'la lettre de mission')}">Signer</span></p>
+            }
+
+            @*
+                Ancienne condition if : Model._MissionLetterContract.Sign ?? false
+            *@
+        </div>
+        <!-- Img available : statut-waiting.svg, statut-checked.svg, statut-wainting.svg  -->
+        @if (Model._MissionLetterContract.Sign ?? false)
+        {
+            <div class="col text-center"><img src="/img/icons/statut-checked.svg" /></div>
+        }
+        else
+        {
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+        }
+        <div class="col text-center">
+            <!--<img src="/img/icons/search_checked.svg"/>-->
+            <a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#show-missionletter"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a>
+        </div>
+        <div class="col text-center">
+            <!--<img src="/img/icons/print.svg"/>-->
+            <a href="@(Url.Page("/Vault/MissionLetter", "DownloadContract", new {contractId = Model._MissionLetterContract.Id, folderId = Model._folderId}))" class="btn-link"><img src="~/img/icons/print_green.svg" class="me-2" />Télécharger</a>
+        </div>
+    </div>
+    <div class="row tableRowContent">
+        <div class="col-3">
+            <p>Facture du service</p>
+        </div>
+        <div class="col text-center">
+            @if (Model._folder.PaymentStatus == (int)PaymentEnum.Payed || Model._folder.PaymentStatus == (int)PaymentEnum.Validated)
+            {
+                <p><span class="badge bg-completed">Payé</span></p>
+            }
+            else if (Model._BillContract != null)
+            {
+                <p><span class="badge bg-purple" data-bs-toggle="modal" data-bs-target="#paymentModal">Payer</span></p>
+            }
+            else
+            {
+                <p><span class="badge bg-grey">Payer</span></p>
+            }
+        </div>
+        @if (Model._BillContract == null)
+        {
+            <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/search_checked.svg" /></div>
+            <div class="col text-center"><img src="/img/icons/print.svg" /></div>
+        }
+        else
+        {
+            @if (Model._folder.PaymentStatus == (int)PaymentEnum.Payed  || Model._folder.PaymentStatus == (int)PaymentEnum.Validated)
+            {
+                <div class="col text-center"><img src="/img/icons/statut-checked.svg" /></div>
+            }
+            else
+            {
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            }
+            <div class="col text-center"><a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#show-bill"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a></div>
+            <div class="col text-center"><a href="@(Url.Page("/Vault/MissionLetter", "DownloadContract", new {contractId = Model._BillContract.Id, folderId = Model._folderId}))" class="btn-link"><img src="~/img/icons/print_green.svg" class="me-2" />Télécharger</a></div>
+        }
+    </div>
+    @if (Model._SEPAContract != null)
+    {
+        <div class="row tableRowContent">
+            <div class="col-3">
+                <p>Mandat SEPA</p>
+            </div>
+            <div class="col text-center">
+                @if (Model._SEPAContract.Sign ?? false)
+                {
+                    <p><span class="badge bg-completed">Signer</span></p>
+                }
+                else if (Model._SEPAContract.EnvelopeId != null)
+                {
+                    <p><span class="badge bg-grey">En signature</span></p>
+                }
+                else
+                {
+                    <p><span class="badge bg-purple" data-bind="click: function(){openSignatureModal('@Model._SEPAContract.Id', 'le mandat SEPA')}">Signer</span></p>
+                }
+            </div>
+            @if (Model._SEPAContract.Sign ?? false)
+            {
+                <div class="col text-center"><img src="/img/icons/statut-checked.svg" /></div>
+            }
+            else
+            {
+                <div class="col text-center"><img src="/img/icons/statut-waiting.svg" /></div>
+            }
+            <div class="col text-center"><a href="#" class="btn-link" data-bs-toggle="modal" data-bs-target="#show-sepa"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a></div>
+            <div class="col text-center"><a href="@(Url.Page("/Vault/MissionLetter", "DownloadContract", new {contractId = Model._SEPAContract.Id, folderId = Model._folderId}))" class="btn-link"><img src="~/img/icons/print_green.svg" class="me-2" />Télécharger</a></div>
+        </div>
+    }
+</div>

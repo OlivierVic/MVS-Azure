@@ -1,0 +1,54 @@
+@using MVS.Common.Enum
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-6">
+        <p class="title">@(Model._folderInfoHeader["Title"])</p>
+        <p class="name">@(Model._folderInfoHeader["Name"])</p>
+        <p class="dateCreated">Créé le @(Model._folderInfoHeader["CreationDate"])</p>
+    </div>
+    <div class="col-6">
+        <p class="StatusFolder">Statut du dossier :</p>
+        @if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifteen)
+        {
+            <p class="progress-name danger">@(Model._folderInfoHeader["StatusField"])</p>
+        }
+        else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifty)
+        {
+            <p class="progress-name warning">@(Model._folderInfoHeader["StatusField"])</p>
+        }
+        else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Hundred)
+        {
+            <p class="progress-name success">@(Model._folderInfoHeader["StatusField"])</p>
+        }
+        else
+        {
+            <p class="progress-name completed">@(Model._folderInfoHeader["StatusField"])</p>
+        }
+
+        @if (Int32.Parse(Model._folderInfoHeader["Status"]) != (int)FolderStatusPercentageEnum.Completed)
+        {
+            <div class="progress">
+                @if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifteen)
+                {
+                    <div class="progress-bar state15" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                }
+                else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Fifty)
+                {
+                    <div class="progress-bar state50" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                }
+                else if (Int32.Parse(Model._folderInfoHeader["Status"]) == (int)FolderStatusPercentageEnum.Hundred)
+                {
+                    <div class="progress-bar state100" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

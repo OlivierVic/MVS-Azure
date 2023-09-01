@@ -1,0 +1,41 @@
+@using MVS.Common.Enum
+
+
+<div class="modal fade" id="addDocumentModal" tabindex="-1" aria-labelledby="addDocumentLabel" aria-hidden="true" using="documentsf">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDocumentLabel">Demande d’un nouveau document :</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" asp-page-handler="AddNewEmptyDocument">
+                <div class="modal-body">
+                    <div class="block-form">
+                        <label class="labelinput" for="documentType">Libellé du document</label>
+                        <input type="text" class="form-control required" name="documentName" id="DocumentName" placeholder="Ex. Carte d’identité">
+
+
+                        <label class="labelinput" for="theme-select">Thème</label>
+                        <select class="form-select required" name="documentTypeName" id="theme-select">
+                            <option value="" selected disabled hidden>Sélectionnez le type de document.</option>
+                            <option value="Situation Personnelle">Situation personelle</option>
+                            <option value="Situation Familiale">Situation familiale</option>
+                            <option value="Habitudes de vie">Habitudes de vie</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Patrimoine">Patrimoine</option>
+                            <option value="Budget">Budget</option>
+                            <option value="Choix futurs">Choix futurs</option>
+                            <option value="Mesures d'anticipations">Mesures d'anticipations</option>
+                            <option value="Capacités">Capacités</option>
+                        </select>
+                    </div>
+                </div>
+                <input name="folderId" data-bind="value: folder.Id" hidden />
+                <input name="type" data-bind="value: @((int)FolderDocumentTypeEnum.Other)" hidden />
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-purple" value="Charger le document le document" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

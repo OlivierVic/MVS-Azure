@@ -1,0 +1,50 @@
+@page
+@model MVS.Web.Pages.Home.Register3Model
+@{
+    ViewData["Title"] = "Inscription";
+    Layout = "~/Pages/Shared/_LayoutLoginRegister.cshtml";
+}
+
+<div class="col-5 col-xxl-4 mx-auto right-content justify-content-around p-5">
+    <h1>CRÉATION DE COMPTE</h1>
+    <ul id="timeline">
+        <li class="tl-active">1 - Identifiants</li>
+        <li class="tl-active">2 - Informations personnelles</li>
+        <li class="tl-active">3 - Confirmation</li>
+    </ul>
+
+    @if (!Model._emailValid)
+    {
+        <div class="verif-mail">
+            <p class="mb-3">
+                <br />Merci pour la création de votre compte, pour la finaliser rendez-vous dans votre boîte mail et clique sur le lien de confirmation.
+            </p>
+            <p>
+                Vous n’avez pas reçu de mail ? <br />
+                Pensez à vérifier dans un premier que celui-ci n’est pas dans les courriers indésirables. Si besoin vous pouvez demander le renvoi d’un mail de confirmation…
+            </p>
+        </div>
+        <div class="d-flex">
+            <p>Vous n’avez pas reçu le mail ?</p><a class="green-link ms-3" href="@Url.Page("/Home/Register3", "SendEmail", new { email = Model._email })">Recevoir un nouveau mail</a>
+        </div>
+    }
+    else
+    {
+        <div class="d-grid">
+            <h3 class="text-center">Félicitations votre inscription est confirmée !</h3>
+            <p class="mt-5 mx-4"><br /> Votre compte est activé, vous pouvez désormais vous connecter et créer vos dossiers.</p>
+            <a href="/Home/login" class="btn btn-purple mx-auto mt-5">Je me connecte</a>
+        </div>
+
+
+        @*@switch (Model.MutacVerif)
+        {
+            @case false:
+                break;
+    @case true:
+    break;
+    @default:
+    break;
+        }*@
+    }
+</div>

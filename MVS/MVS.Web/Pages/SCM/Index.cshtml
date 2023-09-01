@@ -1,0 +1,892 @@
+@page
+@using MVS.Web.Helpers
+@using Microsoft.Extensions.Localization;
+@using Newtonsoft.Json
+@using System.Security.Claims;
+@model MVS.Web.Pages.SCM.IndexModel
+@{
+    Layout = "~/Pages/Shared/_LayoutSCM.cshtml";
+    ViewBag.Title = "ContractReader - " + Model._contractViewModel.ContractTitle;
+    var Initials = Model._contractViewModel.Initials;
+    var Firstname = Model._contractViewModel.Firstname;
+    var Lastname = Model._contractViewModel.Lastname;
+    var UserId = Model._contractViewModel.UserId;
+    var Username = Model._contractViewModel.Username;
+    var Email = Model._contractViewModel.Email;
+}
+
+@section css{
+<link href="~/css/reader.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/chat.css" rel="stylesheet" asp-append-version="true" />
+<style>
+    body {
+        overflow-y: auto !important;
+        font-family: Poppins,sans-serif;
+        font-size: 12px;
+        background-color: white;
+    }
+</style>
+}
+
+@Html.AntiForgeryToken()
+<div class="d-flex justify-content-between mt-4 px-2 px-md-4">
+    <div class="d-flex">
+        <h2>@Model._contractViewModel.ContractTitle</h2>
+    </div>
+    <img src="/img/logo.svg" alt="logo" width="129">
+</div>
+
+<div class="container-fluid px-2" id="reader-head">
+    <div class="p-0" id="lecteur">
+        <div class="pt-0" id="reader-card">
+            <div id="reader-head" class="reader-card-content position-relative">
+                <!-- ko ifnot: contractLoaded -->
+                <div data-bind="visible: !contractLoaded()">
+                    <div class="loader-panel" style="display:table">
+                        <div style="display: table-cell; vertical-align: middle">
+                            <div class="loading-box">
+                                <div class="card-content">
+                                    <div id="loading-detail-panel" class="big centered-div space-up">
+                                        <div class="mul5" style="margin:20px auto;">
+                                            <div class="mul5circle1"></div>
+                                            <div class="mul5circle2"></div>
+                                            <div class="mul5circle3"></div>
+                                        </div>
+                                    </div>
+                                    <p>LoadingDocument</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: contractLoaded -->
+
+                <div>
+                    @if ((ViewBag.FromEditeur != null && ViewBag.FromEditeur == false) || ViewBag.FromEditeur == null)
+                    {
+                        <div>
+                            <div class="row-links">
+                                <div id="linksBar" class="links d-flex justify-content-between">
+                                    <div class="col-4">
+                                        <ul class="d-flex p-0 m-0">
+                                            @if (Model._contractViewModel.StartingTab == 1)
+                                            {
+                                                <li>
+                                                    <a id="form-tab" href="#" class="tab-sc active" data-tab="form" data-bind="click:function(data,event){showTab(data,event); isAnnexesTabSelected(false)}">Formulaire</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a id="revisions-tab" href="#" class="tab-sc" data-tab="rev" data-bind="click:function(data,event){showTab(data,event); showRevisions(); isAnnexesTabSelected(false);}">Révisions</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="verBar px-3" data-bind="visible:versionsVisible() && !compareVersion()" style="display: none;">
+                                <div class="d-flex" id="headerBar">
+
+                                    @*
+                                        <!-- ko if: contractLoaded() && ViewModel.userRights.Download -->
+                                        <a href="#" id="download" class="btn btn-white space-right-sm"><i class="fas fa-download"></i><span>PDF</span></a>
+                                        <!-- ko if: !ViewModel.isContractSigned() -->
+                                        <a href="#" data-bind="click:generateWord" class="btn btn-white space-right-sm"><i class="fas fa-download"></i><span>Word</span></a>
+                                        <!-- /ko -->
+                                        <!-- /ko -->
+                                    *@
+                                    <a href="#" class="btn bg-transparent text-dark border-0" data-toggle="modal" data-target="#version-creation-modal"><span class="material-icons-round fs-16 mr-2">save</span><span>SAUVEGARDER</span></a>
+                                    <a href="#" class="btn bg-transparent text-dark border-0" data-bind="click:restoreVersion" id="restore"><span class="material-icons-round fs-16 mr-2">restore</span><span>Restore</span></a>
+                                    <a href="#" class="btn bg-transparent text-dark border-0" data-bind="click:showCompareVersionModal"><span class="material-icons-round fs-16 mr-2">library_books</span><span>Compare</span></a>
+                                    <!-- ko ifnot: ViewModel.displayValidate() || ViewModel.isContractSigned() -->
+                                <a href="#" class="btn" data-bind="visible:ViewModel.canSign,click:showModalSign" id="AskForSignature"><i class="fas fa-pen"></i><span>AskForSignature"</span></a>
+                                    <a href="#" class="btn" data-bind="click: showModalReopen" id="GoBackToNegotiation"><i class="fas fa-undo"></i><span>GoBackToNegotiation</span></a>
+                                    <!-- /ko -->
+                                    <!-- ko if: ViewModel.displayValidate() && !ViewModel.isContractSigned() -->
+                                    @*<a href="#" id="send" class="btn btn-white space-right-sm"><i class="fab fa-telegram-plane"></i><span>Partager</span></a>*@
+                                    @*<a href="#" class="btn btn-white" id="validate" data-bind="click: tryValidate"><i class="fas fa-check"></i><span>@Resources["Validate"]</span></a>*@
+                                    <!-- /ko -->
+                                    <!-- ko if: contractLoaded() && !ViewModel.isContractSigned() && ViewModel.userRights.Save -->
+                                <a href="#" class="btn bg-transparent text-dark border-0" id="save" data-bind="click:showVersionModal"><span class="material-icons-round fs-16 mr-2">save</span><span>SaveNewVersion</span></a>
+                                    <!-- /ko -->
+                            </div>
+                                @*<div class="fa fa-bars" id="headerButton" onclick="setHeaderMenu()"></div>*@
+                            </div>
+                            <div class="revBar" data-bind="visible:revisionsVisible()" style="display: none;">
+                                <div id="revBar" class="revBar w-100">
+                                    <div class="col-auto d-flex no-select">
+                                        <span class="pointer text-uppercase mx-2" data-bind="css: { blue : currentRevIdx() >  0 }, click:prevRev"><i class="fas fa-chevron-left side-margin-sm"></i>Précédent</span>
+                                        <span class="pointer text-uppercase mx-2" data-bind="click:nextRev">Suivant<i class="fas fa-chevron-right side-margin-sm"></i></span>
+                                        <!--<div class="ml-4">-->
+                                        <!-- ko if: contractLoaded() && ViewModel.userRights.AcceptAllMarkups -->
+                                        <!--<span class="pointer mx-1" data-bind="click:validateAllRevs"><i class="fas fa-check-circle ml-2"></i>ValidateEverything</span>-->
+                                        <!-- /ko -->
+                                        <!-- ko if: contractLoaded() && ViewModel.userRights.Comment -->
+                                        <!--<span class="pointer mx-1" data-bind="click:addComment"><i class="fas fa-comment ml-2"></i>Comment</span>-->
+                                        <!-- /ko -->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="row revBar revBar-2" data-bind="visible:versionsVisible() && shouldDisplayRestore() && !compareVersion()" style="display: none;">
+                                <div class="col-sm-12" style="line-height: 1;">
+                                <span class="space-left-l blue bold pointer pull-right space-right" data-bind="click:restoreVersion">
+                                <i class="fas fa-redo blue side-margin-sm"></i>
+                                @Resources["RestoreThisVersion"]
+                                </span>
+                                </div>
+                                </div>*@
+                            @*<div class="row revBar revBar-2" data-bind="visible:versionsVisible() && compareVersion()" style="display: none;">
+                                <div class="col-sm-12" style="line-height: 1;">
+                                <span class="space-left-l blue bold pointer pull-right space-right" data-bind="click:restoreVersion">
+                                <i class="fas fa-redo blue side-margin-sm"></i>
+                                @Resources["RestoreThisVersion"]
+                                </span>
+                                </div>
+                                </div>*@
+                            <div class="verBar" data-bind="visible:versionsVisible() && compareVersion()">
+                                <div class="d-flex align-items-center text-uppercase">
+                                    <span class="d-flex pointer mr-3 px-3 border-right" data-bind="click:goBackToVersion">
+                                        <span class="material-icons-round fs-16 mr-2">
+                                            close
+                                        </span>
+                                        Close
+                                    </span>
+                                    <p class="d-flex"><span class="material-icons-round fs-16 mr-2">library_books</span>CompareVersion</p>
+                                    <div class="select-wrapper ml-2 mr-3">
+                                        <select id="leftCompareVersion2" data-bind="options: versions, optionsText: 'Name', optionsValue: 'Id',event:{change:setLeftVersionComparedAndCompareVersions}">
+                                        </select>
+                                        <span class="material-icons-round fs-16 select__icon txt-grey">
+                                            arrow_drop_down
+                                        </span>
+                                    </div>
+                                    <p>With</p>
+                                    <div class="select-wrapper ml-3">
+                                        <select id="rightCompareVersion2" data-bind="options: versions, optionsText: 'Name', optionsValue: 'Id',event:{change:setRightVersionComparedAndCompareVersions}">
+                                        </select>
+                                        <span class="material-icons-round fs-16 select__icon txt-grey">
+                                            arrow_drop_down
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal" id="go-to-next-workflow-step-modal" tabindex="-1" role="dialog" aria-labelledby="nouvelle version" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 20em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title new-folder-title color-main">GoToNextStep</h4>
+                                            <button type="button" class="close" style="" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style=" margin: 1em; font-size: 13px;">
+                                            <div class="flex-row text-center" style="margin-bottom: 20px;">
+                                                <span class="bold">GoToStep<span class="color-main bold" data-bind="text: ViewMod.workflowPanelViewModel.nextWorkflowStepName"></span> ?</span>
+                                            </div>
+                                            <div class="flex-row text-center" style="margin-bottom: 20px;">
+                                                <!-- ko if: ViewMod.workflowPanelViewModel.currentWorkflowStep() -->
+                                            <span>TheStep<span class="color-main" data-bind="text :ViewMod.workflowPanelViewModel.workflowSteps()[ViewMod.workflowPanelViewModel.currentWorkflowStep()].name"></span>WillBeValidated</span>
+                                                <!-- /ko-->
+                                        </div>
+                                            <div class="flex-row text-center" data-bind="with:ViewMod.workflowPanelViewModel.nextWorkFlowStep">
+                                                <span>FollowingPeopleInvited</span>
+                                                <!-- ko foreach: workflowContractStepUsers() -->
+                                                <!-- ko if: $index() < ($parent.workflowContractStepUsers().length - 2) -->
+                                            <span class="color-main bold" data-bind="text: email() + ', '"></span>
+                                                <!-- /ko -->
+                                                <!-- ko if: $index() == ($parent.workflowContractStepUsers().length - 2) -->
+                                            <span class="color-main bold" data-bind="text: email() + ' et '"></span>
+                                                <!-- /ko -->
+                                                <!-- ko if: $index() == ($parent.workflowContractStepUsers().length - 1) -->
+                                            <span class="color-main bold" data-bind="text: email()"></span>
+                                                <!-- /ko -->
+                                                <!-- /ko -->
+                                        </div>
+                                            <div class="text-center space-up">
+                                                <input type="button" class="btn d-inline cancel text-uppercase" style="margin-right: 14px;" data-dismiss="modal" value="Cancel" />
+                                                <input type="button" class="btn d-inline text-uppercase" data-bind="click: validateStep" value="Confirm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal" id="go-to-next-workflow-step-modal-without-optional-validations" tabindex="-1" role="dialog" aria-labelledby="nouvelle version" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 20em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title new-folder-title color-main">GoToNextStep</h4>
+                                            <button type="button" class="close" style="" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body" style=" margin: 1em; font-size: 13px;">
+                                            <div class="flex-row text-center" style="margin-bottom: 20px;">
+                                                <p class="txt-red bold">OptionalNextStepMessage (<span class="color-main bold" data-bind="text:ViewMod.workflowPanelViewModel.nextWorkflowStepName"></span>) ?</p>
+                                            </div>
+                                            <div class="flex-row text-center" style="margin-bottom: 20px;">
+                                                <!-- ko if: ViewMod.workflowPanelViewModel.currentWorkflowStep() -->
+                                            <span>TheStep<span class="color-main" data-bind="text: ViewMod.workflowPanelViewModel.workflowSteps()[ViewMod.workflowPanelViewModel.currentWorkflowStep()].name"></span>WillBeValidated</span>
+                                                <!-- /ko-->
+                                        </div>
+                                            <div class="flex-row text-center" data-bind="with: ViewMod.workflowPanelViewModel.nextWorkFlowStep">
+                                                <span>FollowingPeopleInvited</span>
+                                                <!-- ko foreach: workflowContractStepUsers() -->
+                                                <!-- ko if: $index() < ($parent.workflowContractStepUsers().length - 2) -->
+                                            <span class="color-main bold" data-bind="text: email() + ', '"></span>
+                                                <!-- /ko -->
+                                                <!-- ko if: $index() == ($parent.workflowContractStepUsers().length - 2) -->
+                                            <span class="color-main bold" data-bind="text: email() + ' et '"></span>
+                                                <!-- /ko -->
+                                                <!-- ko if: $index() == ($parent.workflowContractStepUsers().length - 1) -->
+                                            <span class="color-main bold" data-bind="text: email()"></span>
+                                                <!-- /ko -->
+                                                <!-- /ko -->
+
+                                        </div>
+                                            <div class="text-center space-up">
+                                                <input type="button" class="btn d-inline cancel text-uppercase m-1" style="margin-right: 14px;" data-dismiss="modal" value="Cancel" />
+                                                <input type="button" class="btn d-inline warning text-uppercase m-1" value="NoAccessWorkflow" data-bind="click: function(data,event){ goToEditWorkflow(data,event);$('#go-to-next-workflow-step-modal-without-optional-validations').modal('hide')}" />
+                                                <input type="button" class="btn d-inline text-uppercase m-1" data-bind="click: validateStep" value="YesNextStep" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="confirm-send" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 5em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <p style="font-size: 18px; font-weight: 600; letter-spacing: 0.49px; display: inline;" class="modal-title text-uppercase blue">ShareWithOtherUsers</p>
+                                            <button type="button" class="close right" style="" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="space-down">
+                                                <label><b>Message :</b></label>
+                                                <textarea id="message-content" name="messageContent" class="form-control" rows="8">
+                                                                            Hello,
+
+                                                                            TheUser @User.Identity.Name (@Username) SharedWithYouThisDocument @Model._contractViewModel.ContractTitle.
+
+                                                                            AccessDocumentFromFollowingLink
+                                                                    </textarea>
+                                            </div>
+
+                                            <div class="modal-footer" style="text-align: center;margin-top: 30px; padding-bottom: 0;">
+                                                <a id="confirmSharing" class="btn btn-primary" href="#" data-bind="click: sendContract">Share</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="send-to-user" tabindex="-1" role="dialog" aria-labelledby="Partager le contrat avec l'utilisateur ajouté" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 15em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="new-folder-title">Notify<span data-bind="text: ViewModel.fullContractParties()[ViewModel.fullContractParties().length - 1].PartyEmail"></span></h4>
+                                            <button type="button" class="close right" style="" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="space-down">
+                                                <label><b>Message:</b></label>
+                                                <textarea id="single-message-content" name="messageContent" class="form-control" rows="8">
+                                                                            Hello,
+
+                                                                            TheUser @Firstname @Lastname (@Username) SharedWithYouThisDocument @Model._contractViewModel.ContractTitle.
+
+                                                                            AccessDocumentFromFollowingLink
+                                                                    </textarea>
+                                            </div>
+
+                                            <div class="modal-footer" style="text-align: center;margin-top: 30px; padding-bottom: 0;">
+                                                <a id="confirmSharing" class="btn btn-primary text-uppercase" href="#" data-bind="click: sendToLastParty">NotifyByEmail</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="cannot-validate-modal" tabindex="-1" role="dialog" aria-labelledby="impossible de valider le document" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 5em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <p style="font-size: 18px; font-weight: 600; letter-spacing: 0.49px;" class="modal-title text-uppercase blue">ImpossibleValidation</p>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body space-down">
+                                                <p>ImpossibleValidation_Description</p>
+                                            </div>
+                                            <div class="text-center">
+                                                <input type="button" class="btn btn-sncf text-uppercase" data-dismiss="modal" value="GoBackToDocument" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="confirm-sign" tabindex="-1" role="dialog" aria-labelledby="Signature" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 15em">
+                                    <div class="modal-content">
+                                        <form action="@Url.Action("AskForSignature", "Reader")" method="post">
+                                            @Html.Hidden("id")
+                                            @Html.Hidden("contractTitle")
+                                            <div class="modal-header">
+                                                <h4 class="new-folder-title">SignDocument</h4>
+                                                <button type="button" class="close" style="" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="space-down">
+                                                    <label for="contractName"><b>ReadyToSignDocument</b></label>
+                                                    <p data-bind="text:contractTitle"></p>
+                                                </div>
+                                                <div class="space-down">
+                                                    <label><b>SigningParties</b></label>
+                                                    <div>
+                                                        <div class="parties" data-bind="foreach: contractSignees">
+                                                            <div class="party">
+                                                                <input type="checkbox" data-bind="value : Name,checked: canSign" style="position:absolute;top:15px;left:5px" />
+                                                                <input class="form-control w50 inline-block" style="padding-left: 25px !important" type="text" name="parties" placeholder="PlaceholderEmail" data-bind="value: Name,disable:ViewModel.canSign" />
+                                                                @*<i class="fas fa-times-circle" data-bind="visible: Name() !== ViewModel.fullContractParties()[0].PartyEmail(), click: $root.removeSigningParty"></i>*@
+                                                            </div>
+                                                        </div>
+                                                        @*<i class="fas fa-plus-circle blue clickable space-left-sm" data-bind="click: addSigningParty"></i>*@
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" name="emails" id="inputParties" data-bind="value:updatedSigningParties" />
+
+                                                <div class="modal-footer" style="text-align: center;margin-top: 30px; padding-bottom: 0;">
+                                                    <button class="btn text-uppercase">AskForSignature</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="reopen-negotiation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 15em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title">GoBackToNegotiation</h2>
+                                            <span class="txt-grey pointer" data-icon-after="&#xe5cd;" data-dismiss="modal"></span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body space-down modal-validation">
+                                                <h2 class="modal-title-validation">AreYouSure</h2>
+                                                <p class="bold">AskToReopen</p>
+                                                <p>
+                                                <p>ReopenInfo</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="before-validation">
+                                                <button type="button" class="btn btn-outline text-uppercase" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn text-uppercase" data-bind="click:ViewModel.renegociate">GoBackToNegotiation</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="version-creation-modal" tabindex="-1" style="opacity: 1">
+                                <div class="modal-dialog modal-dialog-centered" style="left:0">
+                                    <div class="modal-content modal-content--card">
+                                        <form>
+                                            <p class="modal__title">NOUVELLE VERSION</p>
+                                            <div class="modal-body p-0">
+                                                <p class="modal__form__title">Renseigner le titre de votre version</p>
+                                                <input id="versionNameInput" class="modal__input mt-1" placeholder="Nom" />
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <button data-dismiss="modal" class="btn btn-return">ANNULER</button>
+                                                <button class="btn btn-green" type="button" data-bind="click: saveVersion">VALIDER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal" id="compare-version-creation-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content modal-content--card">
+                                        <p class="modal__title">Compare"</p>
+                                        <div class="modal-body p-0">
+                                            <div class="justify-content-center align-items-center row">
+                                                <div class="col-12">
+                                                    <div class="select-wrapper">
+                                                        <select id="leftCompareVersion" class="w-100" data-bind="options: versions, optionsText: 'Name', optionsValue: 'Id', event:{change:setLeftVersionCompared}">
+                                                        </select>
+                                                        <span class="material-icons-round fs-16 select__icon txt-grey">
+                                                            arrow_drop_down
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-12 text-center">
+                                                    <label class="mb-0 m-2">And</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="select-wrapper">
+                                                        <select id="rightCompareVersion" class="w-100" data-bind="options: versions, optionsText: 'Name', optionsValue: 'Id', event:{change:setRightVersionCompared}">
+                                                        </select>
+                                                        <span class="material-icons-round fs-16 select__icon txt-grey">
+                                                            arrow_drop_down
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-2 mx-2">
+                                                <!-- ko if: ViewMod.rightVersionCompared() == ViewMod.leftVersionCompared() -->
+                                            <span class="txt-red">CannotCompareTwoVersions</span>
+                                                <!-- /ko -->
+                                        </div>
+                                            <div class="d-flex mt-4 justify-content-center">
+                                                <button data-dismiss="modal" class="btn btn-return">ANNULER</button>
+                                                <input type="button" class="btn btn-green" data-bind="click:compareTwoVersion,enable: ViewMod.rightVersionCompared() !== ViewMod.leftVersionCompared()" value="Compare" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="version-import-modal" tabindex="-1" style="opacity: 1">
+                                <div class="modal-dialog modal-dialog-centered" style="left:0">
+                                    <div class="modal-content modal-content--card">
+                                        <form>
+                                            <p class="modal__title">IMPORTER UNE NOUVELLE VERSION</p>
+                                            <div class="modal-body p-0">
+                                                <input id="versionNameInput" class="modal__input mt-1 fs-11" placeholder="Nom de la version" />
+                                                <div class="custom-file mt-3">
+                                                    <input type="file" class="custom-file-input fs-11" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+                                                    <label class="custom-file-label" for="inputGroupFile03">Selectionner un fichier...</label>
+                                                </div>
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <button data-dismiss="modal" class="btn btn-return">ANNULER</button>
+                                                <button class="btn btn-green" type="button">IMPORTER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="add-user-modal" tabindex="-1" style="opacity: 1">
+                                <div class="modal-dialog modal-dialog-centered" style="left:0">
+                                    <div class="modal-content modal-content--card">
+                                        <form>
+                                            <p class="modal__title">INVITER UN COLLABORATEUR EXTERNE</p>
+                                            <div class="modal-body p-0">
+                                                <p class="modal__form__title">Renseigner l’adresse email du collaborateur invité</p>
+                                                <input id="versionNameInput" class="modal__input mt-1" placeholder="Adresse email" />
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <button data-dismiss="modal" class="btn btn-return">ANNULER</button>
+                                                <button class="btn btn-green" type="button" data-dismiss="modal">INVITER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="version-restore-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content modal-content--card">
+                                        <form>
+                                            <div class="modal__title">RESTAURER LA VERSION</div>
+                                            <div class="modal-body p-0">
+                                                <p class="modal__form__title">Etes-vous sûr de vouloir restaurer cette version :</p>
+                                                <p class="text-center" id="rv-versionName"></p>
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <button data-dismiss="modal" class="btn btn-return">ANNULER</button>
+                                                <button class="btn btn-green" type="button" data-bind="click: proceedRestore">VALIDER</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="header-menu" id="headerMenu" data-bind="visible: versionsVisible()">
+                                <div class="header-background" id="headerBackground">
+                                    <!-- ko if: contractLoaded() && !ViewModel.isContractSigned() && ViewModel.userRights.Save -->
+                                <a href="#" class="folder-option" id="save" data-bind="click:showVersionModal" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-save" style="padding-left:15px; padding-right:15px"></i><span>SaveThisVersion</span></a>
+                                    <br>
+                                    <!-- /ko -->
+                                    @*
+                                        <!-- ko if: contractLoaded() && ViewModel.userRights.Download -->
+                                        <a id="download2" class="folder-option" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-download" style="padding-left:15px; padding-right:15px"></i><span>PDF</span></a>
+                                        <br>
+                                        <!-- ko if: !ViewModel.isContractSigned() -->
+                                        <a href="#" data-bind="click:generateWord" class="folder-option" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-download" style="padding-left:15px; padding-right:15px"></i><span>Word</span></a>
+                                        <br>
+
+                                        <!-- /ko -->
+                                        <!-- /ko -->*@
+                                    <!-- ko ifnot: ViewModel.displayValidate() || ViewModel.isContractSigned() -->
+                                <a href="#" class="folder-option" data-bind="visible:ViewModel.canSign,click:showModalSign" id="sign" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-pen" style="padding-left:15px; padding-right:15px"></i><span>AskForSignature</span></a>
+                                    <br>
+                                    <a href="#" class="folder-option" data-bind="click: showModalReopen" id="sign" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-undo" style="padding-left:15px; padding-right:15px"></i><span>GoBackToNegotiation</span></a>
+                                    <br>
+                                    <!-- /ko -->
+                                    <!-- ko if: ViewModel.displayValidate() && !ViewModel.isContractSigned() -->
+                                <a href="#" class="folder-option" id="validate" data-bind="click: tryValidate" style="font-size: 16px; vertical-align: 15px; font-weight: 500"><i class="fas fa-check" style="padding-left:15px; padding-right:15px"></i><span>Validate</span></a>
+                                    <!-- /ko -->
+                            </div>
+                            </div>
+
+                            <div class="modal fade" id="signalr-lost" tabindex="-1" role="dialog" aria-labelledby="signalr perdu" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 65%; max-width: 650px; margin-top: 5em">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span style="font-size: 18px; font-weight: 600;" class="modal-title text-uppercase">LostConnectionWithServer</span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="modal-body space-down">
+                                                <div class="text-center">
+                                                    <p>LostConnectionWithServer_Description</p>
+
+                                                    <p>LostConnectionWithServer_ReloadTime</p>
+
+                                                    <a class="space-up" id="reload" href="#">LostConnectionWithServer_ReloadImmediately</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="compareVersionReader" class="container-fluid mt-3" data-bind="visible: compareVersion()">
+                            <div class="row">
+                                <!-- ko if: ViewMod.rightVersionCompared() == ViewMod.leftVersionCompared() -->
+                            <div class="col-12">
+                                    <p class="txt-red text-center my-3">CannotCompareTwoVersions</p>
+                                </div>
+                                <!-- /ko -->
+                            <div id="leftVersionCol" class="col-6 pl-0">
+                                    <div id="leftVersionComparator" class="contractVersionCompared">
+                                    </div>
+                                </div>
+                                <div id="rightVersionCol" class="col-6 pr-0">
+                                    <div class="row no-gutters">
+                                    </div>
+                                    <div id="rightVersionComparator" class="contractVersionCompared">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="vh-100" data-bind="visible: isAnnexesTabSelected, with: contractAnnexesViewModel">
+            </div>
+            <div id="reader" data-bind="hidden: isAnnexesTabSelected"></div>
+            @* TODO: Use partial *@
+            <div data-bind="visible: editWorkflow()">
+                <div class="d-flex p-4 border-bottom-grey">
+                    <div class="col-4 col-lg-3">
+                        <a class="btn-back" data-icon-before="&#xe408;" href="#" data-bind="click: leaveEditWorkflow">
+                            BackToTheDocument
+                        </a>
+                    </div>
+                    <div class="col-8 col-lg-9" data-bind="with: workflowEditorViewModel">
+                        <p class="ModifyWorkflowDocumentTitle">
+                            ModifyWorkflowDocument
+                        </p>
+                    </div>
+                </div>
+                <div data-bind="with: workflowEditorViewModel">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+    const CONTRIBUTOR_RESOURCES = {
+        ChooseOne: @Json.Serialize("ChooseOne"),
+        InvalidConditionMessage: @Json.Serialize("InvalidConditionMessage"),
+    }
+</script>
+<script id="rowTmpl" type="text/html">
+    <p class="search-elt"><span data-bind="text:firstName"></span> <span data-bind="text:lastName"></span></p>
+</script>
+<script type="text/javascript" src="~/js/SCM/utils.js"></script>
+<script type="text/javascript" src="~/js/SCM/contractReaderViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/SCM/workflowPanelViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/SCM/addContributorModalViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/SCM/workflowEditorViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/SCM/contractAnnexesViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/lib/toastr.js/toastr.min.js"></script>
+<script type="text/javascript" src="~/lib/moment/moment.js"></script>
+<script type="text/javascript" src="~/js/SCM/foldersTreeViewModel.js"></script>
+<script type="text/javascript" src="~/js/SCM/loader.js"></script>
+<script type="text/javascript" src="~/js/SCM/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: true,
+        progressBar: true,
+        positionClass: "toast-top-right",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "7500",
+        extendedTimeOut: "1500",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+        };
+
+
+    const ContractResources = {
+        RevWarningSignature: "RevWarningSignature",
+    };
+
+    var headers = {};
+    headers.Authorization = 'Bearer ' + '@Model._contractViewModel.AccessToken';
+    headers.LangSCM = '@Model._contractViewModel.Lang';
+
+    var userid = '@Model._contractViewModel.SCMUserId';
+    var username = '@Username';
+    var cuid = '@Username';
+    var useWishedWidth = true;
+    var initials = '@Initials';
+    var handleScroll = true;
+    var scmApiURL = '@Model._contractViewModel.Url'
+    var toolbarOffset = 116;
+
+    if (!String.prototype.endsWith) {
+        String.prototype.endsWith = function (pattern) {
+            var d = this.length - pattern.length;
+            return d >= 0 && this.lastIndexOf(pattern) === d;
+        };
+    }
+
+    var contractReaderViewModel = null;
+
+    var Resources = @Json.Serialize("");
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '@(Model._contractViewModel.Url)/api/Template/Run/Ext/' ,
+            type: 'POST',
+            data: {
+                Id: "@Model._contractViewModel.ContractId",
+                ShouldUseWorkflowSystem: false,
+                ShouldShowUserMenu: true,
+                ShouldUseRightsSystem: false,
+                ShouldShowVersions: true,
+                PageA4: true,
+                Lang: '@Model._contractViewModel.Lang',
+                Uid: '@Model._contractViewModel.Uid'
+            },
+            headers: headers,
+        }).done(function (data) {
+            contractReaderViewModel = new viewMod(@JsonHelper.GetJson(Model._contractViewModel));
+
+            console.log(contractReaderViewModel.contractId);
+
+            ko.applyBindings(contractReaderViewModel, document.getElementById('reader-head'));
+            contractReaderViewModel.workflowPanelViewModel.loadData(contractReaderViewModel.contractId);
+
+            $("#reader").html(data);
+            run(35, '@Url.Action("Index", "Manage")', function () {
+                ViewModel.shouldSendConversationEmails?.(false);
+                ViewModel.endUserId(@Json.Serialize(Model._contractViewModel.UserId));
+                ViewModel.hooks.onMessageSent = function (args) {
+                    @*$.ajax({
+                                    method: "POST",
+                                    url: "/Contract/SendMentionEmails",
+                                    contentType: "application/json",
+                                    data: JSON.stringify({
+                                        contractId: @Json.Serialize(Model.ContractId),
+                                        messageText: args.messageText,
+                                        isPublic: args.isPublic,
+                                    })
+                                });*@
+                };
+                ViewModel.hooks.onCommentSent = function (args) {
+                    @*$.ajax({
+                                    method: "POST",
+                                    url: "/Contract/SendCommentMentionEmails",
+                                    contentType: "application/json",
+                                    data: JSON.stringify({
+                                        contractId: @Json.Serialize(Model.ContractId),
+                                        text: args.text,
+                                    })
+                                });*@
+                }
+
+                ViewModel.userRights.AcceptAllMarkups = false;
+                ViewModel.userRights.AcceptOthersMarkups = false;
+                if (ViewMod.isCreator) {
+                    ViewModel.userRights.AcceptAllMarkups = true;
+                    ViewModel.userRights.AcceptOthersMarkups = true;
+                }
+
+                ViewModel.sendForSignature = function (data, event) {
+                    $.ajax({
+                        url: '/SCM/Index?handler=SendToSignature',
+                        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                        data: {
+                            contractId: ViewModel.contractId
+                        },
+                        method: 'POST',
+                        complete: function (x, h, r) {
+                            toastr.success("Le document a bien été sauvegardé, vous allez recevoir un mail pour le signer");
+                        }
+                    });
+                };
+
+                // Turn off automatic editor creation first.
+                CKEDITOR.disableAutoInline = true;
+
+                if ($("#workflow-bar").length > 0) {
+                    ko.applyBindings(ViewModel, document.getElementById('workflow-bar'));
+                }
+
+                contractReaderViewModel.loadWorkflowEditorViewModel();
+                ViewMod.contractLoaded(true);
+                ViewMod.leftVersionCompared(ViewModel.versions()[0].Id);
+                ViewMod.rightVersionCompared(ViewModel.versions()[0].Id);
+                ViewMod.setUserConnected("@Html.Raw(Email)");
+                ViewMod.setCurrentWorkflow();
+                ViewMod.setNextWorkflowStep();
+                ViewMod.workflowEditorViewModel().selectStep(ViewMod.workflowEditorViewModel().workflow.workflowSteps()[ViewMod.workflowEditorViewModel().workflow.currentStep()])
+
+                $(".chat").remove();
+
+                if (@(Model._contractViewModel.StartingTab) == 1) // Form tab
+                    $("a.tab-sc[data-tab='form']").click();
+
+                if (@(Model._contractViewModel.StartingTab) == 2) // Revision tab
+                    $("a.tab-sc[data-tab='rev']").click();
+
+
+                //ViewMod.checkMenuToDisplay();
+                ViewModel.cleanCurrentEditor();
+
+                if ($(".links").length > 0 && $("#reader-card").length > 0) {
+                    new PrettyScroll('.links', {
+                        container: '#reader-card',
+                        offsetTop: 0, // space between the sticky element and the top of the window
+                        offsetBottom: 0, // space between the sticky element and the bottom of the window
+                        wishedElemWidth: $("#lecteur"),
+                        shouldUseWishedWidth: true,
+                        condition: function () {
+                            return true;
+                        }, // you can disable the sticky behavior by returning false, it will be executed when you scroll.
+                    });
+                }
+
+                $("input[name=title]").change(function () {
+                    var value = $("input[name=title]").val();
+
+                    if (value != "")
+                        $.get('@Url.Action("SetContractName", "Reader", new { id = Model._contractViewModel.ContractId })?name=' + value);
+                });
+
+                $("#send").click(function () {
+                    $("#confirm-send").modal('show');
+                    $("#contractId").val('@Model._contractViewModel.ContractId');
+                    $("#contractTitle").val($("input[name=title]").val());
+                });
+
+                $("#reload").click(function () {
+                    location.reload();
+                });
+
+                $("#download").click(function () {
+                    ViewMod.generatePdf();
+                });
+                $("#download2").click(function () {
+                    ViewMod.generatePdf();
+                });
+                $("#downloadDoc").click(function () {
+                    ViewMod.generateWord();
+                });
+
+                ko.mapping.fromJS(@Html.Raw(JsonConvert.SerializeObject(Model._contractViewModel.PartyList)),
+                                  {},
+                    ViewModel.fullContractParties);
+
+                $(document).click(function (event) {
+                    if ($(event.target).hasClass("round-icon-button")) {
+                        console.log($(event.target).children().click())
+                    }
+                });
+
+                @if (!User.IsInRole("SuperAdmin"))
+                {
+                    @:froala.toolbar.hide();
+                    @:froala.edit.off();
+                }
+            });
+        });
+
+        $("header,footer").click(function (event) {
+            if (typeof ViewModel == "undefined")
+                return;
+
+            if (ViewMod.stateModified()) {
+                var confirmQuit = confirm("Vous n'avez pas enregistré vos modifications, êtes vous sûr de vouloir quitter ce contrat ?");
+                if (!confirmQuit) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return;
+                }
+            }
+        })
+    });
+
+    function setHeaderMenu() {
+        var x = document.getElementById("headerMenu");
+        if (x.className === "header-menu") {
+            x.className += "-responsive";
+        } else {
+            x.className = "header-menu";
+        }
+    }
+
+    $(".btn-close").click(function () {
+        $(".menu").toggleClass("active");
+        $(".workflow-hide").toggleClass("d-none");
+        $("#workflow-options h2").toggleClass("d-none");
+        $("#workflow-options .btn-edit-workflow").toggleClass("d-none");
+        $(".card-workflow.current").toggleClass("add_margin");
+        $(".btn-close").toggleClass("IsClose");
+        $("#lecteur").toggleClass('FullWidth');
+
+        if ($("#workflow-options h2").hasClass("d-none")) {
+            $("#SidePanelWorkFlow").css({'transform' : 'translateX(218px)', 'width' : '56px'});
+            $("#workflow-options .btn-close").css({ 'transform': 'translateX(224px)', 'margin-bottom': '24px' });
+        }
+        else {
+            $("#SidePanelWorkFlow").css({ 'transform': 'translateX(0px)', 'width': 'inherit' });
+            $("#workflow-options .btn-close").css({ 'transform': 'translateX(0px)', 'margin-bottom': 'initial' });
+
+        }
+
+        // Resize event to refresh PrettyScroll
+        var resizeEvent = new Event('resize');
+        window.dispatchEvent(resizeEvent);
+    });
+</script>
+}

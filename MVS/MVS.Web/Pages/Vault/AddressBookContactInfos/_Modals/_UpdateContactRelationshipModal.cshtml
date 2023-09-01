@@ -1,0 +1,49 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactRelationshipModal" tabindex="-1" aria-labelledby="updateContactRelationshipLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier la relation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <p>Qualité des relations :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipQuality-good" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.Good)">
+                            <label for="RelationshipQuality-good">Bonnes</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipQuality-conflict" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.Conflict)">
+                            <label for="RelationshipQuality-conflict">Conflictuelles</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipQuality-norelationship" name="RelationshipQuality" data-bind="checked: RelationshipQuality, checkedValue: @((int)RelationshipQuality.NoRelationship)">
+                            <label for="RelationshipQuality-norelationship">Pas de relation</label>
+                        </div>
+
+                        <p>Fréquences des relations :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipFrequencies-everyweek" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.EveryWeek)">
+                            <label for="RelationshipFrequencies-everyweek">Toutes les semaines</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipFrequencies-everymonth" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.EveryMonth)">
+                            <label for="RelationshipFrequencies-everymonth">Tous les mois</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipFrequencies-several-times-a-year" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.SeveralTimesAYear)">
+                            <label for="RelationshipFrequencies-several-times-a-year">Plusieurs fois par an</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="me-2" id="RelationshipFrequencies-less-than-once-a-year" name="RelationshipFrequencies" data-bind="checked: RelationshipFrequencies, checkedValue: @((int)RelationshipFrequencies.LessThanOnceAYear)">
+                            <label for="RelationshipFrequencies-less-than-once-a-year">Moins d'une fois par an</label>
+                        </div>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateContactRelationship() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

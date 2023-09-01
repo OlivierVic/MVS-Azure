@@ -1,0 +1,120 @@
+@page
+@using MVS.Common.Enum
+@model MVS.Web.Pages.Admin.TreatmentModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="admin">
+    <div class="row mb-4">
+        <div class="col-auto">
+            <h1 class="mb-3">Admin</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <div class="row justify-content-between mb-4">
+                <div class="col-auto">
+                    <h2 class="mb-3">Traitements</h2>
+                </div>
+                <div class="col-auto">
+                    <div class="customSort">
+                        <select class="outline-success" data-bind="value: sort">
+                            <option value="@((int)FolderSort.Name)">Bénéficiaire A-Z</option>
+                            <option value="@((int)FolderSort.NameDesc)">Bénéficiaire Z-A</option>
+                            <option value="@((int)FolderSort.CreationDate)">Date de création</option>
+                            <option value="@((int)FolderSort.Type)">Type de dossier</option>
+                            <option value="@((int)FolderSort.Status)">État d’avancement</option>
+                        </select>
+                        <img src="/img/icons/sort.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5"></div>
+    </div>
+    <div class="row">
+        <article class="col-9">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <!-- ko if: folders().length == 0-->
+                    <span>Vous n'avez aucun dossier en cours de traitement</span>
+                    <!-- /ko -->
+                    <!-- ko foreach: folders -->
+                    <div class="card smallcard mb-3">
+                        <p class="subtitle" data-bind="visible: field == @((int)FolderField.FutureProtection)">Protection Future</p>
+                        <p class="subtitle" data-bind="visible: field == @((int)FolderField.ImmediateProtection)">Protection Immédiate</p>
+                        <div class="dropdown">
+                            <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/img/icons/points.svg" />
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Que voulez-vous faire ?<img src="~/img/icons/close.svg" class="ms-auto me-0" /></a></li>
+                                <li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#deleteFolderModal" data-bind="click: function(){ $root.selectedFolder($data) }"><img src="~/img/icons/bin_red.svg" />Supprimer le dossier</a></li>
+                                @*<li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#archiveFolderModal" data-bind="click: function(){ $root.selectedFolder($data) }"><img src="~/img/icons/archive.svg" />Archiver le dossier</a></li>*@
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="title"> <a href="#" data-bind="attr: { href: '/Vault/Vault?VaultId=' + id}">DOSSIER N° <span data-bind="text: title"></span></a></p>
+                                <p class="name" data-bind="text: firstName + ' ' + lastName">Nom du bénéficiaire</p>
+                                <p class="dateCreated">Créé le <span data-bind="text: displayDate(creationDate)"></span></p>
+                            </div>
+                            <div class="col-4">
+                                <p class="StatusFolder">Statut du dossier :</p>
+                                <p class="progress-name" data-bind="text: statusField, css: {danger: status == @((int)FolderStatusPercentageEnum.Fifteen), warning: status == @((int)FolderStatusPercentageEnum.Fifty), success: status == @((int)FolderStatusPercentageEnum.Hundred), completed: status == @((int)FolderStatusPercentageEnum.Completed)}"></p>
+                                <div class="progress" data-bind="visible: status != @((int)FolderStatusPercentageEnum.Completed)">
+                                    <div class="progress-bar" data-bind="css: { 'state100' : status == @((int)FolderStatusPercentageEnum.Hundred), 'state50': status == @((int)FolderStatusPercentageEnum.Fifty), 'state15': status == @((int)FolderStatusPercentageEnum.Fifteen) }" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="col-auto d-flex align-items-center NotifReason">
+                                <div class="bell position-relative">
+                                    <img src="/img/icons/bell.svg">
+                                    <p class="m-0">5</p>
+                                </div>
+                            </div>
+                            <div class="col-3 d-flex align-items-center flex-column justify-content-center NotifReason">
+                                <h4 data-bind="visible: step == @((int)FolderStep.Step4)">Choix mesure</h4>
+                                @*<h4>Enregistrement</h4>
+                                    <h4>Questions</h4>
+                                    <h4>Rédaction</h4>
+                                    <h4>Précision</h4>*@
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <div class="row justify-content-between mb-4">
+                        <div class="col-auto">
+                            <!-- ko if: folders().length != 0-->
+                            <div id="pagination-area">
+                                <img src="/img/icons/chevron-left.svg" class="me-1" data-bind="click: function() {currentPage(self.currentPage() == 1 ? 1 : self.currentPage() - 1 )}" />
+
+                                <!-- ko foreach: pages -->
+                                <span data-bind="text: $data, css:{ 'item-selected' : $data == $root.currentPage() }, click: function(){$root.currentPage($data)}" class="item"></span>
+                                <!-- /ko -->
+
+                                <img src="/img/icons/chevron-right.svg" class="ms-1" data-bind="click: function() {currentPage(self.currentPage() == nbPages() ? nbPages() : self.currentPage() + 1 )}" />
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <partial name="~/Pages/Vault/Modals/_DeleteFolderModal.cshtml" />
+    <partial name="~/Pages/Vault/Modals/_ArchiveFolderModal.cshtml" />
+</section>
+
+@section Scripts
+{
+<script src="~/js/ViewModels/Admin/TreatmentViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new treatmentViewModel(), document.getElementById('admin'));
+    });
+</script>
+}

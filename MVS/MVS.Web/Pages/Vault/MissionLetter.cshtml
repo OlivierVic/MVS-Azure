@@ -1,0 +1,31 @@
+@page
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.MissionLetterModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="missionletter">
+
+    @Html.Partial("_Partials/_FolderNavigation")
+
+    <partial name="_Partials/_MissionLetter" />
+
+    <partial name="Modals/_PaymentModal" />
+    <partial name="Modals/_PaymentPrelevementModal" />
+    <partial name="Modals/_PaymentVirementModal" />
+    <partial name="Modals/_ShowMissionLetterModal" />
+    <partial name="Modals/_ShowBillModal.cshtml" />
+</section>
+
+@section Scripts
+{
+<script src="~/js/ViewModels/FolderStep2ViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new folderStep2ViewModel(@JsonHelper.GetJson(Model._folderId)), document.getElementById('missionletter'));
+        $("#tab2").addClass("selected");
+    });
+</script>
+}

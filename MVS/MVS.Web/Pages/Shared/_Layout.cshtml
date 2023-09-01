@@ -1,0 +1,102 @@
+@using MVS.Common.Enum;
+@using MVS.Common.Interfaces;
+@using MVS.Common.Specifications;
+@using MVS.Web.Helpers;
+@using Microsoft.AspNetCore.Identity
+@using MVS.Common;
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@{
+    ApplicationUser user = null;
+    user = await userManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVS.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MVS.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
+    <link rel="stylesheet" href="~/lib/country-select-js/css/countrySelect.css" />
+    <link rel="stylesheet" href="~/lib/nationality-select-js/css/nationalitySelect.css" />
+
+    @RenderSection("css", required: false)
+</head>
+<body>
+
+    @Html.Partial("_Header")
+    <main role="main" class="container-fluid p-0">
+        <div class="row g-0">
+            @if (signInManager.IsSignedIn(User))
+            {
+                @Html.Partial("_Navbar")
+            }
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/lib/knockout/knockout-latest.min.js" asp-append-version="true"></script>
+    <script src="~/lib/knockout.mapping/knockout.mapping.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/country-select-js/js/countrySelect.js" asp-append-version="true"></script>
+    <script src="~/lib/nationality-select-js/js/nationalitySelect.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(function () { $('[data-toggle="tooltip"]').tooltip() })
+
+        var isMobile = false;
+        $(document).ready(function () {
+            addBulletToNavLinks();
+        });
+        $(document).ready(function () {
+            var pathArray = window.location.pathname.split('/');
+            var pathLocation = pathArray[1];
+            if (pathLocation !== "Error" && window.document.documentMode) {
+                window.location = '@Url.Action("ErrorCompatibility", "Error")';
+            }
+            isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
+            if (pathLocation !== "Error" && pathLocation !== "Dashboard" && pathLocation !== "Statistics" && isMobile)
+                window.location = '@Url.Action("CompatibilityMobile", "Error")';
+        });
+
+        function addBulletToNavLinks() {
+            var pathArray = window.location.pathname.split('/');
+            var pathLocation = pathArray[1];
+            if (pathLocation === "Home") {
+                $("#PathHome").addClass('selected');
+            }
+            else if (pathLocation === "Vault") {
+                $("#PathFolder").addClass('selected');
+            }
+            else if (pathLocation === "Tools") {
+                $("#PathTools").addClass('selected');
+            }
+            else if (pathLocation === "Account") {
+                $("#PathSettings").addClass('selected');
+            }
+            else if (pathLocation === "ContactByEmail") {
+                $("#PathMessage").addClass('selected');
+            }
+            else if (pathLocation === "RGPD") {
+                $("#PathRGPD").addClass('selected');
+            }
+            else if (pathLocation === "MentionsLegales") {
+                $("#PathMentionsLegales").addClass('selected');
+            }
+            else if (pathLocation === "CGU") {
+                $("#PathCGU").addClass('selected');
+            }
+        }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

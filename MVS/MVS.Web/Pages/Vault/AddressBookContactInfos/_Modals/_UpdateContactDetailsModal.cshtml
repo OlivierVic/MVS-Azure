@@ -1,0 +1,20 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactDetailsModal" tabindex="-1" aria-labelledby="updateContactDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier la précision sur le contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <label class="labelinput">Nouvelle précision</label>
+                        <textarea class="form-control required" data-bind="textInput: ContactDetails"></textarea>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateContactDetails() }"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,596 @@
+@*VaultHeritage*@
+
+@page
+@using MVS.Common.Enum.FolderInfosForms
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+
+@model MVS.Web.Pages.Vault.InfosForms.HeritageModel
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="Heritage">
+    <div class="row">
+        <h1 class="mb-3">QUESTIONNAIRE D'INFORMATION DU BÉNÉFICIAIRE</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="HeritageInfoForm" data-bind="using: foldeHeritage">
+                    <h2 class="mb-2">Patrimoine</h2>
+                    <form class="block-form mt-4" method="post" id="info-heritage-form">
+                        <h3 class="subtitle-form">Biens</h3>
+
+                        <div class="mt-3 mb-0">
+                            <div class="block-form">
+                                <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous un patrimoine <span class="optional">(Résidence, Voiture, Compte...)</span> :</label>
+                                <div>
+                                    <input class="me-2" type="radio" id="heritageProtect-yes" name="HeritageProtect" data-bind="checked: $root.vaultHeritage.HeritageProtect, checkedValue: true">
+                                    <label class="me-5" for="heritageProtect-yes">Oui</label>
+                                    <div class="me-4"></div>
+                                    <input class="me-2" type="radio" id="heritageProtect-no" name="HeritageProtect" data-bind="checked: $root.vaultHeritage.HeritageProtect, checkedValue: false">
+                                    <label for="heritageProtect-no">Non</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-bind="visible: $root.vaultHeritage.HeritageProtect() && $root.vaultHeritage.HeritageProtect() != null">
+                            <div class="mb-4" @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.Property))"*@>
+                                <div>
+                                    <div class="block-form">
+                                        <input class="me-2 mb-0" type="checkbox" id="heritage-mainResidence" name="MainResidence" data-bind="checkedValue: true, checked: $root.vaultHeritage.MainResidence">
+                                        <label class="subtitle-form me-1 labelinput" for="heritage-mainResidence">Résidence principale</label>
+                                        @if (Model._folderTypeContact.Contains((int)TypeContactEnum.MainResidence))
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.MainResidence()" disabled>VaultContact créé</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.MainResidence.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.MainResidence)')" data-bind="visible: $root.vaultHeritage.MainResidence()">Créer le contact</button>
+                                        }
+                                        <div data-bind="visible: $root.vaultHeritage.MainResidence() && $root.vaultHeritage.MainResidence() != null">
+                                            <div class="w-100">
+                                                <label class="labelinput" for="heritage-mainResidenceInput">Merci d’apporter le libellé de ce bien :</label>
+                                                <div>
+                                                    <input type="text" id="heritage-mainResidenceWording" placeholder="Renseignez votre texte ici" name="MainResidenceWording" data-bind="value: $root.vaultHeritage.MainResidenceWording">
+                                                </div>
+
+                                                <label class="labelinput" for="heritage-mainResidenceInput">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                <div>
+                                                    <textarea class="mb-2" type="text" rows="5" id="heritage-mainResidenceAccuracy" placeholder="Renseignez votre texte ici" name="MainResidenceAccuracy" data-bind="value: $root.vaultHeritage.MainResidenceAccuracy"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block-form">
+                                        <input class="me-2 mb-0" type="checkbox" id="heritage-secondResidence" name="SecondResidence" data-bind="checkedValue: true, checked: $root.vaultHeritage.SecondResidence">
+                                        <label class="subtitle-form me-1 labelinput" for="heritage-secondResidence">Résidence secondaire</label>
+                                        @if (Model._folderTypeContact.Contains((int)TypeContactEnum.SecondResidence))
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.SecondResidence()" disabled>VaultContact créé</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.SecondResidence.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.SecondResidence)')" data-bind="visible: $root.vaultHeritage.SecondResidence()">Créer le contact</button>
+                                        }
+                                        <div data-bind="visible: $root.vaultHeritage.SecondResidence() && $root.vaultHeritage.SecondResidence() != null">
+                                            <div class="w-100">
+                                                <label class="labelinput" for="heritage-secondResidenceWording">Merci d’apporter le libellé de ce bien :</label>
+                                                <div>
+                                                    <input type="text" id="heritage-secondResidenceWording" placeholder="Renseignez votre texte ici" name="SecondResidenceWording" data-bind="value: $root.vaultHeritage.SecondResidenceWording">
+                                                </div>
+                                                <label class="labelinput" for="heritage-secondResidenceAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                <div>
+                                                    <textarea class="mb-2" type="text" rows="5" id="heritage-secondResidenceAccuracy" placeholder="Renseignez votre texte ici" name="SecondResidenceAccuracy" data-bind="value: $root.vaultHeritage.SecondResidenceAccuracy"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block-form">
+                                        <input class="me-2 mb-0" type="checkbox" id="heritage-otherRealEstate" name="OtherRealEstate" data-bind="checkedValue: true, checked: $root.vaultHeritage.OtherRealEstate">
+                                        <label class="subtitle-form me-1 labelinput" for="heritage-otherRealEstate">Autre bien immobilier</label>
+                                        @if (Model._folderTypeContact.Contains((int)TypeContactEnum.OtherRealEstateField))
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.OtherRealEstate()" disabled>VaultContact créé</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherRealEstateField.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherRealEstateField)')" data-bind="visible: $root.vaultHeritage.OtherRealEstate()">Créer le contact</button>
+                                        }
+                                        <div data-bind="visible: $root.vaultHeritage.OtherRealEstate() && $root.vaultHeritage.OtherRealEstate() != null">
+                                            <div class="w-100">
+                                                <label class="labelinput" for="heritage-secondResidenceWording">Merci d’apporter le libellé de ce bien :</label>
+                                                <div>
+                                                    <input type="text" id="heritage-otherRealEstateWording" placeholder="Renseignez votre texte ici" name="OtherRealEstateWording" data-bind="value: $root.vaultHeritage.OtherRealEstateWording">
+                                                </div>
+                                                <label class="labelinput" for="heritage-secondResidenceAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                <div>
+                                                    <textarea class="mb-2" type="text" rows="5" id="heritage-otherRealEstateAccuracy" placeholder="Renseignez votre texte ici" name="OtherRealEstateAccuracy" data-bind="value: $root.vaultHeritage.OtherRealEstateAccuracy"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyAccountBank))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-BankAccount" name="BankAccount" data-bind="checkedValue: true, checked: $root.vaultHeritage.BankAccount">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-BankAccount">Compte bancaire</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.BankAccount))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.BankAccount()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.BankAccount.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.BankAccount)')" data-bind="visible: $root.vaultHeritage.BankAccount()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.BankAccount() && $root.vaultHeritage.BankAccount() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-BankAccountWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-BankAccountWording" placeholder="Renseignez votre texte ici" name="BankAccountWording" data-bind="value: $root.vaultHeritage.BankAccountWording">
+                                                    </div>
+                                                    <label class="labelinput" for="heritage-BankAccountAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-BankAccountAccuracy" placeholder="Renseignez votre texte ici" name="BankAccountAccuracy" data-bind="value: $root.vaultHeritage.BankAccountAccuracy"></textarea>
+                                                    </div>
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Compte bancaire</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherBankAccount.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherBankAccount)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un compte bancaire</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherLifeInsurance))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-LifeInsurance" name="LifeInsurance" data-bind="checkedValue: true, checked: $root.vaultHeritage.LifeInsurance">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-LifeInsurance">Assurance vie</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.LifeInsurance))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.LifeInsurance()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.LifeInsurance.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.LifeInsurance)')" data-bind="visible: $root.vaultHeritage.LifeInsurance()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.LifeInsurance() && $root.vaultHeritage.LifeInsurance() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-LifeInsuranceWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-LifeInsuranceWording" placeholder="Renseignez votre texte ici" name="LifeInsuranceWording" data-bind="value: $root.vaultHeritage.LifeInsuranceWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-LifeInsuranceAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-LifeInsuranceAccuracy" placeholder="Renseignez votre texte ici" name="LifeInsuranceAccuracy" data-bind="value: $root.vaultHeritage.LifeInsuranceAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Assurance vie</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherLifeInsurance.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherLifeInsurance)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter une assurance vie</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherUnitsOrCorporateShares))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-UnitsSharesCompanies" name="UnitsSharesCompanies" data-bind="checkedValue: true, checked: $root.vaultHeritage.UnitsSharesCompanies">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-UnitsSharesCompanies">Parts ou actions de société</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.UnitsOrSharesOfCompanies))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.UnitsSharesCompanies()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.UnitsOrSharesOfCompanies.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.UnitsOrSharesOfCompanies)')" data-bind="visible: $root.vaultHeritage.UnitsSharesCompanies()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.UnitsSharesCompanies() && $root.vaultHeritage.UnitsSharesCompanies() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-UnitsSharesCompaniesWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-UnitsSharesCompaniesWording" placeholder="Renseignez votre texte ici" name="UnitsSharesCompaniesWording" data-bind="value: $root.vaultHeritage.UnitsSharesCompaniesWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-UnitsSharesCompaniesAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-UnitsSharesCompaniesAccuracy" placeholder="Renseignez votre texte ici" name="UnitsSharesCompaniesAccuracy" data-bind="value: $root.vaultHeritage.UnitsSharesCompaniesAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Parts ou actions de société</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherUnitsOrSharesOfCompanies.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherUnitsOrSharesOfCompanies)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter des parts ou actions de société</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherCopyright))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-Copyright" name="Copyright" data-bind="checkedValue: true, checked: $root.vaultHeritage.Copyright">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-Copyright">Droit d'auteur</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.Copyright))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.Copyright()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.Copyright.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.Copyright)')" data-bind="visible: $root.vaultHeritage.Copyright()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.Copyright() && $root.vaultHeritage.Copyright() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-CopyrightWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-CopyrightWording" placeholder="Renseignez votre texte ici" name="CopyrightWording" data-bind="value: $root.vaultHeritage.CopyrightWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-CopyrightAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-CopyrightAccuracy" placeholder="Renseignez votre texte ici" name="CopyrightAccuracy" data-bind="value: $root.vaultHeritage.CopyrightAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Droit d'auteur</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherCopyright.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherCopyright)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un droit d'auteur</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherIndustrialProperty))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-IndustrialProperty" name="IndustrialProperty" data-bind="checkedValue: true, checked: $root.vaultHeritage.IndustrialProperty">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-IndustrialProperty">Propriété industrielle</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.IndustrialProperty))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.IndustrialProperty()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.IndustrialProperty.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.IndustrialProperty)')" data-bind="visible: $root.vaultHeritage.IndustrialProperty()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.IndustrialProperty() && $root.vaultHeritage.IndustrialProperty() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-IndustrialPropertyWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-IndustrialPropertyWording" placeholder="Renseignez votre texte ici" name="IndustrialPropertyWording" data-bind="value: $root.vaultHeritage.IndustrialPropertyWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-IndustrialPropertyAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-IndustrialPropertyAccuracy" placeholder="Renseignez votre texte ici" name="IndustrialPropertyAccuracy" data-bind="value: $root.vaultHeritage.IndustrialPropertyAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Propriété industrielle</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherIndustrialProperty.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherIndustrialProperty)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un droit de propriété industrielle</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherAutomobile))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-MotorVehicle" name="MotorVehicle" data-bind="checkedValue: true, checked: $root.vaultHeritage.MotorVehicle">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-MotorVehicle">Véhicule automobile</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.MotorVehicle))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.MotorVehicle()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.MotorVehicle.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.MotorVehicle)')" data-bind="visible: $root.vaultHeritage.MotorVehicle()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.MotorVehicle() && $root.vaultHeritage.MotorVehicle() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-MotorVehicleWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-MotorVehicleWording" placeholder="Renseignez votre texte ici" name="MotorVehicleWording" data-bind="value: $root.vaultHeritage.MotorVehicleWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-MotorVehicleAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-MotorVehicleAccuracy" placeholder="Renseignez votre texte ici" name="MotorVehicleAccuracy" data-bind="value: $root.vaultHeritage.MotorVehicleAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Véhicule automobile</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherMotorVehicle.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherMotorVehicle)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un véhicule automobile</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherMovableProperty))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-ValuablePersonalProperty" name="ValuablePersonalProperty" data-bind="checkedValue: true, checked: $root.vaultHeritage.ValuablePersonalProperty">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-ValuablePersonalProperty">Bien mobilier de valeur</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.ValuablePersonalProperty))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.ValuablePersonalProperty()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.ValuablePersonalProperty.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.ValuablePersonalProperty)')" data-bind="visible: $root.vaultHeritage.ValuablePersonalProperty()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.ValuablePersonalProperty() && $root.vaultHeritage.ValuablePersonalProperty() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-ValuablePersonalPropertyWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-ValuablePersonalPropertyWording" placeholder="Renseignez votre texte ici" name="ValuablePersonalPropertyWording" data-bind="value: $root.vaultHeritage.ValuablePersonalPropertyWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-ValuablePersonalPropertyAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-ValuablePersonalPropertyAccuracy" placeholder="Renseignez votre texte ici" name="ValuablePersonalPropertyAccuracy" data-bind="value: $root.vaultHeritage.ValuablePersonalPropertyAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Biens mobilier de valeur</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherValuablePersonalProperty.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherValuablePersonalProperty)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un bien mobilier de valeur</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.PropertyOtherEquityPortfolio))"*@>
+                                        <div class="block-form">
+                                            <input class="me-2 mb-0" type="checkbox" id="heritage-PortfolioOfShares" name="PortfolioOfShares" data-bind="checkedValue: true, checked: $root.vaultHeritage.PortfolioOfShares">
+                                            <label class="subtitle-form me-1 labelinput" for="heritage-PortfolioOfShares">Un portefeuille d'actions</label>
+                                            @if (Model._folderTypeContact.Contains((int)TypeContactEnum.PortfolioOfShares))
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.PortfolioOfShares()" disabled>VaultContact créé</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.PortfolioOfShares.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.PortfolioOfShares)')" data-bind="visible: $root.vaultHeritage.PortfolioOfShares()">Créer le contact</button>
+                                            }
+                                            <div data-bind="visible: $root.vaultHeritage.PortfolioOfShares() && $root.vaultHeritage.PortfolioOfShares() != null">
+                                                <div class="w-100">
+                                                    <label class="labelinput" for="heritage-PortfolioOfSharesWording">Merci d’apporter le libellé de ce bien :</label>
+                                                    <div>
+                                                        <input type="text" id="heritage-PortfolioOfSharesWording" placeholder="Renseignez votre texte ici" name="PortfolioOfSharesWording" data-bind="value: $root.vaultHeritage.PortfolioOfSharesWording">
+                                                    </div>
+
+                                                    <label class="labelinput" for="heritage-PortfolioOfSharesAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                                    <div>
+                                                        <textarea class="mb-2" type="text" rows="5" id="heritage-PortfolioOfSharesAccuracy" placeholder="Renseignez votre texte ici" name="PortfolioOfSharesAccuracy" data-bind="value: $root.vaultHeritage.PortfolioOfSharesAccuracy"></textarea>
+                                                    </div>
+
+                                                    @*<!-- ko foreach: AnswersHeritages() -->
+                                                    <label class="subtitle-form labelinput">Autre Portefeuille d'actions</label>
+                                                    <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherPortfolioOfShares.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherPortfolioOfShares)')">Créer le contact</button>
+                                                    <div class="block">
+                                                        <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                                        <input class="form-control" type="text" data-bind="value: Data" />
+
+                                                        <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                                        <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                                        <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                                    </div>
+                                                    <!-- /ko -->*@
+
+                                                    <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un portefeuille d'actions</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="block-form">
+                                        @*<!-- ko foreach: AnswersHeritages() -->
+                                        <label class="subtitle-form labelinput">Autre Biens</label>
+                                        <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherProperty.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherProperty)')">Créer le contact</button>
+                                        <div class="block">
+                                            <label class="labelinput">Merci d’apporter le libellé de ce bien :</label>
+                                            <input class="form-control" type="text" data-bind="value: Data" />
+
+                                            <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                            <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                            <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                        </div>
+                                        <!-- /ko -->*@
+
+                                        <a href="#" class="green-link ms-3" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter un autre bien</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="subtitle-form">Dettes</h3>
+
+                        <div @*data-bind="using: $root.questions.find(q => q.Id == @((int)HeritageEnum.Debt))"*@>
+                            <div>
+                                <div class="block-form">
+                                    <input class="me-2 mb-0" type="checkbox" id="heritage-Borrowing" name="Borrowing" data-bind="checkedValue: true, checked: $root.vaultHeritage.Borrowing">
+                                    <label class="subtitle-form me-1 labelinput" for="heritage-Borrowing">Emprunt</label>
+                                    @if (Model._folderTypeContact.Contains((int)TypeContactEnum.Borrowing))
+                                    {
+                                        <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" data-bind="visible: $root.vaultHeritage.Borrowing()" disabled>VaultContact créé</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little mb-1" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.Borrowing.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.Borrowing)')" data-bind="visible: $root.vaultHeritage.Borrowing()">Créer le contact</button>
+                                    }
+                                    <div data-bind="visible: $root.vaultHeritage.Borrowing() && $root.vaultHeritage.Borrowing() != null">
+                                        <div class="w-100">
+                                            <label class="labelinput" for="heritage-BorrowingWording">Merci d’apporter le libellé de cette dette :</label>
+                                            <div>
+                                                <input type="text" id="heritage-BorrowingWording" placeholder="Renseignez votre texte ici" name="BorrowingWording" data-bind="value: $root.vaultHeritage.BorrowingWording">
+                                            </div>
+
+                                            <label class="labelinput" for="heritage-BorrowingAccuracy">Merci d’apporter toute précision <span class="optional">(facultatif)</span></label>
+                                            <div>
+                                                <textarea class="mb-2" type="text" rows="5" id="heritage-BorrowingAccuracy" placeholder="Renseignez votre texte ici" name="BorrowingAccuracy" data-bind="value: $root.vaultHeritage.BorrowingAccuracy"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<!-- ko foreach: AnswersHeritages() -->
+                                <label class="subtitle-form labelinput">Autre Dette</label>
+                                <button type="button" class="btn btn-outline-success ml-btn-5 btn-green btn-little  mt-3 mb-2" onclick="createEmptyContactProWithEvent(event, '@((int)JobEnum.Other)', '@((string)TypeContactEnum.OtherBorrowing.GetDescription())', HeritageViewModel.vaultHeritage.VaultId(), '@((int)TypeContactEnum.OtherBorrowing)')">Créer le contact</button>
+                                <div class="block">
+                                    <label class="labelinput">Merci d’apporter le libellé de cette dette :</label>
+                                    <input class="form-control" type="text" data-bind="value: Data" />
+
+                                    <label class="labelinput">Merci d’apporter toute précision <span class="optional">(facultatif) :</span></label>
+                                    <textarea rows="5" class="mb-0" data-bind="value: Comment"></textarea>
+
+                                    <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                </div>
+                                <!-- /ko -->*@
+
+                                <a href="#" class="green-link ms-5" @*data-bind="click: function(){ $root.addNewAnswer(Id) }"*@>Ajouter une autre dette</a>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 mb-0">
+                            <div class="block-form">
+                                <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous terminé de compléter le formulaire ?</label>
+                                <div>
+                                    <input class="me-2" type="radio" id="completedForm-yes" name="CompletedForm" data-bind="checked: $root.vaultHeritage.CompletedForm, checkedValue: true">
+                                    <label class="me-5" for="completedForm-yes">Oui</label>
+                                    <div class="me-4"></div>
+                                    <input class="me-2" type="radio" id="completedForm-no" name="CompletedForm" data-bind="checked: $root.vaultHeritage.CompletedForm, checkedValue: false">
+                                    <label for="completedForm-no">Non</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="block_formcheck align-items-center mb-4" data-bind="visible: $root.folderField == @((int)FolderField.FutureProtection)">
+                            <input class="form-check-input check-red mt-0 me-2 mb-0" type="checkbox" id="shareWithMyFutureAgents" name="ShareWithMyFutureAgents" data-bind="checked: $root.vaultHeritage.ShareWithMyFutureAgents, checkedValue: true">
+                            <label class="form-check-label me-2" for="shareWithMyFutureAgents">La personne souhaite partager ces informations avec ses protecteurs futurs</label>
+                            <img src="~/img/icons/infos.svg" data-toggle="tooltip" data-bs-placement="right" title="En cochant, vous choisissez de partager les informations de ce questionnaire et les documents associés à vos mandataires futurs dès la signature du mandat de protection future.
+
+Si vous ne cochez pas, vous choisissez :
+
+- de garder confidentielles les informations de ce questionnaire et les documents associés, tant que votre mandat de protection future ne sera pas activé,
+- de souscrire l’abonnement à notre service en ligne de coffre-fort numérique ‘lien vers CGS’." />
+                        </div>*@
+
+                        <div class="d-flex justify-content-center mt-5">
+                            <input type="button" class="btn btn-purple" value="Enregistrer les modifications" data-bind="click: function() { $root.save() }">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card pb-4">
+                <div class="d-flex align-items-center header-card">
+                    <img src="~/img/icons/bulb.svg" />
+                    <p class="ps-2 title">Information :</p>
+                </div>
+                <p class="mb-2">
+                    Des documents ont été ajoutés à l’onglet « Mes documents » de votre dossier. Les boutons "créé le document" concernent des documents facultatifs que vous pouvez ajouter.
+                </p>
+                <p>
+                    Des contacts ont été ajoutés à l’onglet « Carnets d'adresse » de votre dossier. Les boutons "créé le contact" concernent des contacts facultatifs que vous pouvez ajouter.
+                </p>
+            </div>
+        </aside>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script src="~/js/ViewModels/VaultFormulaires/HeritageViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+            ko.applyBindings(new heritageViewModel(@JsonHelper.GetJson(Model._vaultHeritage), @JsonHelper.GetJson(Model._folderField), @JsonHelper.GetJson(Model._returnUrl), @JsonHelper.GetJson(Model._folderId)), document.getElementById('info-heritage-form'));
+    });
+</script>
+}

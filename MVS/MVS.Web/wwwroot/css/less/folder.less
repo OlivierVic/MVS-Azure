@@ -1,0 +1,146 @@
+#folder, #missionletter, #folder-document {
+    #timeline {
+        li {
+            width: calc(100% / 6);
+        }
+    }
+
+    .header-folder {
+        ul.card {
+            padding: 12px;
+            display: inline-block;
+
+            li {
+                display: inline-flex;
+
+                a {
+                    font-family: 'gotham_medium';
+                    padding: 11px;
+                    margin: 4px;
+                    font-size: 14px;
+                    .border-radius(4px);
+
+                    &.selected {
+                        background-color: fade(@blue, 5%);
+                    }
+                }
+            }
+        }
+    }
+
+    .addInformations {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 50px 0;
+
+        p {
+            font-family: 'gotham_medium';
+            font-size: 18px;
+            color: @dark-grey;
+            margin-right: 8px;
+            font-style: italic;
+        }
+    }
+}
+
+.tableRowHeader {
+    background-color: @light-grey;
+    display: flex;
+    align-items: center;
+
+    p {
+        font-family: 'gotham_medium';
+        font-size: 14px;
+        padding: 16px;
+    }
+}
+
+.tableRowContent {
+    border-bottom: 1px solid @light-grey;
+
+    &:hover {
+        background-color: fade(@blue, 5%);
+
+        p {
+            font-family: 'gotham_medium';
+            color: @blue;
+        }
+    }
+
+    p {
+        font-family: 'gotham_book';
+        font-size: 14px;
+        padding: 16px;
+        color: @dark-grey;
+    }
+
+    .col.text-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.no-information {
+    font-family: 'gotham_medium';
+    font-size: 18px;
+    color: @dark-grey;
+    font-style: italic;
+}
+
+#addContact, #udpateContact, #addContactProfessionalFutureStep2 {
+    #timeline {
+        li {
+            width: calc(100% / 2);
+        }
+    }
+}
+
+.goToBack {
+    font-size: 14px;
+    font-family: 'gotham_medium';
+    &, &:hover {
+        text-decoration: underline;
+        color: @green;
+    }
+    img {
+        height: 12px;
+    }
+}
+
+#accordionHelp {
+    .accordion-header {
+        button {
+            font-size: 14px;
+            font-family: 'gotham_medium';
+            color: fade(@blue, 70%);
+            background-color: @white;
+            padding: 10px 12px;
+            .border-radius(4px);
+            border: none;
+            position:relative;
+
+            &[aria-expanded^='true'] {
+                color: @blue;
+                background-color: fade(@blue, 5%);
+            }
+
+            .bell {
+                    background-color: @danger;
+                    position: absolute;
+                    min-width: 16px;
+                    height: 16px;
+                    border-radius: 50px;
+                    font-size: 9px;
+                    color: #ffffff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3px;
+                    top: -3px;
+                    right: -7px;
+            }
+        }
+    }
+}

@@ -1,0 +1,250 @@
+using MVS.Business;
+using MVS.Common;
+using MVS.Common.Enum;
+using MVS.Common.Interfaces;
+using MVS.Common.Models;
+using MVS.Common.Specifications;
+using MVS.EmailSender.Sender;
+using MVS.EmailSender.Templates.Models;
+using MVS.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
+using System.Security.Claims;
+
+namespace MVS.Web.Pages.VaultContact.Particular.ImmediateProtection;
+
+public class AddStep3Model : PageModel
+{
+    private readonly IVaultContactService _contactService;
+    private readonly IAccessService<Common.Models.Vault> _accessService;
+    private readonly IConfiguration _configuration;
+    private readonly IVaultService _folderService;
+    private readonly IAspNetUserService _userService;
+    private readonly IVaultUsersService _folderUsersService;
+    private readonly IEmailSender _emailSender;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    private string _userId => this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    public string _contactId { get; set; }
+    public Common.Models.VaultContact _contact { get; set; }
+    public string _folderId { get; set; }
+    public Common.Models.Vault _folder { get; set; }
+    public Dictionary<string, string> _breadcrumb { get; set; }
+    public Dictionary<string, string> _folderInfoHeader { get; set; }
+    public int _folderPaymentNumber { get; set; }
+    public int _folderAskDeleteNumber { get; set; }
+
+    public AddStep3Model(IVaultContactService contactService, IConfiguration configuration, IVaultService folderService, IAspNetUserService userService, IEmailSender emailSender, IVaultUsersService folderUsersService, UserManager<ApplicationUser> userManager)
+    {
+        this._contactService = contactService;
+        this._configuration = configuration;
+        this._accessService = new AccessService<Common.Models.Vault>(this._configuration);
+        this._folderService = folderService;
+        this._userService = userService;
+        this._folderUsersService = folderUsersService;
+        this._emailSender = emailSender;
+        this._userManager = userManager;
+    }
+
+    public async Task OnGet(string contactId)
+    {
+        this._contact = await this._contactService.Get(new Specification<Common.Models.VaultContact>(c => c.Id == contactId));
+        if (this._contact == null)
+        {
+            throw new ArgumentException("La donnée que vous voulez récupérer n'existe pas");
+        }
+
+        await this._accessService.CheckAccess(this._contact.VaultId, this._userId, this.User.IsInRole("SuperAdmin"));
+
+        List<Common.Models.Vault> folderAskDelete = await this._folderService.Search(new Specification<Common.Models.Vault>(f => f.IsDeleteAdmin == true));
+        this._folderAskDeleteNumber = folderAskDelete.Count;
+
+        this._contactId = this._contact.Id;
+        this._folderId = this._contact.VaultId;
+
+        this._folder = await this._folderService.Get(new Specification<Common.Models.Vault>(f => f.Id == this._folderId));
+
+        this._folderInfoHeader = VaultInfosHelper.GetFolderInfoHeader(this._folder);
+
+        this._breadcrumb = new Dictionary<string, string>();
+        this._breadcrumb.Add("/Vault", "Mes dossiers");
+        this._breadcrumb.Add(this.Url.Page("/Vault/Vault", new { this._folderId }), $"Dossier n°{this._folder.Title} - Avancement du dossier");
+        this._breadcrumb.Add(this.Url.Page("/VaultContact/Add", new { this._folderId }), "Création d’un contact");
+    }
+
+    public async Task<IActionResult> OnPostAsync(Common.Models.VaultContact contact)
+    {
+        Common.Models.VaultContact contactInfo = await this._contactService.Get(new Specification<Common.Models.VaultContact>(c => c.Id == contact.Id));
+
+        contactInfo.IsFolderAdmin = contact.IsFolderAdmin;
+        contactInfo.IsSetAskProtection = contact.IsSetAskProtection;
+        contactInfo.IsSetJudge = contact.IsSetJudge;
+        contactInfo.TypeMission = contact.TypeMission;
+        contactInfo.FirstLastNameMother = contact.FirstLastNameMother;
+        contactInfo.UnknownMother = contact.UnknownMother;
+        contactInfo.FirstLastNameFather = contact.FirstLastNameFather;
+        contactInfo.UnknownFather = contact.UnknownFather;
+        contactInfo.AdoptedPerson = contact.AdoptedPerson;
+        contactInfo.CloseNotice = contact.CloseNotice;
+        contactInfo.RelationshipQuality = contact.RelationshipQuality;
+        contactInfo.RelationshipFrequencies = contact.RelationshipFrequencies;
+        contactInfo.Confidence = contact.Confidence;
+        contactInfo.ContactDetails = contact.ContactDetails;
+        contactInfo.RequestCopy = contact.RequestCopy;
+
+        contactInfo.AdviceStatus = contact.OpinionPro ?? false ? (int)ContactAdviceStatus.Requested : (int)ContactAdviceStatus.NotRequested;
+
+        await this._contactService.Update(contactInfo);
+
+        if ((bool)contactInfo.IsFolderAdmin)
+        {
+            await OnPostCreateAdminFolderUser(contactInfo.VaultId, contactInfo.Email, contactInfo.FirstName, contactInfo.LastName, contactInfo.Ispro);
+        }
+
+        return new RedirectToPageResult("/Vault/AddressBook", new { vaultId = contactInfo.VaultId });
+    }
+    public async Task<IActionResult> OnPostCreateAdminFolderUser(string vaultId, string email, string firstName, string lastName, bool isPro)
+    {
+        Common.Models.Vault folder = await this._folderService.Get(new Specification<Common.Models.Vault>(f => f.Id == vaultId));
+        AspNetUser user = await this._userService.Get(new Specification<AspNetUser>(u => u.Email == email && u.FirstName == firstName && u.LastName == lastName));
+
+        if (!isPro)
+        {
+            if (user != null)
+            {
+                await this.OnGetSendEmailProcheAddInFolder(email, user);
+
+                VaultUser folderUsers = await this._folderUsersService.Get(new Specification<VaultUser>(fu => fu.VaultId == vaultId && fu.UserId == user.Id));
+
+                if (folderUsers == null)
+                {
+                    folder.VaultUsers = new List<VaultUser>()
+                    {
+                        new VaultUser()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            VaultId = folder.Id,
+                            UserId = user.Id,
+                        }
+                    };
+
+                    foreach (VaultUser listFolderUser in folder.VaultUsers)
+                    {
+                        try
+                        {
+                            if (listFolderUser.VaultId == folder.Id && listFolderUser.UserId == user.Id)
+                            {
+                                await this._folderUsersService.Add(listFolderUser);
+                            }
+                            else
+                            {
+                                await this._folderUsersService.Update(listFolderUser);
+                            }
+
+                            return this.StatusCode((int)HttpStatusCode.OK, null);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    }
+
+                    return this.StatusCode((int)HttpStatusCode.OK, null);
+                }
+            }
+            else
+            {
+                ApplicationUser newUserCreate = new()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = email,
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0,
+                    Gender = 0,
+                };
+                await this._userManager.CreateAsync(newUserCreate);
+
+                AspNetUser newUser = await this._userService.Get(new Specification<AspNetUser>(u => u.Email == newUserCreate.Email && u.FirstName == newUserCreate.FirstName && u.LastName == newUserCreate.LastName));
+                VaultUser folderUsers = await this._folderUsersService.Get(new Specification<VaultUser>(fu => fu.VaultId == vaultId && fu.UserId == newUser.Id));
+                await this.OnGetSendEmailProcheRegister(newUser.Email, newUser);
+
+                if (folderUsers == null)
+                {
+                    folder.VaultUsers = new List<VaultUser>()
+                    {
+                        new VaultUser()
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            VaultId = folder.Id,
+                            UserId = newUser.Id,
+                        }
+                    };
+
+                    foreach (VaultUser answer in folder.VaultUsers)
+                    {
+                        try
+                        {
+                            if (answer.VaultId == folder.Id && answer.UserId == newUser.Id)
+                            {
+                                await this._folderUsersService.Add(answer);
+                                return this.StatusCode((int)HttpStatusCode.OK, null);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    }
+                }
+
+                return this.StatusCode((int)HttpStatusCode.OK, null);
+            }
+        }
+
+        return this.StatusCode((int)HttpStatusCode.OK, null);
+    }
+
+    public async Task OnGetSendEmailProcheRegister(string email, AspNetUser user)
+    {
+        string plateformUrl = this.Url.PageLink("/Home/Index", null, null, this.Request.Scheme);
+        string RGPDPageUrl = this.Url.PageLink("/RGPD/Index", null, null, this.Request.Scheme);
+        string MoreInfoPageUrl = this.Url.PageLink("/Home/Index", null, null, this.Request.Scheme);
+        string DefinePasswordUrl = this.Url.PageLink("/Home/PasswordResetNewUserAdmin", null, new { email, user.FirstName, user.LastName }, this.Request.Scheme);
+
+        await this._emailSender.SendEmailAsync(email, new RegisterUserAdminProcheTemplate
+        {
+            Model = new RegisterUserAdminProcheTemplateModel
+            {
+                RGPDPageUrl = RGPDPageUrl,
+                DefinePasswordUrl = DefinePasswordUrl,
+                PlateformUrl = plateformUrl,
+                MoreInfoPageUrl = MoreInfoPageUrl
+            }
+        });
+    }
+
+    public async Task OnGetSendEmailProcheAddInFolder(string email, AspNetUser user)
+    {
+        string _plateformUrl = this.Url.PageLink("/Home/Index", null, null, this.Request.Scheme);
+        string _connectionPageUrl = this.Url.PageLink("/Home/Login", null, null, this.Request.Scheme);
+        string _RGPDPageUrl = this.Url.PageLink("/RGPD/Index", null, null, this.Request.Scheme);
+
+        await this._emailSender.SendEmailAsync(email, new AddProcheUserInFolderTemplate
+        {
+            Model = new AddProcheUserInFolderTemplateModel
+            {
+                ConnectionPageUrl = _connectionPageUrl,
+                RGPDPageUrl = _RGPDPageUrl,
+                PlateformUrl = _plateformUrl
+            }
+        });
+    }
+}

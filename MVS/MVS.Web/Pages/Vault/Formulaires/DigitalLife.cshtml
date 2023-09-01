@@ -1,0 +1,203 @@
+@page
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+@using Newtonsoft.Json
+
+@model MVS.Web.Pages.Vault.Formulaires.DigitalLifeModel
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="DigitalLife">
+    <div class="row">
+        <h1 class="mb-3">QUESTIONNAIRE D'INFORMATION</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="DigitalLifeForm" data-bind="using: vaultDigitalLife">
+                    <h2 class="mb-2">Vie Numérique</h2>
+                    <div class="block-form mt-4">
+                        <label class="subtitle-form mb-2 labelinput">Réseaux sociaux (10 maximum)</label>
+                        <form method="post" id="digital-life-form">
+                            <div class="block-form mb-4">
+                                <p>Sélectionner le réseau social</p>
+                                <select class="form-select mb-0" id="select-social" data-bind="value: $root.vaultDigitalLife.ReseauSocial">
+                                    <option value="">Nom du réseau social</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Twitter">Twitter</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
+                            </div>
+
+                            <div data-bind="visible: $root.vaultDigitalLife.ReseauSocial() == 'Autre' && $root.vaultDigitalLife.ReseauSocial() != null">
+                                <div class="block-form mb-4">
+                                    <p for="OtherReseauSocial">Nom du réseau social</p>
+                                    <input type="text" class="form-control" name="nomsocial" id="OtherReseauSocial" placeholder="Ex. Discord" data-bind="value: $root.vaultDigitalLife.OtherReseauSocial" />
+                                </div>
+                            </div>
+
+                            <div data-bind="visible: $root.vaultDigitalLife.ReseauSocial() == 'Facebook' && $root.vaultDigitalLife.ReseauSocial() != null">
+                                <div class="block-form mb-4">
+                                    <p>Lien pour la gestion d'un compte décédé</p>
+                                    <label>
+                                        Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://fr-fr.facebook.com/help/contact/228813257197480
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div data-bind="visible: $root.vaultDigitalLife.ReseauSocial() == 'Instagram' && $root.vaultDigitalLife.ReseauSocial() != null">
+                                <div class="block-form mb-4">
+                                    <p>Lien pour la gestion d'un compte décédé</p>
+                                    <label>
+                                        Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://help.instagram.com/264154560391256/
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div data-bind="visible: $root.vaultDigitalLife.ReseauSocial() == 'Twitter' && $root.vaultDigitalLife.ReseauSocial() != null">
+                                <div class="block-form mb-4">
+                                    <p>Lien pour la gestion d'un compte décédé</p>
+                                    <label>
+                                        Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://help.twitter.com/fr/rules-and-policies/contact-twitter-about-media-on-a-deceased-family-members-account
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="block-form mb-4">
+                                <p for="ProfileUrl">Url de la page du profile</p>
+                                <input type="text" class="form-control" name="urlprofile" id="ProfileUrl" placeholder="Ex. https://" data-bind="value: $root.vaultDigitalLife.ProfileUrl" />
+                            </div>
+
+                            <div class="block-form mb-4">
+                                <p for="IdentifiantProfile">Identifiant (email ou nom d'utilisateur)</p>
+                                <input type="text" class="form-control" name="identifiantprofile" id="IdentifiantProfile" placeholder="Ex. Liaso" data-bind="value: $root.vaultDigitalLife.IdentifiantProfile" />
+                            </div>
+
+                            <div class="block-form mb-4">
+                                <p>Légataire</p>
+                                <div>
+                                    <input type="radio" name="language" class="me-2" data-bind="checked: $root.vaultDigitalLife.Legataire, checkedValue: true" />
+                                    <label class="me-4">Oui</label>
+
+                                    <input type="radio" name="language" class="me-2" data-bind="checked: $root.vaultDigitalLife.Legataire, checkedValue: false" />
+                                    <label class="me-4">Non</label>
+                                </div>
+                            </div>
+
+                            <div data-bind="visible: $root.vaultDigitalLife.Legataire() && $root.vaultDigitalLife.Legataire() != null">
+                                <div class="block-form mb-4">
+                                    <p for="LegataireFirstLastName">Nom et Prénom du légataire</p>
+                                    <input type="text" class="form-control" name="lastfirstname" id="LegataireFirstLastName" placeholder="Ex. Liaso" data-bind="value: $root.vaultDigitalLife.LegataireFirstLastName" />
+                                </div>
+
+                                <div class="block-form mb-4">
+                                    <p for="BirthDateLegataire">Date de naissance du légataire</p>
+                                    <input type="date" class="form-control" name="birthdate" id="BirthDateLegataire" placeholder="Ex. 31/12/1993" data-bind="value: $root.vaultDigitalLife.BirthDateLegataire" />
+                                </div>
+
+                                <div class="block-form mb-4">
+                                    <p for="birthdate">Url de la page du profile du légataire sur ce réseau</p>
+                                    <input type="text" class="form-control" name="birthdate" id="birthdate" placeholder="Ex. https://" data-bind="value: $root.vaultDigitalLife.ProfileUrlLegataire" />
+                                </div>
+                            </div>
+
+                            @*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*@
+
+                            <div>
+                                <!-- ko foreach: $root.answersDigitalLife() -->
+                                <label class="subtitle-form labelinput">Autre Réseau social</label>
+                                <div class="block">
+                                    <div class="block-form mb-4">
+                                        <p>Sélectionner le réseau social</p>
+                                        <select class="form-select mb-0" id="select-social" data-bind="value: ReseauSocial">
+                                            <option value="">Nom du réseau social</option>
+                                            <option value="Facebook">Facebook</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Twitter">Twitter</option>
+                                            <option value="Autre">Autre</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- ko if:  ReseauSocial == 'Autre' -->
+                                    <p>test</p>
+                                    <!-- /ko -->
+
+                                    <div data-bind="if: ReseauSocial == 'Autre' && ReseauSocial != null">
+                                        <div class="block-form mb-4">
+                                            <p for="OtherReseauSocial">Nom du réseau social</p>
+                                            <input type="text" class="form-control" name="nomsocial" id="OtherReseauSocial" placeholder="Ex. Discord" data-bind="value: AnswerOtherReseauSocial" />
+                                        </div>
+                                    </div>
+
+                                    <div data-bind="visible: ReseauSocial == 'Facebook' && ReseauSocial != null">
+                                        <div class="block-form mb-4">
+                                            <p>Lien pour la gestion d'un compte décédé</p>
+                                            <label>
+                                                Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://fr-fr.facebook.com/help/contact/228813257197480
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div data-bind="visible: ReseauSocial == 'Instagram' && ReseauSocial != null">
+                                        <div class="block-form mb-4">
+                                            <p>Lien pour la gestion d'un compte décédé</p>
+                                            <label>
+                                                Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://help.instagram.com/264154560391256/
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div data-bind="visible: ReseauSocial == 'Twitter' && ReseauSocial != null">
+                                        <div class="block-form mb-4">
+                                            <p>Lien pour la gestion d'un compte décédé</p>
+                                            <label>
+                                                Pour information, vous pouvez gérer le futur de votre compte via ce lien : https://help.twitter.com/fr/rules-and-policies/contact-twitter-about-media-on-a-deceased-family-members-account
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="d-block btn-cancel" data-bind="click: function(){ $root.removeAnswer($parent.Id, $data) }">Supprimer</a>
+                                </div>
+                                <!-- /ko -->
+
+                                <a href="#" class="green-link ms-3" data-bind="click: function(){ $root.addNewAnswer(Id) }">Ajouter un autre réseau social</a>
+                            </div>
+
+                            <div class="mt-3 mb-0">
+                                <div class="block-form">
+                                    <label class="subtitle-form me-1 mb-3 labelinput">Avez-vous terminé de compléter le formulaire ?</label>
+                                    <div>
+                                        <input class="me-2" type="radio" id="completedForm-yes" name="CompletedForm" data-bind="checked: $root.vaultDigitalLife.CompletedForm, checkedValue: true">
+                                        <label class="me-5" for="completedForm-yes">Oui</label>
+                                        <div class="me-4"></div>
+                                        <input class="me-2" type="radio" id="completedForm-no" name="CompletedForm" data-bind="checked: $root.vaultDigitalLife.CompletedForm, checkedValue: false">
+                                        <label for="completedForm-no">Non</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="button" class="btn btn-purple" value="Enregistrer les modifications" data-bind="click: function() { $root.save() }">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+@section Scripts
+    {
+    <script src="~/js/ViewModels/VaultFormulaires/DigitalLifeViewModel.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new digitalLifeViewModel(@JsonHelper.GetJson(Model._vaultDigitalLife), @JsonHelper.GetJson(Model._returnUrl), @JsonHelper.GetJson(Model._answerDigitalLife), @JsonHelper.GetJson(Model._vaultId)), document.getElementById('DigitalLifeForm'));
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+#home-content {
+    .header-content {
+        padding-top: 18px;
+
+        h1 {
+            font-size: 42px;
+            line-height: 52px;
+            letter-spacing: 0.17px;
+
+            span {
+                position: relative;
+                z-index: 0;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: -4%;
+                    bottom: 2px;
+                    height: 20px;
+                    width: 108%;
+                    background-color: #BCD2CF;
+                    z-index: -1;
+                }
+            }
+        }
+    }
+
+    .card {
+        min-height: 309px;
+        .LogoAlixAccompagne{
+            width:226px;
+        }
+    }
+}
+
+.maintenance-icon {
+    filter: invert(47%) sepia(13%) saturate(1015%) hue-rotate(190deg) brightness(83%) contrast(89%);
+    width: 5%;
+    margin: auto;
+}
+
+.h-300 {
+    height: 300% !important;
+}

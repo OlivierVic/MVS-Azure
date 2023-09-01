@@ -1,0 +1,17 @@
+<div class="modal fade" id="archiveVaultModal" tabindex="-1" aria-labelledby="deleteArchiveLabel" aria-hidden="true" data-bind="using: selectedVault">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="deleteArchiveLabel">Vous êtes sur le point d’archiver le coffre-fort <span data-bind="text: id"> ?</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><br /> Cette action est irréversible assurez-vous de vouloir clôturer le coffre-fort.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn-icon btn-delete" data-bind="click: function(){$root.updateFolderArchiveStatus(true)}"><img src="~/img/icons/archive.svg" />Archiver le coffre-fort</a>
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Conserver le coffre-fort</button>
+            </div>
+        </div>
+    </div>
+</div>

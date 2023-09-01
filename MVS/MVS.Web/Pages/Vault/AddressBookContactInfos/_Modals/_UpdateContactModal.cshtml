@@ -1,0 +1,32 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactModal" tabindex="-1" aria-labelledby="updateContactLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier l'identité</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <label class="labelinput">Nouvelle addresse</label>
+                        <input type="text" class="form-control required" data-bind="textInput: Addres" />
+
+                        <label class="labelinput">Nouveau code postal et ville</label>
+                        <input type="text" class="form-control required" data-bind="textInput: ZipCodeAndCity" />
+
+                        <label class="labelinput">Nouveau pays</label>
+                        <input type="text" class="form-control required" data-bind="textInput: Country" />
+
+                        <label class="labelinput">Nouveau numéro de téléphone</label>
+                        <input type="text" class="form-control required" data-bind="textInput: PhoneNumber" />
+
+                        <label class="labelinput">Nouvelle addresse email</label>
+                        <input type="text" class="form-control required" data-bind="textInput: Email" />
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateContactProperty()}" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MVS.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.min.css" />
+
+    @RenderSection("css", required: false)
+</head>
+<body id="LoginRegister">
+
+    @Html.Partial("_Header")
+    <main role="main" class="container-fluid p-0">
+        <div class="row g-0">
+            <section class="col bg-white" id="login">
+                <div class="row g-0 h-100">
+                    <div class="col-6 left-content">
+                        <div class="row g-0 h-100">
+                            <div class="col-12 d-flex align-items-center px-5">
+                                <h1 class="my-5">Alix propose de <span>l’information</span> et des <span>solutions</span> <span>juridiques</span> pour les séniors</h1>
+                            </div>
+                            <div class="col-12 pe-0 align-bottom d-flex align-items-end">
+                                <img class="mw-100" src="~/img/home2.svg" />
+                            </div>
+                        </div>
+                    </div>
+                    @RenderBody()
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p class="me-2">MVS by Droits Quotidiens 2021</p><a href="/LegalNotice">Mentions Légales</a> • <a href="/CGU">C.G.U</a> • <a href="/ContactByEmail">VaultContact</a>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

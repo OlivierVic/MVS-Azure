@@ -1,0 +1,46 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="signatureModal" tabindex="-1" aria-labelledby="signatureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vous souhaitez envoyer <span data-bind="text: selectedContractName"></span> en signature ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- ko if: sendingToSignature -->
+                <div class="loader-panel" style="display:table, margin:auto">
+                    <div id="loading-detail-panel" class="big centered-div space-up">
+                        <div class="mul5" style="margin:20px auto;">
+                            <div class="mul5circle1"></div>
+                            <div class="mul5circle2"></div>
+                            <div class="mul5circle3"></div>
+                        </div>
+                    </div>
+                    <p style="text-align: center">Envoi en signature</p>
+                </div>
+                <!-- /ko -->
+
+                <!-- ko ifnot: sendingToSignature -->
+                @if (Model._folder.Field == (int)FolderField.FutureProtection)
+                    {
+                            <p>
+                                Le mandataire du dossier recevra un mail pour accéder à la signature du document.
+                            </p>
+                    }
+                    else
+                    {
+                            <p>
+                                Le demandeur du dossier recevra un mail pour accéder à la signature du document.
+                            </p>
+                    }
+                <!-- /ko -->
+            </div>
+            <div class="modal-footer">
+                <!-- ko ifnot: sendingToSignature -->
+                    <a class="btn btn-purple my-4" href="#" data-bind="click: function(){SendToSignature()}">Envoyer en signature</a>
+                <!-- /ko -->
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>

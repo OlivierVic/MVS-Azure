@@ -1,0 +1,173 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="vaults">
+    <div class="row justify-content-between mb-4">
+        <div class="col-auto">
+            <h1 class="mb-3">Mon espace personnel</h1>
+        </div>
+        <div class="col-auto">
+            <a href="/Vault/NewVault" class="btn-icon btn-purple ms-auto"><img src="~/img/icons/add_folder.svg" />Nouveau coffre-fort</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <div class="row justify-content-between mb-4">
+                <div class="col-auto">
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <h2 class="mb-3">Les coffre-forts en cours</h2>
+                    }
+                    else
+                    {
+                        <h2 class="mb-3">Mes coffre-forts en cours</h2>
+                    }
+                </div>
+                <div class="col-auto">
+                    <div class="customSort">
+                        <select class="outline-success" data-bind="value: sort">
+                            <option value="@((int)FolderSort.Name)">Bénéficiaire A-Z</option>
+                            <option value="@((int)FolderSort.NameDesc)">Bénéficiaire Z-A</option>
+                            <option value="@((int)FolderSort.CreationDate)">Date de création</option>
+                        </select>
+                        <img src="/img/icons/sort.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5"></div>
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <!-- ko if: vaults().length == 0-->
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <span>Aucun coffre-fort en cours</span>
+                    }
+                    else
+                    {
+                        <span>Vous n'avez aucun coffre-fort en cours</span>
+                    }
+                    <!-- /ko -->
+                    <!-- ko foreach: vaults -->
+                    <div class="card smallcard mb-3">
+                        <div class="dropdown">
+                            <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/img/icons/points.svg" />
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="#">Que voulez-vous faire ?<img src="~/img/icons/close.svg" class="ms-auto me-0" /></a></li>
+                                <li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#deleteVaultModal" data-bind="click: function(){ $root.selectedVault($data) }"><img src="~/img/icons/bin_red.svg" />Supprimer le coffre-fort</a></li>
+                                <li><a class="dropdown-item warning" href="#" data-bs-toggle="modal" data-bs-target="#archiveVaultModal" data-bind="click: function(){ $root.selectedVault($data) }"><img src="~/img/icons/archive.svg" />Archiver le coffre-fort</a></li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <!-- ko if: birthLocation == null || sex == null || address == null || zipceCodeAndCity == null || country == null || phoneNumber == null || nationality == null || haveBirthName == null  -->
+                                <p class="title"> <a href="#" data-bind="attr: { href: '/Vault/PutVault?vaultId=' + id}">Coffre-fort n° <span data-bind="text: title"></span></a></p>
+                                <p class="name" data-bind="text: firstName + ' ' + lastName">Nom du bénéficiaire</p>
+                                <p class="dateCreated">Créé le <span data-bind="text: displayDate(creationDate)"></span></p>
+                                <!-- /ko -->
+                                <!-- ko if: birthLocation != null && sex != null && address != null && zipceCodeAndCity != null && country != null && phoneNumber != null && nationality != null && haveBirthName != null  -->
+                                <p class="title"> <a href="#" data-bind="attr: { href: '/Vault/Informations?vaultId=' + id}">Coffre-fort n° <span data-bind="text: title"></span></a></p>
+                                <p class="name" data-bind="text: firstName + ' ' + lastName">Nom du bénéficiaire</p>
+                                <p class="dateCreated">Créé le <span data-bind="text: displayDate(creationDate)"></span></p>
+                                <!-- /ko -->
+                            </div>
+                            <!-- ko if: birthLocation == null || sex == null || address == null || zipceCodeAndCity == null || country == null || phoneNumber == null || nationality == null || haveBirthName == null  -->
+                            <div class="col-4">
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bind="attr: { href: '/Vault/PutVault?vaultId=' + id}"><img src="~/img/icons/file_checked.svg" />Ajouter information manquante</a>
+                            </div>
+                            <!-- /ko -->
+                            <div class="col-4">
+                                <!-- ko if: isDeleteAdmin -->
+                                <p class="StatusFolder">Statut du dossier :</p>
+                                <p class="mt-2 progress-name">Suppression en cours d’approbation</p>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <div class="row justify-content-between mb-4">
+                        <div class="col-auto">
+                            <!-- ko if: vaults().length != 0-->
+                            <div id="pagination-area">
+                                <img src="/img/icons/chevron-left.svg" class="me-1" data-bind="click: function() {currentPage(self.currentPage() == 1 ? 1 : self.currentPage() - 1 )}" />
+
+                                <!-- ko foreach: pages -->
+                                <span data-bind="text: $data, css:{ 'item-selected' : $data == $root.currentPage() }, click: function(){$root.currentPage($data)}" class="item"></span>
+                                <!-- /ko -->
+
+                                <img src="/img/icons/chevron-right.svg" class="ms-1" data-bind="click: function() {currentPage(self.currentPage() == nbPages() ? nbPages() : self.currentPage() + 1 )}" />
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="col-auto">
+                            <a href="@Url.Page("/Vault/Archive")" class="btn outline-success"><img src="/img/icons/folder_green.svg">Coffre-fort Archivés</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <aside class="col-5">
+                <div class="card right-card info-card mb-4">
+                    <h3 class="mb-4 title">Besoin d’aide ?</h3>
+                    <img src="https://fakeimg.pl/350x190/EDE9E2/">
+                    <h4 class="line-grey mt-3">Consultez l’assistant Alix Éclaire</h4>
+                    <a href="#" class="btn-icon btn-purple ms-auto"><img src="~/img/icons/bulb_white.svg" />J’y vais !</a>
+                </div>
+                <div class="card right-card info-card mb-4">
+                    <h3 class="mb-4 title">Fiches explicatives</h3>
+                    <div class="d-flex align-items-center sheets">
+                        <p>Fiche Bla-bla bla</p>
+                        <a href="" class="btn-link ms-auto"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a>
+                    </div>
+                    <div class="d-flex align-items-center sheets">
+                        <p>Fiche Bla-bla bla</p>
+                        <a href="" class="btn-link ms-auto"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a>
+                    </div>
+                    <div class="d-flex align-items-center sheets">
+                        <p>Fiche Bla-bla bla</p>
+                        <a href="" class="btn-link ms-auto"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</a>
+                    </div>
+                </div>
+                <div class="card right-card info-card mb-4">
+                    <h3 class="mb-4 title">Notice d’utilisation</h3>
+                    <img src="https://fakeimg.pl/350x190/EDE9E2/">
+                    <h4 class="line-grey mt-3">Téléchargez le livret explicatif</h4>
+                    <a href="#" class="btn-icon btn-purple ms-auto"><img src="~/img/icons/file-download.svg" />Télécharger</a>
+                </div>
+                <div class="card right-card info-card mb-4">
+                    <h3 class="mb-4 title">Guide Vidéo</h3>
+                    <img src="https://fakeimg.pl/350x190/EDE9E2/">
+                    <h4 class="mt-3">Regardez la vidéo explicative</h4>
+                </div>
+            </aside>
+        }
+    </div>
+
+    <partial name="Modals/_DeleteVaultModal" />
+    <partial name="Modals/_ArchiveVaultModal" />
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/IndexFolderViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new indexFolderViewModel(), document.getElementById('vaults'));
+    });
+</script>

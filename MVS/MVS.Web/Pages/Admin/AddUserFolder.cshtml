@@ -1,0 +1,57 @@
+@page
+@using MVS.Common.Enum
+@model MVS.Web.Pages.Admin.AddUserFolderModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="admin">
+    <div class="row mb-4">
+        <div class="col-auto">
+            <h1 class="mb-3">Admin</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <div class="row justify-content-between mb-4">
+                <div class="col-auto">
+                    <h2 class="mb-3">Ajout utilisateur à un dossier</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: userId">
+                <option value="" disabled selected hidden>Sélectionnez l'utilisateur</option>
+                @foreach (var user in Model._user)
+                {
+                    <option value="@user.Id">@user.FirstName @user.LastName - @user.Email</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-5">
+            <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: vaultId">
+                <option value="" disabled selected hidden>Sélectionnez le dossier</option>
+                @foreach (var folder in Model._folder)
+                {
+                    <option value="@folder.Id">@folder.FirstName @folder.LastName - @folder.Title</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="col-10 d-flex align-items-center flex-column justify-content-center mt-5">
+        <a href="#" class="btn btn-purple" data-bind="click: function() {$root.addUserFolder()}">Ajoutez Utilisateur</a>
+    </div>
+</section>
+
+@section Scripts
+{
+<script src="~/js/ViewModels/Admin/AdminAddUserFolderViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new adminAddUserFolderViewModel(), document.getElementById('admin'));
+    });
+</script>
+}

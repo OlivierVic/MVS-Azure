@@ -1,0 +1,44 @@
+<nav id="left-nav" class="col-auto">
+    <ul class="mb-0">
+        <li>
+            <a href="/Home" id="PathHome"> <img src="~/img/icons/home.svg" alt="Accueil" class="m-auto pb-2" /><span>Accueil</span></a>
+        </li>
+        <li>
+            <a href="/Vault" id="PathFolder"> <img src="~/img/icons/folder.svg" alt="Dossiers" class="m-auto pb-2" /><span>Dossiers</span></a>
+        </li>
+        @if (User.IsInRole("SuperAdmin"))
+        {
+            <li class="dropdown dropend">
+                <a href="#" role="button" id="dropdownAdmin" data-bs-toggle="dropdown" aria-expanded="false"> <img src="~/img/icons/user_admin.svg" alt="Admin" class="m-auto pb-2" /><span>Admin</span></a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownAdmin">
+                    <li><a class="dropdown-item" href="/Admin/AccountManagement">Gestion comptes</a></li>
+                    <li><a class="dropdown-item" href="/Admin/AddUserFolder">Gestion utilisateur</a></li>
+                    <li><a class="dropdown-item" href="/Home/SuperAdminRegister">Créer compte</a></li>
+                    <li><a class="dropdown-item" href="/Admin/Treatment">Traitements<span>6</span></a></li>
+                </ul>
+            </li>
+        }
+        <li>
+            <a href="/Home/Maintenance" id="PathTools"> <img src="~/img/icons/tools.svg" alt="Mes outil" class="m-auto pb-2" /><span>Mes outils</span></a>
+        </li>
+        <li>
+            <a href="/Account" id="PathSettings"> <img src="~/img/icons/settings.svg" alt="Mon compte" class="m-auto pb-2" /><span>Mon compte</span></a>
+        </li>
+        <li>
+            <a href="/ContactByEmail" id="PathMessage"> <img src="~/img/icons/message.svg" alt="VaultContact" class="m-auto pb-2" /><span>VaultContact</span></a>
+        </li>
+        <li>
+            <a href="/RGPD" id="PathRGPD"> <img src="~/img/icons/invoice.svg" alt="R.G.P.D." class="m-auto pb-2" /><span>R.G.P.D.</span></a>
+        </li>
+        <li>
+            <a href="/LegalNotice" id="PathMentionsLegales"> <img src="~/img/icons/infos.svg" alt="Mentions légales" class="m-auto pb-2" /><span>Mentions légales</span></a>
+        </li>
+        <li>
+            <a href="/CGU" id="PathCGU"> <img src="~/img/icons/infos2.svg" alt="C.G.U." class="m-auto pb-2" /><span>C.G.U.</span></a>
+        </li>
+    </ul>
+    <div>
+        <h4 class="ms-4">Votre Service</h4>
+        <img src="~/img/alixAccompagne.svg" class="mx-auto mt-3 d-block" />
+    </div>
+</nav>

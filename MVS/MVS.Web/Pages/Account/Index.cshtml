@@ -1,0 +1,306 @@
+@page
+@model MVS.Web.Pages.Account.IndexModel
+@using MVS.Web
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Common.Models
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section id="account" class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">Mon Compte</h1>
+        @*@Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")*@
+    </div>
+    <div class="row" data-bind="with: user">
+        <article class="col-7">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div class="card smallcard">
+                        <p class="subtitle">Utilisateur</p>
+                        <p class="title">
+                            <span data-bind="text: DisplayName"></span>
+                        </p>
+                        <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#identityModifyModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card">
+                        <h3 class="mb-4 title">Vos informations de connexion :</h3>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Email :</p>
+                                    <p data-bind="text: Email"></p>
+                                </div>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#emailModifyModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Mot de passe :</p>
+                                    <p>••••••••</p>
+                                </div>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#passwordModifyModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card info-card mt-4">
+                        <h3 class="mb-4 title">À propos de vous :</h3>
+                        @if (User.IsInRole("Pro"))
+                        {
+                            <div class="line-grey">
+                                <h5>Activité :</h5>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Profession :</p>
+                                        <p data-bind="text: JobProfessionel"></p>
+                                    </div>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bind="click: function() { $root.openPropertyModal('la ', 'profession', 'JobProfessionel', 'Acteur social') }"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Organisation / Entreprise :</p>
+                                        <p data-bind="text: Company"></p>
+                                    </div>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bind="click: function() { $root.openPropertyModal('l\'', 'organisation/Entreprise', 'Company', 'Maintien a dom') }"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                            </div>
+                        }
+                        <div class="line-grey mt-2">
+                            <h5>VaultContact :</h5>
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Adresse :</p>
+                                    <p data-bind="text: Address == null ? 'Non renseignée' : Address, css:{ 'no-information' : Address == null }"></p>
+                                </div>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bind="click: function() { $root.openPropertyModal('l\'', 'adresse', 'Address', '1 rue avanue Général de Gaulle, 95000 Paris') }"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                        </div>
+                        <div class="line-grey">
+                            <div class="info-container">
+                                <div class="info-content">
+                                    <p>Téléphone :</p>
+                                    <p data-bind="text: PhoneNumber == null ? 'Non renseignée' : PhoneNumber, css:{ 'no-information' : PhoneNumber == null }"></p>
+                                </div>
+                                <a href="#" class="btn-icon btn-purple ms-auto" data-bind="click: function() { $root.openPropertyModal('le', 'téléphone', 'PhoneNumber', '0102030405') }"><img src="~/img/icons/edit.svg" />Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            @*
+                <div class="card right-card info-card mb-4">
+                <h3 class="mb-4 title">Notifications :</h3>
+                <p>J’accepte de recevoir des notifications par emails concernant les éléments suivant :</p>
+                <div class="line-grey info-container mt-4">
+                <div class="info-content">
+                <p>Avancement du dossier</p>
+                <p>M’informer d’une nouvelle étape/action</p>
+                </div>
+                <label class="switch ms-auto">
+                <input type="checkbox" data-bind="checked: NotifFileProgress, event:{ change: $root.updateNotifSettings }">
+                <span class="slider round"></span>
+                </label>
+                </div>
+                <div class="line-grey info-container">
+                <div class="info-content">
+                <p>Réponse à mes questions</p>
+                <p>M’informer que ma question a été traitée</p>
+                </div>
+                <label class="switch ms-auto">
+                <input type="checkbox" data-bind="checked: NotifAnswerQuestions, event:{ change: $root.updateNotifSettings }">
+                <span class="slider round"></span>
+                </label>
+                </div>
+                <div class="line-grey info-container">
+                <div class="info-content">
+                <p>Nouvel avis</p>
+                <p>M’informer de la réception d’un avis</p>
+                </div>
+                <label class="switch ms-auto">
+                <input type="checkbox" data-bind="checked: NotifOpinion, event:{ change: $root.updateNotifSettings }">
+                <span class="slider round"></span>
+                </label>
+                </div>
+                <div class="line-grey info-container">
+                <div class="info-content">
+                <p>Rendez-vous</p>
+                <p>M’informer de la date de mes rendez-vous</p>
+                </div>
+                <label class="switch ms-auto">
+                <input type="checkbox" data-bind="checked: NotifAppointment, event:{ change: $root.updateNotifSettings }">
+                <span class="slider round"></span>
+                </label>
+                </div>
+                </div>*@
+            <div class="card right-card info-card pb-4">
+                <h3 class="mb-4 title">Politique de confidentialité :</h3>
+                <p>
+                    Nous nous engageons à ce que le traitement de vos données à partir de notre
+                    Plateforme numérique Alix.Care, soit conforme au règlement général sur la
+                    protection des données « RGPD » et à la loi informatique et libertés.
+                </p>
+                <a href="/RGPD" class="btn-link ms-auto mt-4">En savoir plus</a>
+            </div>
+            <a href="#" class="btn-icon btn-delete float-end mt-5" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"><img src="~/img/icons/bin.svg" />Supprimer mon compte</a>
+        </aside>
+    </div>
+
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title danger" id="deleteAccountLabel">Suppression de compte</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Vous êtes sur le point de supprimer votre compte. Cette action st irréversible et vous perdrez tous vos dossiers en cours…. TEXTE À FINALISER<br /><br />
+                        Pour sécuriser votre demande, veuillez renseigner votre mot de passe.
+                    </p>
+                    <div class="block-form mt-4">
+                        <label class="labelinput" for="password">Mot de passe</label>
+                        <input type="password" class="form-control required" name="password" id="password" placeholder="Mot de passe" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn-icon btn-delete"><img src="~/img/icons/bin.svg" />Supprimer mon compte</a>
+                    <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="emailModifyModal" tabindex="-1" aria-labelledby="emailModifyLabel" aria-hidden="true" data-bind="using: emailData">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModifyLabel">Modifier l’email de connexion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="block-form">
+                            <label class="labelinput" for="email">Ancienne adresse email</label>
+                            <input type="email" class="form-control required" name="email" id="email" placeholder="Ex. marie@gmail.com" data-bind="value: oldEmail" />
+                            <label class="labelinput" for="email2">Nouvelle adresse email</label>
+                            <input type="email" class="form-control required" name="email2" id="email2" placeholder="Ex. marie@gmail.com" data-bind="value: newEmail" />
+                        </div>
+                        <p>Pour sécuriser la demande de modification de votre email de connexion vous devez entrer votre mot de passe.</p>
+                        <div class="block-form mt-3 pb-3">
+                            <label class="labelinput" for="password">Mot de passe</label>
+                            <input type="password" class="form-control required" name="password" id="password" placeholder="*******" data-bind="value: password" />
+                        </div>
+                        <input type="submit" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l’email" data-bind="click: function(){$root.updateEmail()}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="passwordModifyModal" tabindex="-1" aria-labelledby="passwordModifyLabel" aria-hidden="true" data-bind="using: passwordData">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModifyLabel">Modifier le mot de passe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="password-error" class="text-danger auto-margin mb-3 d-none">
+                        Le mot de passe doit contenir au moins 6 caractères dont :
+                        <br />
+                        - Une majuscule
+                        <br />
+                        - Une minuscule
+                        <br />
+                        - Un caractère spécial
+                        <br />
+                        - Un chiffre
+                    </div>
+
+                    <form>
+                        <div class="block-form">
+                            <label class="labelinput" for="email-password">Mot de passe actuel</label>
+                            <input type="password" class="form-control required" name="password" id="email-password" placeholder="*******" data-bind="value: oldPassword" />
+                            <label class="labelinput" for="password">Nouveau mot de passe</label>
+                            <input type="password" class="form-control required" name="password2" id="password" placeholder="*******" data-bind="value: newPassword" />
+                            <label class="labelinput" for="password2">Confirmez votre nouveau mot de passe</label>
+                            <input type="password" class="form-control required" name="password2" id="password2" placeholder="*******" data-bind="value: confirmPassword" />
+                        </div>
+                        <p>Pour sécuriser la demande de modification de votre mot de passe vous devez entrer votre email de connexion.</p>
+                        <div class="block-form mt-3 pb-3">
+                            <label class="labelinput" for="email">Email</label>
+                            <input type="email" class="form-control required" name="email" id="email" placeholder="Ex. marie@gmail.com" data-bind="value: email" />
+                        </div>
+                        <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier le mot de passe" data-bind="click: function() {$root.updatePassword()}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="propertyModifyModal" tabindex="-1" aria-labelledby="propertyModifyLabel" aria-hidden="true" data-bind="using: selectedProperty">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModifyLabel">Modifier <span data-bind="text: pronoun"></span> <span data-bind="text: label"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="block-form">
+                            <label class="labelinput">Nouvelle <span data-bind="text: label"></span></label>
+                            <input type="email" class="form-control required" data-bind="value: value, attr: { placeholder: 'Ex. ' + placeholder() }" />
+                        </div>
+                        <input type="button" class="btn btn-purple mx-auto mb-5 d-block" data-bind="value: 'Modifier ' + pronoun() + label(), click: function(){ $root.updateProperty() }" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="identityModifyModal" tabindex="-1" aria-labelledby="identityModifyLabel" aria-hidden="true" data-bind="using: identityData">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModifyLabel">Modifier l'identité</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="block-form">
+                            <label class="labelinput">Nouveau prénom</label>
+                            <input type="email" class="form-control required" data-bind="value: firstname" />
+
+                            <label class="labelinput">Nouveau nom</label>
+                            <input type="email" class="form-control required" data-bind="value: lastname" />
+                        </div>
+                        <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function() {$root.updateIdentity()}" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/lib/knockout.mapping/knockout.mapping.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/AccountViewModel.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new accountViewModel(@JsonHelper.GetJson(Model._currentUser)), document.getElementById('account'));
+    });
+</script>

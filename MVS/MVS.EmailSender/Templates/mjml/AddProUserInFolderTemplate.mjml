@@ -1,0 +1,44 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Désignation comme administrateur d’un dossier de protection</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour,
+                    <br/><br/>
+                    Un de vos bénéficiaires vous a désigné(e) comme administrateur d’un dossier de protection juridique sur notre plateforme Alix accompagne.
+                    <br/><br/>
+                    Pour accéder à ce dossier, il vous suffit de vous connecter sur votre compte Alix accompagne, sur page « dossiers ».
+                    <br/><br/>
+                    <a href="@Model.ConnectionPageUrl" font-weight="900">Lien page connexion Alix Accompagne</a>
+                    <br/><br/>
+                    Les informations que vous allez saisir sur Alix accompagne seront utilisées uniquement pour les dossiers de protection juridique de vos proches. <a href="@Model.RGPDPageUrl" font-weight="900">Plus d’info RGPD.</a>
+                    <br/><br/>
+                    En vous remerciant,
+                    <br/><br/>
+                    Bien cordialement,
+                    <br/><br/>
+                    Mélanie PARNOT
+                </mj-text>
+
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

@@ -1,0 +1,112 @@
+@page
+@using MVS.Common.Enum
+@model MVS.Web.Pages.Home.Register2Model
+@{
+    ViewData["Title"] = "Inscription";
+    Layout = "~/Pages/Shared/_LayoutLoginRegister.cshtml";
+}
+
+<div class="col-6 right-content justify-content-around p-5" id="register2">
+    <h1>CRÉATION DE COMPTE</h1>
+    <ul id="timeline">
+        <li class="tl-active">1 - Identifiants</li>
+        <li class="tl-active">2 - Informations personnelles</li>
+        <li>3 - Confirmation</li>
+    </ul>
+    <form method="post">
+        <div class="block-form ms-0">
+            <label class="labelinput" for="lastname">Nom</label>
+            @Html.TextBoxFor(Model => Model._lastName, new { placeholder = "Ex. Dupond", @class = "form-control required mb-0", id = "lastname" })
+            @Html.ValidationMessageFor(Model => Model._lastName, "", new { @class = "text-danger auto-margin" })
+
+            <label class="labelinput" for="name">Prénom</label>
+            @Html.TextBoxFor(Model => Model._firstName, new { placeholder = "Ex. Marie", @class = "form-control required mb-0", id = "firstname" })
+            @Html.ValidationMessageFor(Model => Model._firstName, "", new { @class = "text-danger auto-margin" })
+
+            <label class="labelinput" for="birthdate">Date de naissance</label>
+            @Html.TextBoxFor(Model => Model._birthdate, new { placeholder = "Ex. 31/12/1933", @class = "form-control required mb-0", id = "birthdate" })
+            @Html.ValidationMessageFor(Model => Model._birthdate, "", new { @class = "text-danger auto-margin" })
+
+            <label class="labelinput" for="adhemutac">Etes-vous adhérent MUTAC ?</label>
+            <div class="ml-1">
+                @Html.RadioButtonFor(model => model._adhemutac, (int)RegisterMutac.Oui, new { @id = "adhemutac", @class = "required me-2", data_bind="checked: adhemutac"})
+                <label for="adhemutac">Oui</label>
+
+                @Html.RadioButtonFor(model => model._adhemutac, (int)RegisterMutac.Non, new { @id = "adhemutac", @class = "required ml-5 me-2", data_bind="checked: adhemutac"})
+                <label for="adhemutac">Non</label>
+            </div>
+            @*@Html.TextBoxFor(Model => Model._birthdate, new { placeholder = "Ex. 31/12/1933", @class = "form-control required mb-0", id = "birthdate" })*@
+            @Html.ValidationMessageFor(Model => Model._adhemutac, "", new { @class = "text-danger auto-margin" })
+
+            <!-- ko if: adhemutac() ==  RegisterMutac.Oui -->
+            <label class="labelinput" for="numMutac">Numéro d'adhérent MUTAC</label>
+            @Html.TextBoxFor(Model => Model._numMutac, new { placeholder = "", @class = "form-control required mb-4", id = "numMutac" })
+            <!-- /ko -->
+            @if (Model._errorNumMutac)
+            {
+                <span class="text-danger auto-margin">Vous devez renseigner votre numéro d'adhérent Mutac</span>
+            }
+
+
+
+            @*<p class="labelinput">Je suis</p>
+            <div>
+            @Html.RadioButtonFor(model => model._case, (int)RegisterCase.CaregiverPro, new { @id = "Iam1", @class = "me-2", data_bind="checked: selectedRegisterCase" })
+            <label for="Iam1">Aidant professionnel</label>
+            </div>
+            <div>
+            @Html.RadioButtonFor(model => model._case, (int)RegisterCase.caregiverParticular, new { @id = "Iam2", @class = "me-2", data_bind="checked: selectedRegisterCase" })
+            <label for="Iam2">Aidant particulier</label>
+            </div>
+            <div>
+            @Html.RadioButtonFor(model => model._case, (int)RegisterCase.Beneficiary, new { @id = "Iam3", @class = "me-2", data_bind="checked: selectedRegisterCase" })
+            <label for="Iam3">Le bénéficiaire de la mesure</label>
+            </div>
+            @if (Model._errorCompany)
+            {
+            <span class="text-danger auto-margin">Vous devez renseigner votre organisation / entreprise</span>
+            }*@
+
+            @*<!-- ko if: selectedRegisterCase() == RegisterCase.CaregiverPro -->
+            <label class="labelinput" for="company">Organisation / entreprise</label>
+            @Html.TextBoxFor(Model => Model._company, new { placeholder = "Ex. Mantien à Dom", @class = "form-control required mb-4", id = "company" })
+            @if (Model._errorCompany)
+            {
+            <span class="text-danger auto-margin">Vous devez renseigner votre organisation / entreprise</span>
+            }
+            <!-- /ko -->
+            <!-- ko if: selectedRegisterCase() == RegisterCase.caregiverParticular -->
+            <p class="labelinput">Lien avec le future bénéficiaire</p>
+            <select class="form-select" asp-for="_beneficiaryLink">
+            <option selected value="null">Sélectionnez votre lien avec le bénéficiaire</option>
+            <option value="1">Lien1</option>
+            <option value="2">Lien2</option>
+            <option value="3">Lien3</option>
+            </select>
+            @if (Model._errorLink)
+            {
+            <span class="text-danger auto-margin">Vous devez renseigner votre lien avec le future bénéficiaire</span>
+            }
+            <!-- /ko -->*@
+
+        </div>
+
+        @Html.HiddenFor(Model => Model._email)
+        @Html.HiddenFor(Model => Model._password)
+
+        <input type="submit" class="btn btn-purple mx-auto d-block" value="Valider la création de compte" />
+    </form>
+    <div class="d-flex">
+        <p>Vous avez déjà un compte ?</p><a class="green-link ms-3" href="/home/login">Connectez-vous</a>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/Register2ViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new register2ViewModel(), document.getElementById('register2'));
+    });
+</script>

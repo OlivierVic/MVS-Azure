@@ -1,0 +1,205 @@
+.chat {
+    width: 280px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.14), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: 40;
+}
+
+    .chat.public {
+        right: 50px;
+    }
+
+    .chat.private {
+        right: 350px;
+    }
+
+    .chat .chat-header {
+        height: 52px;
+        width: auto;
+        font-family: "Poppins", "sans-serif";
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: #F9F8F9;
+        display: flex;
+        align-items: center;
+        border-radius: 6px 6px 0px 0px;
+        cursor: pointer;
+    }
+
+    .chat.public .chat-header {
+        background-color: #3d3935;
+    }
+
+    .chat.private .chat-header {
+        background-color: #4F1FC6;
+    }
+
+    .chat .chat-header::after {
+        content: '\e313';
+        right: 20px;
+        position: absolute;
+        float: right;
+        top: 17px;
+        transform: rotate(180deg);
+        border: none;
+        font-family: "Material Icons Round";
+        font-size: 16px;
+        width: 16px;
+        margin: 0;
+    }
+
+
+    .chat .chat-header.opened::after {
+        transform: rotate(0deg);
+    }
+
+
+    .chat.public .chat-header img {
+        margin: 0px 10px;
+    }
+
+    .chat.private .chat-header::before {
+        content: url('../Images/lock.svg');
+        margin: 0px 8px;
+        position: relative;
+        float: left;
+        top: -2px;
+        background-size: 17px 18px;
+    }
+
+.chat-body {
+    padding: 13px;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom: 1px solid #cccccc;
+}
+
+.chat .chat-footer textarea {
+    width: 249px;
+    resize: none;
+    border-radius: 6px;
+    margin: 16px;
+    padding: 5px;
+    padding-right: 30px;
+    font-size: 11px;
+    height: 32px;
+    background-color: #E8E8E8 !important;
+}
+
+.chat .chat-footer .btn-send {
+    position: absolute;
+    bottom: 28px;
+    right: 23px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    color: #666666;
+}
+
+.chat-message {
+    padding: 16px;
+    width: 220px;
+    margin-bottom: 16px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    border-radius: 6px;
+}
+
+
+    .chat-message.notme {
+        margin-left: 30px;
+    }
+
+.chat .chat-message, .chat.public .chat-message.notme, .chat.private .chat-message.notme {
+    background-color: #F5F5F5;
+    color: #666666;
+}
+
+.chat-username-elt {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*.chat.public .chat-message.notme .chat-username-elt, .chat.public .chat-message.notme .chat-date-elt {
+    color: #ffffff;
+}
+
+.chat.private .chat-message.notme .chat-username-elt, .chat.private .chat-message.notme .chat-date-elt {
+    color: #ffffff;
+}*/
+
+.chat-date-elt {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 8px;
+}
+
+.avatar-decorator {
+    padding: 0px;
+    border-radius: 50%;
+    border: solid 1px #eee;
+    width: 54px;
+    height: 54px;
+    float: left;
+    margin-left: -17px;
+    background-color: white;
+}
+
+    .avatar-decorator:first-child {
+        margin-left: 0;
+    }
+
+.avatar {
+    width: 52px;
+    height: 52px;
+    color: white;
+    border-radius: 50%;
+    border: solid 3px white;
+    text-align: center;
+    line-height: 45px;
+}
+
+.avatar-button-decorator {
+    padding: 0px;
+    border-radius: 50%;
+    border: solid 1px #eee;
+    width: 54px;
+    height: 54px;
+    float: left;
+    background-color: white;
+}
+
+.avatar-button {
+    width: 52px;
+    height: 52px;
+    color: white;
+    border-radius: 50%;
+    border: solid 3px white;
+    text-align: center;
+    line-height: 45px;
+    background-color: #3f77bb;
+}
+
+.chat .notif {
+    display: inline-block;
+    background: red;
+    color: white;
+    padding: 0px 5px;
+    border-radius: 13px;
+    font-size: 13px;
+    position: absolute;
+    top: -10px;
+    right: -5px;
+}

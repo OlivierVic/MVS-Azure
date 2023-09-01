@@ -1,0 +1,124 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.AddressBookParticularModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="AddressBookParticular">
+    <div id="missionletter">
+        @Html.Partial("_Partials/_FolderNavigation")
+    </div>
+    <div class="card">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Carnet d’adresses des proches</h3>
+            <div class="d-flex align-items-center ms-auto">
+                <a href="@(Url.Page("/VaultContact/Add", new { vaultId = Model._folderId}))" class="btn-icon btn-purple"><img src="~/img/icons/add_user.svg" />Créer un contact</a>
+            </div>
+        </div>
+        <div class="row tableRowHeader mt-4">
+            <div class="col-3">
+                <p>CONTACT</p>
+            </div>
+            <div class="col text-center">
+                <p>LIEN</p>
+            </div>
+            <div class="col text-center">
+                <p>EMAIL</p>
+            </div>
+            @if (Model._isImmediateProtection)
+            {
+                <div class="col text-center">
+                    <p>AVIS DEMANDÉ</p>
+                </div>
+                <div class="col text-center">
+                    <p>AVIS</p>
+                </div>
+            }
+        </div>
+        <!-- ko if: contacts().length == 0 -->
+        <div class="row text-center mt-4 mb-2">
+            <a>Aucun contact professionnel à afficher</a>
+        </div>
+        <!-- /ko -->
+        <!-- ko foreach: contacts -->
+        <a href="#" data-bind="click: function() {$root.contactInfo(id)}">
+            <div class="row tableRowContent">
+                <div class="col-3">
+                    <!-- ko if: firstName != null && lastName != null -->
+                    <p data-bind="text: firstName + ' ' + lastName">Nadège Locze</p>
+                    <!-- /ko -->
+                </div>
+                <div class="col text-center">
+                    <!-- ko if: kinship == @((int)Kinship.Other) && other != null -->
+                    <p data-bind="text: other">test</p>
+                    <!-- /ko -->
+                    <!-- ko if: kinship == @((int)Kinship.OtherFamilyTies) && otherFamilyTies != null -->
+                    <p data-bind="text: OtherFamilyTies">Autre</p>
+                    <!-- /ko -->
+                    <!-- ko if: kinship == @((int)Kinship.OtherFamilyTies) && other != null -->
+                    <p data-bind="text: other">Autre</p>
+                    <!-- /ko -->
+                    <!-- ko if: kinship != null && other == null && otherFamilyTies == null -->
+                    <p data-bind="text: $root.kinships[kinship]">Fille</p>
+                    <!-- /ko -->
+                </div>
+                <div class="col text-center">
+                    <!-- ko if: email != null -->
+                    <p class="underline" data-bind="text: email">n.l@gmail.com</p>
+                    <!-- /ko -->
+                </div>
+                @if (Model._isImmediateProtection)
+                {
+                    <div class="col text-center" data-bind="visible: adviceStatus == null || adviceStatus == @((int)ContactAdviceStatus.NotRequested)"><img src="/img/icons/statut-cross.svg" /></div>
+                    <div class="col text-center" data-bind="visible: adviceStatus != null && adviceStatus != @((int)ContactAdviceStatus.NotRequested)"><img src="/img/icons/statut-checked.svg" /></div>
+
+
+
+                    <!-- ko if: adviceStatus == @((int)ContactAdviceStatus.Requested) -->
+                    <div class="col text-center"><span class="badge bg-purple">Demander l’avis</span></div>
+                    <!-- /ko -->
+                    <!-- ko if: adviceStatus == @((int)ContactAdviceStatus.Send) -->
+                    <div class="col text-center"><span class="badge bg-completed">Demande envoyée</span></div>
+                    <!-- /ko -->
+                    <!-- ko if: adviceStatus == @((int)ContactAdviceStatus.Given) -->
+                    <div class="col text-center btn-link"><img src="~/img/icons/file-search.svg" class="me-2" />Afficher</div>
+                    <!-- /ko -->
+                    <!-- ko if: adviceStatus == null || adviceStatus == @((int)ContactAdviceStatus.NotRequested) -->
+                    <div class="col text-center"></div>
+                    <!-- /ko -->
+                }
+            </div>
+        </a>
+        <!-- /ko -->
+    </div>
+    <div class="row">
+        <div class="col-auto">
+            <!-- ko if: contacts().length != 0-->
+            <div id="pagination-area">
+                <img src="/img/icons/chevron-left.svg" class="me-1" data-bind="click: function() {currentPage(self.currentPage() == 1 ? 1 : self.currentPage() - 1 )}" />
+
+                <!-- ko foreach: pages -->
+                <span data-bind="text: $data, css:{ 'item-selected' : $data == $root.currentPage() }, click: function(){$root.currentPage($data)}" class="item"></span>
+                <!-- /ko -->
+
+                <img src="/img/icons/chevron-right.svg" class="ms-1" data-bind="click: function() {currentPage(self.currentPage() == nbPages() ? nbPages() : self.currentPage() + 1 )}" />
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+<script src="~/js/ViewModels/AddressBookParticularViewModel.js" asp-append-version="true"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new addressBookParticularViewModel(@JsonHelper.GetJson(Model._folderId), @JsonHelper.GetJson(Model._kinships)), document.getElementById('AddressBookParticular'));
+        $( "#tab5" ).addClass( "selected" );
+    });
+</script>
+}

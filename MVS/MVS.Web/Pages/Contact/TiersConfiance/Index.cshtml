@@ -1,0 +1,244 @@
+@page
+@using MVS.Common.Enum;
+@using MVS.Web.Helpers;
+@model MVS.Web.Pages.Contact.TiersConfiance.IndexModel
+@{
+}
+
+<section class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">Coffre-fort</h1>
+        @Html.Partial("~/Pages/Vault/_Partials/_VaultBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="addContact" data-bind="with: newContact">
+                    <h3 class="mb-4">Création d'un nouveau contact tiers de confiance</h3>
+                    <form method="post" id="add-contact-form">
+                        <div class="block-form">
+                            <p>Le contact à créer est</p>
+                            <div>
+                                <input type="radio" class="me-2" id="ispro-true" name="ispro" data-bind="checked: Ispro, checkedValue: true">
+                                <label for="ispro-true">Un professionnel</label>
+
+                                <input type="radio" class="me-2 ms-5" id="ispro-false" name="ispro" data-bind="checked: Ispro, checkedValue: false">
+                                <label for="ispro-false">Un particulier (proche)</label>
+                            </div>
+                        </div>
+
+                        <!-- ko if: Ispro()-->
+                        <h4 class="subtitle-form">Identité du professionnel</h4>
+                        <!-- /ko -->
+                        <!-- ko if: !Ispro()-->
+                        <h4 class="subtitle-form">Identité du particulier</h4>
+                        <!-- /ko -->
+
+                        <div class="block-form">
+                            <label class="labelinput" for="sex-select">Le contact est </label>
+                            <select class="form-select required" name="sex" id="sex-select" data-bind="value: Sex">
+                                <option value="" disabled selected hidden>Sélectionnez le genre</option>
+                                <option value="@((int)Gender.Man)">Homme</option>
+                                <option value="@((int)Gender.Woman)">Femme</option>
+                                <option value="@((int)Gender.NonBinary)">Non binaire</option>
+                            </select>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput" for="lastname-input">Nom</label>
+                            <input type="text" class="form-control required" name="lastname" id="lastname-input" placeholder="Ex. Dupond" data-bind="value: LastName" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput" for="firstname-input">Prénom</label>
+                            <input type="text" class="form-control required" name="firstname" id="firstname-input" placeholder="Ex. Marie" data-bind="value: FirstName" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <!-- ko if: Ispro() != null -->
+                        <!-- ko if: !Ispro()-->
+                        <div class="block-form">
+                            <label class="labelinput" for="DateOfBirth-input">Date de naissance</label>
+                            <input type="date" class="form-control required" name="DateOfBirth" id="DateOfBirth-input" placeholder="JJ/MM/AAAA" data-bind="value: DateOfBirth" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="PlaceOfBirth-input">Lieu de naissance</label>
+                            <input type="text" class="form-control required" name="PlaceOfBirth" id="PlaceOfBirth-input" placeholder="Ex. Antibes" data-bind="value: PlaceOfBirth" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="nationality-select">Nationalité</label>
+                            <input id="nationalityselector" type="text" name="nationality" class="form-control required" data-bind="value: Nationality" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <!-- /ko -->
+                        <!-- /ko -->
+
+                        <div class="block-form">
+                            <label class="labelinput" for="JobProfessionel-select">Profession</label>
+                            <select class="form-select required" name="job" id="JobProfessionel-select" data-bind="value: Job">
+                                <option value="" disabled selected hidden>Sélectionnez la profession</option>
+                                <!-- ko if: Ispro() -->
+                                @foreach (var job in Model._jobProfessionel)
+                                {
+                                    <option value="@job.Id">@job.Job</option>
+                                }
+                                <!-- /ko -->
+                                <!-- ko if: !Ispro() -->
+                                @foreach (var job in Model._jobParticular)
+                                {
+                                    <option value="@job.Id">@job.Job</option>
+                                }
+                                <!-- /ko -->
+                            </select>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form" data-bind="visible: Job() == @((int)JobEnum.Other)">
+                            <label class="labelinput" data-bind="visible: Job() == @((int)JobEnum.Other)" for="OtherJob-input">Quelle est votre profession</label>
+                            <input type="text" class="form-control" name="OtherJob" id="OtherJob-input" placeholder="Renseignez votre job ici" data-bind="visible: Job() == @((int)JobEnum.Other)" data-bind="value: OtherJob" />
+                        </div>
+
+                        <!-- ko if: Ispro() != null -->
+                        <!-- ko if: Ispro() -->
+                        <div class="block-form">
+                            <label class="labelinput" for="company-input">Organisation / Entreprise <span class="optional">(facultatif)</span></label>
+                            <input type="text" class="form-control" name="company" id="company-input" placeholder="Ex. Maintien à Dom" data-bind="value: Company" />
+                        </div>
+                        <!-- /ko -->
+                        <!-- /ko -->
+
+                        <h4 class="subtitle-form">Informations de contact</h4>
+                        <div class="block-form">
+                            <label class="labelinput" for="address-input">Adresse</label>
+                            <input type="text" class="form-control required" name="addres" id="address-input" placeholder="Ex. 12 rue des fleurs" data-bind="value: Addres" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput" for="zipcodeandcity-input">Code postal et ville</label>
+                            <input type="text" class="form-control required" name="zipcodeandcity" id="zipcodeandcity-input" placeholder="Ex. 06600 Antibes" data-bind="value: ZipCodeAndCity" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="country-select">Pays</label>
+                            <input id="countryselector" type="text" name="country" class="form-control required" data-bind="value: Country" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput" for="phonenumber-input">Téléphone</label>
+                            <input class="form-control required" type="text" name="phonenumber" id="phonenumber-input" placeholder="Ex. 0820202020" data-bind="value: PhoneNumber" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+                        <div class="block-form">
+                            <label class="labelinput" for="email-input">Email</label>
+                            <input class="form-control required" type="email" name="email" id="email-input" placeholder="Ex. marie@mail.com" data-bind="value: Email" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <!-- ko if: Ispro() != null -->
+                        <!-- ko if: !Ispro()-->
+                        <h4 class="subtitle-form">Relation de ce proche avec le bénéficiaire</h4>
+                        <div class="block-form">
+                            <label class="labelinput" for="kinship-select">Liens de parenté</label>
+                            <select class="form-select required" name="Kinship" id="kinship-select" data-bind="value: Kinship">
+                                <option value="null" disabled selected hidden>Sélectionnez le lien de parenté</option>
+                                <option value="@((int)Kinship.Spouse)">Conjoint / Concubin / Partenaire de PACS</option>
+                                <option value="@((int)Kinship.GrandParent)">Grand-parent</option>
+                                <option value="@((int)Kinship.FatherMother)">Père / Mère</option>
+                                <option value="@((int)Kinship.Child)">Enfant</option>
+                                <option value="@((int)Kinship.GrandChild)">Petit-enfant</option>
+                                <option value="@((int)Kinship.BrotherSister)">Frère / Soeur</option>
+                                <option value="@((int)Kinship.OncleAunt)">Oncle / Tante</option>
+                                <option value="@((int)Kinship.Nephew)">Neveu / Nièce</option>
+                                <option value="@((int)Kinship.Cousin)">Cousin / Cousine</option>
+                                <option value="@((int)Kinship.Friend)">Ami(e)</option>
+                                <option value="@((int)Kinship.OtherFamilyTies)">Autre lien de famille</option> <!--ouvre un champ texte-->
+                                <option value="@((int)Kinship.Other)">Autre</option> <!--ouvre un champ texte-->
+                            </select>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" data-bind="visible: Kinship() == @((int)Kinship.OtherFamilyTies)" for="OtherFamilyTies-input">Quelle est votre lien de famille</label>
+                            <label class="labelinput" data-bind="visible: Kinship() == @((int)Kinship.Other)" for="Other-input">Quelle est votre lien</label>
+                            <input type="text" class="form-control" name="OtherFamilyTies" id="OtherFamilyTies-input" placeholder="Renseignez votre texte ici" data-bind="visible: Kinship() == @((int)Kinship.OtherFamilyTies)" data-bind="value: OtherFamilyTies" />
+                            <input type="text" class="form-control" name="Other" id="Other-input" placeholder="Renseignez votre texte ici" data-bind="visible: Kinship() == @((int)Kinship.Other)" data-bind="value: Other" />
+                        </div>
+                        <!-- /ko -->
+                        <!-- /ko -->
+
+                        <h4 class="subtitle-form">Autre information sur le contact</h4>
+                        <div class="block-form" id="Confidence-select">
+                            <label class="labelinput">Personne de confiance</label>
+                            <img src="~/img/icons/infos.svg" data-toggle="tooltip" data-bs-placement="right" title="Personne de confiance point de vue médical"/>
+                            <div>
+                                <input type="radio" class="me-2 required" id="Confidence-true" name="Confidence" data-bind="checked: Confidence, checkedValue: true">
+                                <label for="Confidence-true">Oui</label>
+                                <input type="radio" class="ms-4 me-2 required" id="Confidence-false" name="Confidence" data-bind="checked: Confidence, checkedValue: false">
+                                <label for="Confidence-false">Non</label>
+                            </div>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <p class="labelinput">Laissez un message à ce contact<span class="optional">(facultatif)</span></p>
+                            <textarea type="text" placeholder="Renseignez votre texte ici" rows="5" name="ContactDetails" id="ContactDetails-input" data-bind="value: ContactDetails"></textarea>
+                        </div>
+
+                        <input type="button" class="btn btn-purple mx-auto d-block" value="Crée le contact" data-bind="click: function() { $root.checkAdd() }">
+                        <!-- /ko -->
+                        <input type="text" name="id" data-bind="textInput: Id" hidden />
+                    </form>
+                </div>
+            </div>
+        </article>
+        @*<aside class="col-5">
+            <div class="card smallcard mb-3">
+                <div class="dropdown">
+                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="~/img/icons/points.svg" />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Que voulez-vous faire ?<img src="~/img/icons/close.svg"
+                                                            class="ms-auto me-0" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#deleteFolderModal">
+                                <img src="~/img/icons/bin_red.svg" />Supprimer le
+                                dossier
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#archiveFolderModal">
+                                <img src="~/img/icons/archive.svg" />Archiver le
+                                dossier
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @Html.Partial("~/Pages/Vault/_Partials/_InfoFolder.cshtml")
+            </div>
+        </aside>*@
+    </div>
+</section>
+
+@section Scripts
+    {
+    <script src="~/js/ViewModels/AddTiersContactViewModel.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new addTiersContactViewModel(@JsonHelper.GetJson(Model._contact)), document.getElementById('addContact'));
+        });
+    </script>
+}

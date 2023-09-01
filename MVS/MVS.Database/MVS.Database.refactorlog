@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="c9401065-cf96-4306-8ecd-50d8c5c3973e" ChangeDateTime="07/20/2023 12:31:04">
+    <Property Name="ElementName" Value="[dbo].[AspNetUsers].[Sex]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AspNetUsers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Gender" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e20f11ae-9414-4922-8537-e858f45f6842" ChangeDateTime="07/20/2023 12:59:22">
+    <Property Name="ElementName" Value="[dbo].[Answers].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cf9c4e24-b0be-4740-a718-ec4c31a6b9d7" ChangeDateTime="07/20/2023 12:59:26">
+    <Property Name="ElementName" Value="[dbo].[Answers].[QuestionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Question" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="07b168cd-69aa-4f34-8120-29f6fed6dd94" ChangeDateTime="07/20/2023 13:00:21">
+    <Property Name="ElementName" Value="[dbo].[AnswersAnticipationMeasures].[QuestionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AnswersAnticipationMeasures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Question" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="41a0db10-0e74-41eb-aafd-cc913b6d87bb" ChangeDateTime="07/20/2023 13:00:28">
+    <Property Name="ElementName" Value="[dbo].[AnswersAnticipationMeasures].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AnswersAnticipationMeasures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="918c440a-2eca-4009-a503-edbb3ade9d3b" ChangeDateTime="07/20/2023 13:00:44">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersHeritage].[QuestionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersHeritage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Question" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5d21067c-b4e8-491a-8e7c-2e93af978591" ChangeDateTime="07/20/2023 13:01:00">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersHeritage].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersHeritage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a8c06814-aec4-49e5-a67c-b10868cdccbe" ChangeDateTime="07/20/2023 13:05:23">
+    <Property Name="ElementName" Value="[dbo].[CounterVaultCreate].[NbFolder]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CounterVaultCreate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NbVault" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7b93139f-bf40-406a-8f75-6e8311a17c0f" ChangeDateTime="07/20/2023 13:05:44">
+    <Property Name="ElementName" Value="[dbo].[JobParticular].[id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobParticular]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="be76f081-6888-4a36-8843-00f1d6b0838d" ChangeDateTime="07/20/2023 13:06:21">
+    <Property Name="ElementName" Value="[dbo].[VaultAnticipationMeasuresInfos].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnticipationMeasuresInfos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dfb3c79e-af3f-48a9-9f1c-775b888f4b2b" ChangeDateTime="07/20/2023 13:06:35">
+    <Property Name="ElementName" Value="[dbo].[VaultCategory].[id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultCategory]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="749a9362-a2f5-4e07-8c66-12fe21cbc98b" ChangeDateTime="07/20/2023 13:06:49">
+    <Property Name="ElementName" Value="[dbo].[Contacts].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Contacts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c0bac9cf-796e-4d69-a07c-22b559f228b0" ChangeDateTime="07/20/2023 13:07:29">
+    <Property Name="ElementName" Value="[dbo].[VaultContracts].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultContracts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9e42c140-0757-4f6b-b2bd-3deac26f3c0b" ChangeDateTime="07/20/2023 13:07:37">
+    <Property Name="ElementName" Value="[dbo].[VaultDocuments].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultDocuments]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6ef527a0-c366-48e1-b134-1973f0331286" ChangeDateTime="07/20/2023 13:07:49">
+    <Property Name="ElementName" Value="[dbo].[VaultFamilyInfos].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultFamilyInfos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="82ab368c-eb93-4e3c-bd0f-cdc2240a3980" ChangeDateTime="07/20/2023 13:07:59">
+    <Property Name="ElementName" Value="[dbo].[VaultHeritage].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultHeritage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="805c087d-1daf-402a-a319-d11e7c013d90" ChangeDateTime="07/20/2023 13:08:08">
+    <Property Name="ElementName" Value="[dbo].[VaultPersonalInfos].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultPersonalInfos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bd333df8-d687-41f4-89f6-136101b8ed35" ChangeDateTime="07/20/2023 13:08:17">
+    <Property Name="ElementName" Value="[dbo].[VaultUsers].[VaultId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultUsers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e4dea775-a6cc-4236-9cbc-82a885442c32" ChangeDateTime="07/21/2023 14:44:11">
+    <Property Name="ElementName" Value="[dbo].[JobParticular].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobParticular]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ff27f7dc-83c6-455e-9e62-c47f6868e5cb" ChangeDateTime="07/21/2023 14:44:20">
+    <Property Name="ElementName" Value="[dbo].[JobProfessionel].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[JobProfessionel]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="95203461-12bb-45a7-835b-3bd1d0d65353" ChangeDateTime="07/21/2023 14:44:31">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersAnticipationMeasures].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersAnticipationMeasures]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="50c898d9-d5a8-467c-899d-e96573260351" ChangeDateTime="07/21/2023 14:44:38">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersHeritage].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersHeritage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="14e1ad07-965a-4b02-904b-49c504f2b074" ChangeDateTime="07/21/2023 14:44:45">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersPersonal].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersPersonal]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="58d2a25d-7499-4b8a-ab02-34604dc3738b" ChangeDateTime="07/21/2023 14:45:06">
+    <Property Name="ElementName" Value="[dbo].[VaultContacts].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultContacts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4bcbaf4b-246a-4525-a58e-ddf4d2701d01" ChangeDateTime="07/21/2023 14:45:14">
+    <Property Name="ElementName" Value="[dbo].[VaultPersonalInfos].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultPersonalInfos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cc4769db-8b9e-413b-bb5c-9bd0938a3c43" ChangeDateTime="07/21/2023 14:45:22">
+    <Property Name="ElementName" Value="[dbo].[Answers].[JobProfessionel]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Answers]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Job" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8632ce56-e6fd-4de7-87d0-0975eb599c46" ChangeDateTime="08/25/2023 14:32:28">
+    <Property Name="ElementName" Value="[dbo].[VaultAnswersHeritage].[ReseauSocial]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[VaultAnswersHeritage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="VaultId" />
+  </Operation>
+</Operations>

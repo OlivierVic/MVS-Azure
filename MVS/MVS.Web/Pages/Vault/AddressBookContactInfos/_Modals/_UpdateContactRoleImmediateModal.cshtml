@@ -1,0 +1,69 @@
+@using MVS.Common.Enum
+<div class="modal fade" id="updateContactRoleImmediateModal" tabindex="-1" aria-labelledby="updateContactRoleImmediateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="identityModifyContactLabel">Modifier le rôle au sein du dossier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="block-form" data-bind="using: contact">
+                        <p>Administrateur du dossier :</p>
+                        <div>
+                            <input class="required me-2" type="radio" id="isFolderAdmin-true" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: true">
+                            <label for="isFolderAdmin-true">Oui</label>
+                            <input class="required ms-4 me-2" type="radio" id="isFolderAdmin-false" name="IsFolderAdmin" data-bind="checked: IsFolderAdmin, checkedValue: false">
+                            <label for="isFolderAdmin-false">Non</label>
+                        </div>
+
+                        <p>Demandeur à la protection</p>
+                        <div>
+                            <input class="required me-2" type="radio" id="isSetAskProtection-true" name="IsSetAskProtection" data-bind="checked: IsSetAskProtection, checkedValue: true">
+                            <label for="isSetAskProtection-true">Oui</label>
+
+                            <input class="required ms-4 me-2" type="radio" id="isSetAskProtection-false" name="IsSetAskProtection" data-bind="checked: IsSetAskProtection, checkedValue: false">
+                            <label for="isSetAskProtection-false">Non</label>
+                        </div>
+
+                        <p>Désigné par le juge ?</p>
+                        <div>
+                            <input class="required me-2" type="radio" id="isSetJudge-true" name="IsSetJudge" data-bind="checked: IsSetJudge, checkedValue: true">
+                            <label for="isSetJudge-true">Oui</label>
+
+                            <input class="required ms-4 me-2" type="radio" id="isSetJudge-false" name="IsSetJudge" data-bind="checked: IsSetJudge, checkedValue: false">
+                            <label for="isSetJudge-false">Non</label>
+                        </div>
+
+                        <p data-bind="visible: IsSetJudge()">Type de mission :</p>
+                        <div data-bind="visible: IsSetJudge()">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-protecteur2" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Protecteur)">
+                            <label class="mt-0 mb-0" for="typeMission-protecteur2">Protecteur (ex: habilité, curateur, tuteur)</label>
+                        </div>
+                        <div data-bind="visible: IsSetJudge()">
+                            <input type="radio" class="mt-0 mb-0 mr-05" id="typeMission-controleur2" name="TypeMission" data-bind="checked: TypeMission, checkedValue: @((int)TypeMission.Controleur)">
+                            <label class="mt-0 mb-0" for="typeMission-controleur2">Contrôleur (ex: subrogé-curateur)</label>
+                        </div>
+
+                        <p>Demander l'avis de ce proche :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="CloseNotice-true" name="AdviceStatus" data-bind="checked: AdviceStatus, checkedValue: @((int)ContactAdviceStatus.Requested)">
+                            <label for="CloseNotice-true">Oui</label>
+                            <input type="radio" class="ms-4 me-2" id="CloseNotice-false" name="AdviceStatus" data-bind="checked: AdviceStatus, checkedValue: @((int)ContactAdviceStatus.NotRequested)">
+                            <label for="CloseNotice-false">Non</label>
+                        </div>
+
+                        <p>Personne de confiance :</p>
+                        <div>
+                            <input type="radio" class="me-2" id="Confidence-true" name="Confidence" data-bind="checked: Confidence, checkedValue: true">
+                            <label for="Confidence-true">Oui</label>
+                            <input type="radio" class="ms-4 me-2" id="Confidence-false" name="Confidence" data-bind="checked: Confidence, checkedValue: false">
+                            <label for="Confidence-false">Non</label>
+                        </div>
+                    </div>
+                    <input type="button" class="btn btn-purple mx-auto mb-5 d-block" value="Modifier l'identité" data-bind="click: function(){ updateRoleImmediateProtection() }" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

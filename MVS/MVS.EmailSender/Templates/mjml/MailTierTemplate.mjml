@@ -1,0 +1,47 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Information de la rédaction du mandat de protection juridique @Model.FullName</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour, <br/> <br/>@Model.FullName a décidé de rédiger un mandat de protection future avec le service Alix Accompagne. Lien Plus d’info sur Alix Accompagne. Lien <a href="@Model.PlateformUrl" target="_blank">Plus d’info sur Alix Accompagne</a>.
+                    <br/> <br/>
+                    @Model.FullName a choisi de vous informer de la rédaction de ce mandat de protection future en vous envoyant, via ce mail automatique, l’attestation de signature de ce mandat de protection future, ci-jointe.
+                    <br/> <br/>
+                    @Model.FullName vous demande de conserver cette attestation dans son dossier.
+                    <br></br>
+                    Si, à l’avenir, vous constatiez que @Model.FullName n’est plus en capacité de gérer ses affaires, même temporairement, @Model.FullName vous demande :
+                </mj-text>
+                <mj-text font-size="15px">
+                    ● d’en informer sans délai ses mandataires futurs
+                    <br></br>
+                    ● d’inviter ses mandataires futurs à faire les démarches pour activer le mandat de protection future.
+                </mj-text>
+                <mj-text font-size="15px">
+                    @Model.FullName vous en remercie par avance.
+                </mj-text>
+                <mj-text font-size="15px">
+                    Mélanie PARNOT<br/>
+                    Alix Accompagne
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

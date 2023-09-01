@@ -1,0 +1,33 @@
+<mjml>
+    <mj-body background-color="#f4f5fc">
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+        <mj-section background-color="#ffffff" padding="40px" text-align="center">
+            <mj-column>
+
+                <mj-text font-size="22px" color="#A86086" font-weight="900">Demande @Model.Measure</mj-text>
+                <mj-text font-size="15px">
+                    Bonjour @Model.DoctorName,
+                    <br/> <br/>
+                    Nous vous envoyons ci-joint le document de demande @Model.Measure ainsi que le formulaire de santé de @Model.FullName.
+                </mj-text>
+
+            </mj-column>
+        </mj-section>
+
+        <mj-section background-color="#A86086" background-repeat="repeat" padding="20px 0" text-align="center">
+            <mj-column>
+                <mj-text align="center" color="#ffffff" font-size="13px" padding="10px 25px">
+                    Mail
+                    envoyé automatiquement<br/>depuis la plateforme <a href="@Model.PlateformUrl" font-weight="900" style="color:#ffffff">Alix Accompagne.</a>
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="20px 0 0 0">
+        </mj-section>
+
+    </mj-body>
+</mjml>

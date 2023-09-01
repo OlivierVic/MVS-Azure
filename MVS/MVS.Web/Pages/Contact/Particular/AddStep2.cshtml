@@ -1,0 +1,158 @@
+@page
+@model MVS.Web.Pages.VaultContact.Particular.FutureProtection.AddStep2Model
+
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@using MVS.Common.Models
+@using MVS.Web.Helpers
+@using MVS.Common.Enum
+@using MVS.Web
+
+<section class="col p-5">
+    <div class="row">
+        <h1 class="mb-3">@(Model._folderInfoHeader["Title"])</h1>
+
+        @Html.Partial("~/Pages/Vault/_Partials/_FolderBreadCrumb.cshtml")
+    </div>
+    <div class="row">
+        <article class="col-7">
+            <div class="card">
+                <div id="addContactParticularFutureStep2" data-bind="with: newContact">
+                    <form method="post" id="add-contact-particular-future-form">
+                        <h3>Création du contact d'un proche</h3>
+                        <div class="d-flex my-4">
+                            <ul id="timeline" class="threeChildren">
+                                <li class="tl-active">Coordonnés du contact</li>
+                                <li class="tl-active">Identité du contact</li>
+                                <li>Rôle au sein du dossier</li>
+                            </ul>
+                        </div>
+                        <a href="@(Url.Page("/VaultContact/Add", new { vaultId = Model._folderId, contactId = Model._contactId }))" class="goToBack"><img src="~/img/icons/chevron-left.svg" />Retour à l’étape précédente </a>
+                        <h4 class="subtitle-form mt-3">Relation de ce proche avec le bénéficiaire</h4>
+                        <div class="block-form">
+                            <label class="labelinput" for="kinship-select">Liens de parenté :</label>
+                            <select class="form-select required" name="Kinship" id="kinship-select" data-bind="value: $root.Kinship">
+                                <option value="null" disabled selected hidden>Sélectionnez le lien de parenté</option>
+                                <option value="@((int)Kinship.Spouse)">Conjoint / Concubin / Partenaire de PACS</option>
+                                <option value="@((int)Kinship.GrandParent)">Grand-parent</option>
+                                <option value="@((int)Kinship.FatherMother)">Père / Mère</option>
+                                <option value="@((int)Kinship.Child)">Enfant</option>
+                                <option value="@((int)Kinship.GrandChild)">Petit-enfant</option>
+                                <option value="@((int)Kinship.BrotherSister)">Frère / Soeur</option>
+                                <option value="@((int)Kinship.OncleAunt)">Oncle / Tante</option>
+                                <option value="@((int)Kinship.Nephew)">Neveu / Nièce</option>
+                                <option value="@((int)Kinship.Cousin)">Cousin / Cousine</option>
+                                <option value="@((int)Kinship.Friend)">Ami(e)</option>
+                                <option value="@((int)Kinship.OtherFamilyTies)">Autre lien de famille</option> <!--ouvre un champ texte-->
+                                <option value="@((int)Kinship.Other)">Autre</option> <!--ouvre un champ texte-->
+                            </select>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+
+                        <div class="block-form" data-bind="visible: $root.Kinship() == @((int)Kinship.Spouse)" id="helpNeeded-select">
+                            <label class="labelinput">Le conjoint, concubin, partenaire :</label>
+                            <div>
+                                <input type="radio" class="me-2" id="helpNeeded-Need" name="HelpNeeded" data-bind="checked: $root.HelpNeeded, checkedValue: @((int)HelpNeeded.Need)">
+                                <label for="helpNeeded-Need">A besoin d'une mesure de protection</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2" id="helpNeeded-Already" name="HelpNeeded" data-bind="checked: $root.HelpNeeded, checkedValue: @((int)HelpNeeded.Already)">
+                                <label for="helpNeeded-Already">Est déjà sous protection juridique</label>
+                            </div>
+                            <div>
+                                <input type="radio" class="me-2" id="helpNeeded-Neither" name="HelpNeeded" data-bind="checked: $root.HelpNeeded, checkedValue: @((int)HelpNeeded.Neither)">
+                                <label for="helpNeeded-Neither">Ni l'un, ni l'autre</label>
+                            </div>
+                        </div>
+
+                        <div class="block-form">
+                            <input type="text" class="form-control" name="OtherFamilyTies" id="OtherFamilyTies-input" placeholder="Renseignez votre texte ici" data-bind="visible: $root.Kinship() == @((int)Kinship.OtherFamilyTies)" data-bind="value: OtherFamilyTies" />
+                            <input type="text" class="form-control" name="Other" id="Other-input" placeholder="Renseignez votre texte ici" data-bind="visible: $root.Kinship() == @((int)Kinship.Other)" data-bind="value: Other" />
+                        </div>
+
+
+                        <h4 class="subtitle-form">Identité du contact</h4>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="DateOfBirth-input">Date de naissance</label>
+                            <input type="date" class="form-control required" name="DateOfBirth" id="DateOfBirth-input" placeholder="JJ/MM/AAAA" data-bind="value: DateOfBirth" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="PlaceOfBirth-input">Lieu de naissance</label>
+                            <input type="text" class="form-control required" name="PlaceOfBirth" id="PlaceOfBirth-input" placeholder="Ex. Antibes" data-bind="value: PlaceOfBirth" />
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <div class="block-form">
+                            <label class="labelinput" for="Nationality-select">Nationalité</label>
+                            <select class="form-select required" name="Nationality" id="Nationality-select" data-bind="value: Nationality">
+                                <option value="" disabled selected hidden>Sélectionnez la nationalité</option>
+                                <option value="Française">Française</option>
+                                <option value="Japonaise">Japonaise</option>
+                                <option value="Américaine">Américaine</option>
+                                <option value="Coréenne">Coréenne</option>
+                                <option value="Chinoise">Chinoise</option>
+                                <option value="Italienne">Italienne</option>
+                            </select>
+                            <p class="msgError">Ce champs est obligatoire</p>
+                        </div>
+
+                        <input type="text" name="id" value="@Model._contactId" hidden />
+                        <input type="button" class="btn btn-purple mx-auto d-block" value="Étape Suivante" data-bind="click: function() { $root.checkAdd() }">
+                    </form>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card smallcard mb-3">
+                <p class="subtitle">@(Model._folderInfoHeader["Field"])</p>
+                <div class="dropdown">
+                    <a class="" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="~/img/icons/points.svg" />
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Que voulez-vous faire ?<img src="~/img/icons/close.svg"
+                                                            class="ms-auto me-0" />
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#deleteFolderModal">
+                                <img src="~/img/icons/bin_red.svg" />Supprimer le
+                                dossier
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item warning" href="#" data-bs-toggle="modal"
+                               data-bs-target="#archiveFolderModal">
+                                <img src="~/img/icons/archive.svg" />Archiver le
+                                dossier
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @Html.Partial("~/Pages/Vault/_Partials/_InfoFolder.cshtml")
+            </div>
+        </aside>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/knockout/knockout-latest.js" asp-append-version="true"></script>
+<script src="~/js/ViewModels/AddContactParticularFutureViewModel.js" asp-append-version="true"></script>
+<script src="~/lib/toastr.js/toastr.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ko.applyBindings(new addContactParticularFutureViewModel(@JsonHelper.GetJson(new VaultContact())), document.getElementById('addContactParticularFutureStep2'));
+    });
+</script>

@@ -1,0 +1,708 @@
+@page
+@using MVS.Common.Enum
+@using MVS.Web.Helpers
+@model MVS.Web.Pages.Vault.AddressBookContactInfos.IndexModel
+@{
+}
+
+@Html.AntiForgeryToken()
+<section class="col p-5" id="folder">
+    @Html.Partial("_Partials/_FolderNavigation")
+    <a href="@(Url.Page("/Vault/AddressBook", new { folderId = Model._folderId }))" class="goToBack"><img src="~/img/icons/chevron-left.svg" />Retour au carnet d’adresse</a>
+    <div class="row mt-3">
+        <article class="col-7">
+            <div class="row mb-4">
+                <div class="col-6">
+                    <div class="card smallcard">
+                        <p class="subtitle">@(Model._contact.Ispro ? "Professionel" : "Particulier")</p>
+                        <p class="title">
+                            @if (Model._contact.Sex == (int)Gender.Man)
+                            {
+                                <span>M</span>
+                            }
+                            else if (Model._contact.Sex == (int)Gender.Woman)
+                            {
+                                <span>Mme</span>
+                            }
+                            <span>@Model._contact.FirstName @Model._contact.LastName</span>
+                        </p>
+                        <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactPropertyModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                    </div>
+                </div>
+                @if (Model._isImmediateProtection)
+                {
+                    <div class="col-6">
+                        <div class="card smallcard h-100 p-4">
+                            <p class="title mb-auto">Avis du proche :</p>
+                            @if (Model._contact.AdviceStatus == (int)ContactAdviceStatus.NotRequested)
+                            {
+                                <p class="OpinionNotRequested"><img src="/img/icons/status-NotRequested.svg" class="me-2" />Avis non demandé</p>
+                            }
+                            else if (Model._contact.AdviceStatus == (int)ContactAdviceStatus.Given)
+                            {
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="NoticesSent"><img src="/img/icons/statut-checked.svg" class="me-2" />Avis transmis</p>
+                                    <a href="#" class="btn-link"><img src="/img/icons/file-search.svg" class="me-2" />Afficher</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="OpinionWaiting"><img src="/img/icons/statut-waiting.svg" class="me-2" />Avis en attente de transmission</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card info-card">
+                        @if (!Model._contact.Ispro)
+                        {
+                            <h3 class="mb-4 title">À propos de ce proche :</h3>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">Identité :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactIdentityModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Lien de parenté :</p>
+                                        @*<p>@(EnumHelper.GetDescription((Kinship)Model._contact.Kinship))</p>*@
+                                        <p>@(EnumHelper.GetDescription((Kinship)Model._contact.Kinship) == null ? "Non renseigné" : EnumHelper.GetDescription((Kinship)Model._contact.Kinship))</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Date de naissance :</p>
+                                        <p>@(Model._contact.DateOfBirth == null ? "Non renseigné" : Model._contact.DateOfBirth?.ToString("dd/MM/yyyy"))</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Lieu de naissance :</p>
+                                        <p>@Model._contact.PlaceOfBirth</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Nationalité :</p>
+                                        <p>@Model._contact.Nationality</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Nom et prénom de la mère :</p>
+                                        <p>@(Model._contact.UnknownMother ?? false ? "Inconnu" : Model._contact.FirstLastNameMother)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Nom et prénom du père :</p>
+                                        <p>@(Model._contact.UnknownFather ?? false ? "Inconnu" : @Model._contact.FirstLastNameFather)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Personne adoptée :</p>
+                                        <p>@(Model._contact.AdoptedPerson ?? false ? "Oui" : "Non")</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">VaultContact :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Adresse :</p>
+                                        <p>@Model._contact.Addres, @Model._contact.ZipCodeAndCity, @Model._contact.Country</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Téléphone :</p>
+                                        <p>@Model._contact.PhoneNumber</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Email :</p>
+                                        <p>@Model._contact.Email</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">Activité :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactActivityModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Profession :</p>
+                                        @if (Model._jobParticular.FirstOrDefault(jp => jp.Id == Model._contact.Job).Job == "Autre")
+                                        {
+                                            @if (Model._contact.OtherJob != null)
+                                            {
+                                                <p>@Model._contact.OtherJob</p>
+                                            }
+                                            else
+                                            {
+                                                <p>Non renseigné</p>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p>@Model._jobParticular.FirstOrDefault(jp => jp.Id == Model._contact.Job).Job</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">Relations :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactRelationshipModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Qualité des relations :</p>
+                                        <p>@(Model._contact.RelationshipQuality == null ? string.Empty : EnumHelper.GetDescription((RelationshipQuality)Model._contact.RelationshipQuality))</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Fréquence des relations :</p>
+                                        <p>@(Model._contact.RelationshipFrequencies == null ? string.Empty : EnumHelper.GetDescription((RelationshipFrequencies)Model._contact.RelationshipFrequencies))</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model._contact.Ispro)
+                        {
+                            <h3 class="mb-4 title">À propos de ce profesionnel :</h3>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">Activité :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactActivityModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Profession :</p>
+                                        @if (@Model._job.FirstOrDefault(jp => jp.Id == @Model._contact.Job).Job == "Autre")
+                                        {
+                                            <p>@Model._contact.OtherJob</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@Model._job.FirstOrDefault(jp => jp.Id == @Model._contact.Job).Job</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Organisation / Entreprise :</p>
+                                        <p>@Model._contact.Company</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Accompagnement :</p>
+                                        <p>@Model._categories.FirstOrDefault(c => c.Id == @Model._contact.Accompaniment).CategoryName</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <h5 class="mb-0">VaultContact :  </h5>
+                                    <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                                </div>
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Adresse :</p>
+                                        <p>@Model._contact.Addres, @Model._contact.ZipCodeAndCity, @Model._contact.Country</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Téléphone :</p>
+                                        <p>@Model._contact.PhoneNumber</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line-grey">
+                                <div class="info-container">
+                                    <div class="info-content">
+                                        <p>Email :</p>
+                                        <p>@Model._contact.Email</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </article>
+        <aside class="col-5">
+            <div class="card right-card info-card mb-4">
+                @if (Model._isImmediateProtection)
+                {
+                    if (Model._contact.Ispro)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2 mx-0">
+                            <h3 class="mb-0">Rôle au sein du dossier :  </h3>
+                            <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactRoleImmediateModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Administrateur :</p>
+                                    <p>@(Model._contact.IsFolderAdmin ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Demandeur à la protection :</p>
+                                    <p>@(Model._contact.IsSetAskProtection ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Désigné par le juge :</p>
+                                    <p>@(Model._contact.IsSetJudge ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model._contact.IsSetJudge == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de mission :</p>
+                                        @if (Model._contact.TypeMission == 1)
+                                        {
+                                            <p>Protecteur (ex: habilité, curateur, tuteur)</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur (ex: subrogé-curateur)</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Avis demandé :</p>
+                                    <p>@(Model._contact.AdviceStatus == (int)ContactAdviceStatus.NotRequested ? "Non" : "Oui")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Personne de confiance :</p>
+                                    <p>@(Model._confidence)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (!Model._contact.Ispro)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2 mx-0">
+                            <h3 class="mb-0">Rôle au sein du dossier :  </h3>
+                            <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactRoleImmediateModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Administrateur :</p>
+                                    <p>@(Model._contact.IsFolderAdmin ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Demandeur à la protection :</p>
+                                    <p>@(Model._contact.IsSetAskProtection ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Envoyer la copie de la demande ? :</p>
+                                    <p>@(Model._contact.RequestCopy ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Désigné par le juge :</p>
+                                    <p>@(Model._contact.IsSetJudge ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model._contact.IsSetJudge == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de mission :</p>
+                                        @if (Model._contact.TypeMission == 1)
+                                        {
+                                            <p>Protecteur (ex: habilité, curateur, tuteur)</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur (ex: subrogé-curateur)</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Avis demandé :</p>
+                                    <p>@(Model._contact.AdviceStatus == (int)ContactAdviceStatus.NotRequested ? "Non" : "Oui")</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Personne de confiance :</p>
+                                    <p>@(Model._confidence)</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    @if (Model._contact.Ispro)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2 mx-0">
+                            <h3 class="mb-0">Rôle au sein du dossier :  </h3>
+                            <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactRoleFutureModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Administrateur :</p>
+                                    <p>@(Model._contact.IsFolderAdmin ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Mandataire futur(e) :</p>
+                                    <p>@(Model._contact.IsFutuAgent ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model._contact.IsFutuAgent == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Mission mandataire :</p>
+                                        <p>@(Model._contact.ProtectPeople == null || Model._contact.ProtectPeople == false ? "- Protection de la personne : Non" : "- Protection de la personne : Oui")</p>
+                                        <p>@(Model._contact.ProtectAllProperty == null || Model._contact.ProtectAllProperty == false ? "- Protection de tous les biens : Non" : "- Protection de tous les biens : Oui")</p>
+                                        <p>@(Model._contact.ProtectOfCertainGoods == null || Model._contact.ProtectOfCertainGoods == false ? "- Protection de certains biens : Non" : "- Protection de certains biens : Oui")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (Model._contact.IsFutuAgent == false)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de mission :</p>
+                                        @if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 4)
+                                        {
+                                            <p>Observateur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 5)
+                                        {
+                                            <p>Remplaçant Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 6)
+                                        {
+                                            <p>Remplaçant Mandataire</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 3)
+                                        {
+                                            <p>Aucune</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model._contact.ProtectOfCertainGoods == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de biens :</p>
+                                        <p>@(Model._contact.PropertyDetails)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model._contact.IsFutuAgent == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Autre mission :</p>
+                                        @if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 4)
+                                        {
+                                            <p>Observateur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 5)
+                                        {
+                                            <p>Remplaçant Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 6)
+                                        {
+                                            <p>Remplaçant Mandataire</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 3)
+                                        {
+                                            <p>Aucune</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Personne de confiance :</p>
+                                    <p>@(Model._confidence)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Informer le professionnel de la rédaction du mandat :</p>
+                                    <p>@(Model._contact.InfoPro ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (!Model._contact.Ispro)
+                    {
+                        <div class="d-flex align-items-center justify-content-between mb-2 mx-0">
+                            <h3 class="mb-0">Rôle au sein du dossier :  </h3>
+                            <a href="#" class="btn-icon btn-purple ms-auto" data-bs-toggle="modal" data-bs-target="#updateContactRoleFutureModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Administrateur :</p>
+                                    <p>@(Model._contact.IsFolderAdmin ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Mandataire futur(e) :</p>
+                                    <p>@(Model._contact.IsFutuAgent ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model._contact.IsFutuAgent == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Mission mandataire :</p>
+                                        <p>@(Model._contact.ProtectPeople == null || Model._contact.ProtectPeople == false ? "- Protection de la personne : Non" : "- Protection de la personne : Oui")</p>
+                                        <p>@(Model._contact.ProtectAllProperty == null || Model._contact.ProtectAllProperty == false ? "- Protection de tous les biens : Non" : "- Protection de tous les biens : Oui")</p>
+                                        <p>@(Model._contact.ProtectOfCertainGoods == null || Model._contact.ProtectOfCertainGoods == false ? "- Protection de certains biens : Non" : "- Protection de certains biens : Oui")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (Model._contact.IsFutuAgent == false)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de mission :</p>
+                                        @if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 4)
+                                        {
+                                            <p>Observateur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 5)
+                                        {
+                                            <p>Remplaçant Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 6)
+                                        {
+                                            <p>Remplaçant Mandataire</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 3)
+                                        {
+                                            <p>Aucune</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model._contact.ProtectOfCertainGoods == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Type de biens :</p>
+                                        <p>@(Model._contact.PropertyDetails)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model._contact.IsFutuAgent == true)
+                        {
+                            <div class="line-grey mx-0">
+                                <div class="info-container px-0">
+                                    <div class="info-content">
+                                        <p class="mb-1">Autre mission :</p>
+                                        @if (Model._contact.TypeMission == 2)
+                                        {
+                                            <p>Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 4)
+                                        {
+                                            <p>Observateur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 5)
+                                        {
+                                            <p>Remplaçant Contrôleur</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 6)
+                                        {
+                                            <p>Remplaçant Mandataire</p>
+                                        }
+                                        else if (Model._contact.TypeMission == 3)
+                                        {
+                                            <p>Aucune</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Personne de confiance :</p>
+                                    <p>@(Model._confidence)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line-grey mx-0">
+                            <div class="info-container px-0">
+                                <div class="info-content">
+                                    <p class="mb-1">Informer le professionnel de la rédaction du mandat :</p>
+                                    <p>@(Model._contact.InfoPro ?? false ? "Oui" : "Non")</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="card right-card info-card pb-4">
+                <h3 class="mb-4 title">Précisions sur le contact :</h3>
+                <p class="txt-darkgrey">Non renseigné</p>
+                <p>@Model._contact.ContactDetails</p>
+                <a href="#" class="btn-icon btn-purple ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#updateContactDetailsModal"><img src="~/img/icons/edit.svg" />Modifier</a>
+            </div>
+            <a href="@(Url.Page("/Vault/AddressBookContactInfos/index", "DownloadContactPdf", new {folderId = Model._folderId, contactId = Model._contactId}))" class="btn-icon btn-purple ms-auto mt-4"><img src="~/img/icons/file-download.svg" />Télécharger VaultContact</a>
+            <a href="#" class="btn-icon btn-delete float-end mt-4" data-bs-toggle="modal" data-bs-target="#deleteContactModal"><img src="~/img/icons/bin.svg" />Supprimer ce contact</a>
+        </aside>
+    </div>
+    <partial name="_Modals/_DeleteContactModal" />
+    <partial name="_Modals/_UpdateContactPropertyModal" />
+    <partial name="_Modals/_UpdateContactModal" />
+    <partial name="_Modals/_UpdateContactIdentityModal" />
+    <partial name="_Modals/_UpdateContactActivityModal" />
+    <partial name="_Modals/_UpdateContactRelationshipModal" />
+    <partial name="_Modals/_UpdateContactDetailsModal" />
+    <partial name="_Modals/_UpdateContactRoleFutureModal" />
+    <partial name="_Modals/_UpdateContactRoleImmediateModal" />
+</section>
+
+@section Scripts
+    {
+    <script src="~/js/ViewModels/ContactInfosViewModel.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ko.applyBindings(new contactInfosViewModel(@JsonHelper.GetJson(Model._contact)), document.getElementById('folder'));
+            $("#tab5").addClass("selected");
+        });
+    </script>
+}

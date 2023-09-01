@@ -1,0 +1,25 @@
+<div class="modal fade" id="deleteContactModal" tabindex="-1" aria-labelledby="deleteContactLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="deleteContactLabel">Suppression du contact</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Vous êtes sur le point de supprimer ce contact. Cette action st irréversible et vous perdrez tous vos dossiers en cours…. TEXTE À FINALISER<br /><br />
+                    Pour sécuriser votre demande, veuillez renseigner votre mot de passe.
+                </p>
+                <div class="block-form mt-4" id="password-div">
+                    <label class="labelinput" for="password">Mot de passe</label>
+                    <input type="password" class="form-control required" placeholder="Mot de passe" data-bind="textInput: password"/>
+                    <p class="msgError">Ce champs est obligatoire</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn-icon btn-delete" data-bind="click: function(){ deleteContact() }"><img src="~/img/icons/bin.svg"/>Supprimer ce contact</a>
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>

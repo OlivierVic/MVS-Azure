@@ -1,0 +1,18 @@
+<div class="modal fade" id="archiveFolderInsideModal" tabindex="-1" aria-labelledby="archiveFolderInsideLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title danger" id="archiveFolderInsideLabel">Vous êtes sur le point d’archiver le dossier <span>@(Model._folderInfoHeader["Id"]) ?</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><br /> Cette action est irréversible assurez-vous de vouloir clôturer le dossier.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="@(Url.Page("/Vault/Gestion/ArchiveFolderInside", new { folderId = Model._folderId }))" class="btn-icon btn-delete"><img src="~/img/icons/archive.svg" />Archiver le dossier</a>
+
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Conserver le dossier</button>
+            </div>
+        </div>
+    </div>
+</div>
